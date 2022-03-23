@@ -1,1 +1,0 @@
-#Module contains function for polynomial operations only
