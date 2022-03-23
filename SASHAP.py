@@ -1,16 +1,10 @@
-import Dtypes
-from Dtypes import *
+from Dtypes import RNumber, NNumber, Integer, Polynomial
 
-def zero_check(num):
-    if num != 0:
-        return True
+
+def POZ_Z_D(num: Integer):
+    if num.get_sign():
+        return 1
+    elif num.get_num()[0] == 0:
+        return 0
     else:
-        return False
-
-
-num1 = Dtypes.NNubmer(int(input))
-
-print(zero_check(num1))
-
-# def ADD_NN_N(number1, number2):
-#
+        return 2
