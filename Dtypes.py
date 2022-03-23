@@ -12,6 +12,7 @@ class Integer:
         self.sign = sign
 
 
+
 class RNumber:
     # числитель, знаменатель - всё просто
     def __init__(self, numerator:int, denominator:int):

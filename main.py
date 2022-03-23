@@ -12,5 +12,10 @@
 # Стельба по своим - бан
 # Оскорбление администрации - расстрел, а потом бан.
 
+from Dtypes import Integer
+from alex.integers  import ALEX_MUL_ND_N
 
+inst = Integer([1,2,4,5],True)
+dig = 2
+print(f"{inst.value} x {dig} = {ALEX_MUL_ND_N(inst,dig)}",sep='')
 
