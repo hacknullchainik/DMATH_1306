@@ -21,6 +21,12 @@ class Integer:
     def get_num(self):
         return self.__value.copy()
 
+    def get_rank(self):
+        return self.__rank
+
+    def get_sign(self):
+        return self.__sign
+
 class RNumber:
     # числитель, знаменатель - всё просто
     def __init__(self, numerator:int, denominator:int):
@@ -63,7 +69,10 @@ class Polynomial:
         return ' '.join([f'({r.__str__()})'+f'x^{len(self.__coefs)-1-i}' for i, r in enumerate(self.__coefs) if r.get_num() != 0])
 
     def get_coefs(self):
-        return self.__coefs
+        return self.__coefs.copy()
+
+    def get_exp(self):
+        return self.__exp
 
 
 class NNumber:
