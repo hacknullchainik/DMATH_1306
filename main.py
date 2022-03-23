@@ -13,9 +13,15 @@
 # Оскорбление администрации - расстрел, а потом бан.
 
 from Dtypes import Integer
-from alex.integers  import ALEX_MUL_ND_N
+from alex.ALEX_integers  import ALEX_MUL_ND_N, alex_print_int
 
+#Object 'inst'is an instance from the 'Integer' class in file 'Dtypes.py'
+#Variable 'dig' stores the digit used for multiply 'inst'
 inst = Integer([1,2,4,5],True)
 dig = 2
-print(f"{inst.value} x {dig} = {ALEX_MUL_ND_N(inst,dig)}",sep='')
+
+#List 'inst_r'stores the result of the operation done upon the object inst
+inst_r = ALEX_MUL_ND_N(inst,dig)
+#function for printing out the result 
+alex_print_int(inst.value,inst_r,dig)
 

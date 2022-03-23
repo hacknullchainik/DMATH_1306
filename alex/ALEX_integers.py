@@ -1,5 +1,7 @@
 # The present module works with integers instances from the 
 # class integer inside of the module 'Dtypes.py' 
+def alex_print_int(inst_p, inst_r,dig):
+    print(*inst_p, " x ", dig , " = ", *inst_r ,sep='')
 
 
 def ALEX_MUL_ND_N(num:object,num_2:int):
