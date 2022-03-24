@@ -48,32 +48,47 @@ def TRANS_Z_Q(num: RNumber):
 
 
 def COM_NN_D(num1: NNumber, num2: NNumber):
+    # Берём числа в нормальном порядке
     num1 = num1.get_num()
     num2 = num2.get_num()
     num2.reverse()
     num1.reverse()
-    for i in range(max(len(num1), len(num2))):
-        if num1[i] > num2[i]:
-            return 2
-        if num2[i] > num1[i]:
-            return 1
-    return 0
+    # Сравниваем по цифрам, если длины чисел равны
+    if len(num1) == len(num2):
+        for i in range(len(num1)):
+            if num1[i] > num2[i]:
+                return 2
+            if num2[i] > num1[i]:
+                return 1
+        return 0
+    elif len(num1) > len(num2):
+        return 2
+    else:
+        return 1
 
 
 def ADD_NN_N(number1: NNumber, number2: NNumber):
+    # Создаем дубликаты наших цифровых массивов (по факту - чисел) для более удобной работы
     bigger_num = number1.get_num()
     lower_num = number2.get_num()
     result = []
 
-    if len(bigger_num) < len(lower_num):
+    # Если числа были введены не так, что сначала большее, меняем их местами, дабы избежать возможных ошибок
+
+    if COM_NN_D(number1, number2) == 1:
         bigger_num, lower_num = lower_num, bigger_num
 
+    # Сначала просто складываем поразрядно все числа, на сколько хватит разрядов в меньшем числе
+    # и заносим в результирующий массив
     for i in range(len(lower_num)):
         result.append(bigger_num[i] + lower_num[i])
 
-    for j in range(i+1, len(bigger_num)):
+    # Добавляем числа, которые в большем числе были в больших разрядах, чем в меньшем
+    for j in range(i + 1, len(bigger_num)):
         result.append(bigger_num[j])
 
+    # Переносим в следующие разряды десятки, которые могли получиться в результате сложения
+    # При необходимости,, добавляем еще один разряд в конце
     for i in range(len(result)):
         if result[i] > 9:
             result[i] -= 10
@@ -81,7 +96,9 @@ def ADD_NN_N(number1: NNumber, number2: NNumber):
                 result.append(1)
             else:
                 result[i + 1] += 1
+    # Переворачиваем массив, так как работали с обратным порядком цифр
     result.reverse()
 
     return NNumber(result)
+
 
