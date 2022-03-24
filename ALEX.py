@@ -44,6 +44,19 @@ def MUL_ND_N(num:object,num_2:int):
     return results
         
 
- #not ready yet   
-def TRANS_N_Z(num:object, num_2:int):
-    pass
+#The set of natural numbers is from 1 to infinity and does not include decimals.
+#The set of integer numbers is from 0 to positive infinity as well as from 0 to negative infity.
+#Therefore, any conversion of natural numbers to integer numbers will be done on the sign(positive or negative) 
+# depending on the user preference.
+def TRANS_N_Z(num:object, sign: str):
+
+    if sign == '-':
+        #Creation of a new instance, with negative sign, from integer class .
+        new_state = Integer(num.get_num(),False)
+    elif sign == '+':
+        #Creation of a new instance, with positive sign, from integer class.
+        new_state = Integer(num.get_num(),True)
+    else:
+        #If the user inputs a symbol that does not fit the requirement, he/she shall get an error message.
+        print("Unrecognized sign!")
+    return new_state
