@@ -33,6 +33,9 @@ def MUL_ND_N(num:object,num_2:int):
                 value = value + keeper
                 results.insert(0,value)
                 keeper = 0
+        elif keeper != 0:
+            #in case the next resulting number of the multiplication also exceeds or is equal to 10
+            results.insert(0,(value+keeper) % 10)
         else:
             #the second digit of the resulting number of the multiplication is stored inside of the list results
             keeper = value // 10
