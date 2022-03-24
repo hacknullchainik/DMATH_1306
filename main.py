@@ -13,8 +13,6 @@
 # Оскорбление администрации - расстрел, а потом бан.
 
 from Dtypes import RNumber, NNumber, Integer, Polynomial
-from ALEX  import MOD_NN_N, MUL_ND_N, print_int
-
 # показываю пример работы с типами
 # Задаётся двумя числами, у какого хнак- пхуй
 rnum = RNumber(111,-13)
@@ -50,14 +48,3 @@ print([i.__str__() for i in pol.get_coefs()])  # ['3/5', '2/4', '1/3', '0']
 # Вывод тож реализовал
 # где коэф 0 - не выводится
 print(pol)  # (3/5)x^3 (2/4)x^2 (1/3)x^1
-
-#--------ALEX---------
-#----------------------
-#Object 'inst'is an instance from the 'Integer' class in file 'Dtypes.py'
-#Variable 'dig' stores the digit used for multiply 'inst'
-inst = Integer([1,2,4,5],True)
-dig = 2
-#List 'inst_r'stores the result of the operation done upon the object inst
-inst_r = MUL_ND_N(inst,dig)
-#function for printing out the result 
-print_int(inst.get_num(),inst_r,dig)
