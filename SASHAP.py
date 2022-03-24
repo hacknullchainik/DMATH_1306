@@ -14,7 +14,7 @@ def POZ_Z_D(num: Integer):
         return 2
 
 
-def TRANS_Z_Q(num: RNumber):
+def TRANS_Q_Z(num: RNumber):
     # Создаём массив, в который будет записан результат и записываем числитель в
     # служебную переменную
     numer_list = []
