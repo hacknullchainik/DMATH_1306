@@ -1,7 +1,8 @@
-# The present module works with Integer, RNumber, Polynomial, NNumber instances 
-# The module providing those classes is 'Dtypes.py' 
+# The present module works with Integer, RNumber, Polynomial, NNumber instances. 
+# The module providing those classes is 'Dtypes.py'. 
+from Dtypes import Integer
 
-#Function fro the printingout of the result after the function completed requested operations
+#Function for the printingout of the result after the function completed requested operations
 def print_int(inst_p, inst_r,dig):
     #'val' stores the reversed list of numbers contained in the object
     # this is done because at the instanciation level the number are reversed
