@@ -1,6 +1,6 @@
 # The present module works with Integer, RNumber, Polynomial, NNumber instances. 
 # The module providing those classes is 'Dtypes.py'. 
-from Dtypes import Integer
+from Dtypes import Integer, NNumber
 
 def MUL_ND_N(num:object,num_2:int):
     #local variables storing the value from arugments
@@ -34,7 +34,7 @@ def MUL_ND_N(num:object,num_2:int):
             keeper = value // 10
             results.insert(0,value % 10)
     
-    return results
+    return NNumber(results)
         
 
 #The set of natural numbers is from 1 to infinity and does not include decimals.
