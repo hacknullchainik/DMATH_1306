@@ -68,7 +68,7 @@ def SUB_NN_N(n: NNumber, m: NNumber):
         res.append(0)
 
     # Чистим от лишних нулей
-    while res[-1]==0:
+    while res[-1]==0 and len(res)>1:
         res.pop()
     result = NNumber(res[::-1])
     return result
