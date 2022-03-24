@@ -2,14 +2,6 @@
 # The module providing those classes is 'Dtypes.py'. 
 from Dtypes import Integer
 
-#Function for the printingout of the result after the function completed requested operations
-def print_int(inst_p, inst_r,dig):
-    #'val' stores the reversed list of numbers contained in the object
-    # this is done because at the instanciation level the number are reversed
-    val =  inst_p[::-1]
-    print(*val, " x ", dig , " = ", *inst_r ,sep='')
-
-
 def MUL_ND_N(num:object,num_2:int):
     #local variables storing the value from arugments
     #avoiding changes to the original data
