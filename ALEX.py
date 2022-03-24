@@ -45,21 +45,5 @@ def MUL_ND_N(num:object,num_2:int):
         
 
  #not ready yet   
-def MOD_NN_N(num:object,num_2:int):
-
-    list_num = num.get_num()
-    length = num.get_rank()
-
-    mod = 0
-    list_num_str = ""
-    for i in list_num[::-1]: 
-        list_num_str += str(list_num)
-
-    for i in range(0,length,1):
-
-        digit = ord(list_num_str[i]) - ord(list_num_str[length])
-        mod = mod * 10 + digit
-        mod = mod % num_2
-
-    print(mod)
-    return mod
+def TRANS_N_Z(num:object, num_2:int):
+    pass
