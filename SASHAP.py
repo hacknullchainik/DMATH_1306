@@ -46,12 +46,13 @@ def TRANS_Z_Q(num: RNumber):
     else:
         return num
 
+
 def COM_NN_D(num1: NNumber, num2: NNumber):
     num1 = num1.get_num()
     num2 = num2.get_num()
     num2.reverse()
     num1.reverse()
-    for i in range(max(len(num1),len(num2))):
+    for i in range(max(len(num1), len(num2))):
         if num1[i] > num2[i]:
             return 2
         if num2[i] > num1[i]:
@@ -59,16 +60,28 @@ def COM_NN_D(num1: NNumber, num2: NNumber):
     return 0
 
 
+def ADD_NN_N(number1: NNumber, number2: NNumber):
+    bigger_num = number1.get_num()
+    lower_num = number2.get_num()
+    result = []
 
+    if len(bigger_num) < len(lower_num):
+        bigger_num, lower_num = lower_num, bigger_num
 
+    for i in range(len(lower_num)):
+        result.append(bigger_num[i] + lower_num[i])
 
+    for j in range(i+1, len(bigger_num)):
+        result.append(bigger_num[j])
 
+    for i in range(len(result)):
+        if result[i] > 9:
+            result[i] -= 10
+            if i == len(result):
+                result.append(1)
+            else:
+                result[i + 1] += 1
+    result.reverse()
 
-#print(POZ_Z_D(Integer([1, 2, 3], True)))
+    return NNumber(result)
 
-#print(POZ_Z_D(Integer([1, 2, 3], False)))
-#print(POZ_Z_D(Integer([0], False)))
-
-#print(TRANS_Z_Q(RNumber(35, 1)))
-#print(TRANS_Z_Q(RNumber(3, 2)))
-print(COM_NN_D(NNumber([2, 2, 4, 5]), NNumber([3, 2, 4, 5])))
