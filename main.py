@@ -41,7 +41,7 @@ print(inum)  # -123
 
 
 # Многочлен - список из элементов типа Rnumber
-rli = [RNumber(i,2+i) for i in range(4)]
+rli = [RNumber(i,2+i) for i in range(5)]
 print([i.__str__() for i in rli])  # сам список
 pol = Polynomial(rli)
 # Представление тоже обратное
