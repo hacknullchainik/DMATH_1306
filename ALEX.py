@@ -1,6 +1,14 @@
-# The present module works with Integer, RNumber, Polynomial, NNumber instances. 
-# The module providing those classes is 'Dtypes.py'. 
+# The present module works with Integer, RNumber, Polynomial, NNumber instances 
+# The module providing those classes is 'Dtypes.py'
 from Dtypes import Integer, NNumber
+
+#Function for the printingout of the result after the function completed requested operations
+def print_int(inst_p, inst_r,dig):
+    #'val' stores the reversed list of numbers contained in the object
+    # this is done because at the instanciation level the number are reversed
+    val =  inst_p[::-1]
+    print(*val, " x ", dig , " = ", *inst_r ,sep='')
+
 
 def MUL_ND_N(num:object,num_2:int):
     #local variables storing the value from arugments
@@ -34,7 +42,9 @@ def MUL_ND_N(num:object,num_2:int):
             keeper = value // 10
             results.insert(0,value % 10)
     
-    return NNumber(results)
+    new_obj = NNumber(results[::-1])
+
+    return new_obj
         
 
 #The set of natural numbers is from 1 to infinity and does not include decimals.
