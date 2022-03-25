@@ -92,7 +92,7 @@ def ADD_NN_N(number1: NNumber, number2: NNumber):
     for i in range(len(result)):
         if result[i] > 9:
             result[i] -= 10
-            if i == len(result):
+            if i == len(result)-1:
                 result.append(1)
             else:
                 result[i + 1] += 1
@@ -100,5 +100,17 @@ def ADD_NN_N(number1: NNumber, number2: NNumber):
     result.reverse()
 
     return NNumber(result)
+
+
+def MUL_ZZ_Z(num1: Integer, num2: Integer):
+    a = num1.get_num()
+    b = num2.get_num()
+    sum_array = []
+    result = []
+    rank_num1 = num1.get_rank()
+    rank_num2 = num2.get_rank()
+
+    for i in range(rank_num2):
+        sum_array[i].append()
 
 
