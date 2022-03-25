@@ -113,11 +113,11 @@ def ADD_NN_N(number1: NNumber, number2: NNumber):
 #     for i in range(rank_num2):
 #         sum_array[i].append()
 
-def DIV_NN_Dk(num1:NNumber, num2:NNumber):
-    result = []
-    lower_num = num1.get_num()
-    bigger_num = num2.get_num()
-
-    if COM_NN_D(lower_num, bigger_num) == 2:
-        lower_num, bigger_num = bigger_num, lower_num
+#def DIV_NN_Dk(num1:NNumber, num2:NNumber):
+#    result = []
+ #   lower_num = num1.get_num()
+  #  bigger_num = num2.get_num()
+#
+ #   if COM_NN_D(lower_num, bigger_num) == 2:
+  #      lower_num, bigger_num = bigger_num, lower_num
 
