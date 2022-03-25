@@ -2,9 +2,9 @@ from Dtypes import Integer, NNumber, RNumber, Polynomial
 
 def MUL_ZM_Z(num: Integer):
     if num.get_sign():
-        result = Integer(num.get_num(), 0)
+        result = Integer(num.get_num(), False)
     else:
-        result = Integer(num.get_num(), 1)
+        result = Integer(num.get_num(), True)
     return result
 
 
