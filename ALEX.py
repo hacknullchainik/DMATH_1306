@@ -36,7 +36,7 @@ def MUL_ND_N(num:object,num_2:int):
             keeper = value // 10
             results.insert(0,value % 10)
     
-    new_obj = NNumber(results[::-1])
+    new_obj = NNumber(results)
 
     return new_obj
         
