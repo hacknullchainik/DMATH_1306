@@ -102,15 +102,22 @@ def ADD_NN_N(number1: NNumber, number2: NNumber):
     return NNumber(result)
 
 
-def MUL_ZZ_Z(num1: Integer, num2: Integer):
-    a = num1.get_num()
-    b = num2.get_num()
-    sum_array = []
+# def MUL_ZZ_Z(num1: Integer, num2: Integer):
+#     a = num1.get_num()
+#     b = num2.get_num()
+#     sum_array = []
+#     result = []
+#     rank_num1 = num1.get_rank()
+#     rank_num2 = num2.get_rank()
+#
+#     for i in range(rank_num2):
+#         sum_array[i].append()
+
+def DIV_NN_Dk(num1:NNumber, num2:NNumber):
     result = []
-    rank_num1 = num1.get_rank()
-    rank_num2 = num2.get_rank()
+    lower_num = num1.get_num()
+    bigger_num = num2.get_num()
 
-    for i in range(rank_num2):
-        sum_array[i].append()
-
+    if COM_NN_D(lower_num, bigger_num) == 2:
+        lower_num, bigger_num = bigger_num, lower_num
 
