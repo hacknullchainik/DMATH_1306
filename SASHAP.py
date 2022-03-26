@@ -1,5 +1,3 @@
-# from Dtypes import RNumber, NNumber, Integer, Polynomial
-from Dtypes import *
 from NIKITAT import *
 from chernov import *
 from ALEX import *
@@ -62,31 +60,12 @@ def TRANS_Q_Z(num: RNumber):
         return num
 
 
-def COM_NN_D(number1: NNumber, number2: NNumber):
-    # Берём числа в нормальном порядке
-    num1 = number1.get_num()
-    num2 = number2.get_num()
-    num2.reverse()
-    num1.reverse()
-    # Сравниваем по цифрам, если длины чисел равны
-    if len(num1) == len(num2):
-        for i in range(len(num1)):
-            if num1[i] > num2[i]:
-                return 2
-            if num2[i] > num1[i]:
-                return 1
-        return 0
-    elif len(num1) > len(num2):
-        return 2
-    else:
-        return 1
-
-
 def ADD_NN_N(number1: NNumber, number2: NNumber):
     # Создаем дубликаты наших цифровых массивов (по факту - чисел) для более удобной работы
     bigger_num = number1.get_num()
     lower_num = number2.get_num()
     result = []
+    i = 0
 
     # Если числа были введены не так, что сначала большее, меняем их местами, дабы избежать возможных ошибок
 
@@ -219,3 +198,35 @@ def MUL_NN_N(num1: NNumber, num2: NNumber):
         result = ADD_NN_N(result, NNumber(mul_result))
 
     return result
+
+
+def SUB_PP_P(pol1: Polynomial, pol2: Polynomial):
+    flag = 0
+    result = []
+    coefs_bigger = pol1.get_coefs()
+    coefs_lower = pol2.get_coefs()
+
+    if pol1.get_exp() < pol2.get_exp():
+        coefs_bigger, coefs_lower = coefs_lower, coefs_bigger
+        flag = 1
+
+    while len(coefs_bigger) > len(coefs_lower):
+        coefs_lower.append(RNumber(0, 1))
+
+    for i in range(len(coefs_bigger)):
+        if flag:
+            result.append(SUB_QQ_Q(coefs_lower[i], coefs_bigger[i]))
+        else:
+            result.append(SUB_QQ_Q(coefs_bigger[i], coefs_lower[i]))
+
+    print([i.__str__() for i in coefs_bigger])
+    print([i.__str__() for i in coefs_lower])
+    return result
+
+
+
+rli1 = [RNumber(i * 3, 2 + i) for i in range(5)]
+rli2 = [RNumber(i, 2 + i) for i in range(4)]
+# print(MUL_ZZ_Z(Integer(list(input()), False), Integer(list(input()), False)))
+print(SUB_PP_P(Polynomial(rli1), Polynomial(rli2)))
+
