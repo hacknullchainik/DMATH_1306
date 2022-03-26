@@ -48,4 +48,4 @@ def MUL_ND_N(num: object, num_2: int):
 # Therefore, any conversion of natural numbers to integer numbers will be done on the sign(positive or negative)
 # depending on the user preference.
 def TRANS_N_Z(num:NNumber):
-    return Integer(num.get_num(), True)
+    return Integer(num.get_num(), False)
