@@ -30,6 +30,7 @@ def MUL_ND_N(num: object, num_2: int):
         elif keeper != 0:
             # in case the next resulting number of the multiplication also exceeds or is equal to 10
             results.insert(0, (value + keeper) % 10)
+            keeper = value // 10
             if i == length:
                 results.insert(0, keeper)
         else:
