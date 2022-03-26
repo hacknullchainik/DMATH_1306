@@ -72,3 +72,23 @@ def SUB_NN_N(n: NNumber, m: NNumber):
         res.pop()
     result = NNumber(res[::-1])
     return result
+
+def DIV_NN_N(n: NNumber, m: NNumber):
+    res = []
+    if COM_NN_D(n, m) == 2:
+        n = n.get_num()[::-1]
+        m = m.get_num()[::-1]
+        div = n
+        while COM_NN_D(div, m)==2:
+            res.append(DIV_NN_Dk(div, m))
+            div = SUB_NDN_N(div, m, DIV_NN_Dk(div, m))
+    elif COM_NN_D(n, m) == 1:
+        n = n.get_num()[::-1]
+        m = m.get_num()[::-1]
+        div = m
+        while COM_NN_D(div, n) == 2:
+            res.append(DIV_NN_Dk(div, n))
+            div = SUB_NDN_N(div, n, DIV_NN_Dk(div, n))
+    else:
+        res.append(1)
+    return NNumber(res)
