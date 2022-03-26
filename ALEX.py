@@ -47,5 +47,5 @@ def MUL_ND_N(num: object, num_2: int):
 # The set of integer numbers is from 0 to positive infinity as well as from 0 to negative infity.
 # Therefore, any conversion of natural numbers to integer numbers will be done on the sign(positive or negative)
 # depending on the user preference.
-def TRANS_N_Z(num: NNumber, sign: bool):
-    return Integer(num.get_num(), sign)
+def TRANS_N_Z(num:NNumber):
+    return Integer(num.get_num(), True)
