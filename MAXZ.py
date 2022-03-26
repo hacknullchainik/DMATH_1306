@@ -27,6 +27,7 @@ def DIV_QQ_Q(n1: RNumber, n2: RNumber):
     den2 = TRANS_Q_Z(RNumber(n2.get_den(), 1))
     result_num = MUL_ZZ_Z(num1, den2)
     result_den = MUL_ZZ_Z(den1, num2)
-    return RNumber(result_num.get_num(), result_den.get_num())
+
+    return RNumber(int(result_num.get_num()[0]), int(result_den.get_num()[0]))
 
 print(DIV_QQ_Q(RNumber(1,2), RNumber(2,3)))
