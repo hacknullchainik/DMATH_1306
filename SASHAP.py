@@ -1,4 +1,17 @@
-from Dtypes import RNumber, NNumber, Integer, Polynomial
+# from Dtypes import RNumber, NNumber, Integer, Polynomial
+from Dtypes import *
+from NIKITAT import *
+from chernov import *
+from ALEX import *
+
+
+def MUL_Nk_N(num: NNumber, k):
+    # Просто добавляем нули в конце числа
+    number1 = num.get_num()
+    number1.reverse()
+    for i in range(k):
+        number1.append(0)
+    return number1
 
 
 def POZ_Z_D(num: Integer):
@@ -30,7 +43,9 @@ def TRANS_Q_Z(num: RNumber):
             sign = True
 
         # Передаем в массив по одной цифре числа и переворачиваем его в конце, т.к
-        # в массив цифры заночились с конца
+        # в массив цифры заноcились с конца
+
+        numer = abs(numer)
 
         while numer > 0:
             numer_list.append(numer % 10)
@@ -47,10 +62,10 @@ def TRANS_Q_Z(num: RNumber):
         return num
 
 
-def COM_NN_D(num1: NNumber, num2: NNumber):
+def COM_NN_D(number1: NNumber, number2: NNumber):
     # Берём числа в нормальном порядке
-    num1 = num1.get_num()
-    num2 = num2.get_num()
+    num1 = number1.get_num()
+    num2 = number2.get_num()
     num2.reverse()
     num1.reverse()
     # Сравниваем по цифрам, если длины чисел равны
@@ -92,7 +107,7 @@ def ADD_NN_N(number1: NNumber, number2: NNumber):
     for i in range(len(result)):
         if result[i] > 9:
             result[i] -= 10
-            if i == len(result)-1:
+            if i == len(result) - 1:
                 result.append(1)
             else:
                 result[i + 1] += 1
@@ -102,22 +117,105 @@ def ADD_NN_N(number1: NNumber, number2: NNumber):
     return NNumber(result)
 
 
-# def MUL_ZZ_Z(num1: Integer, num2: Integer):
-#     a = num1.get_num()
-#     b = num2.get_num()
-#     sum_array = []
-#     result = []
-#     rank_num1 = num1.get_rank()
-#     rank_num2 = num2.get_rank()
-#
-#     for i in range(rank_num2):
-#         sum_array[i].append()
+def DIV_NN_Dk(num1: NNumber, num2: NNumber):
+    # Этот алгоритм полностью повторяет деление в столбик, если с комментариями будет
+    # что-то непонятно, распишите деление 2-х рандомных чисел и смотря на вашу запись и алгоритм, все поймете
 
-# def DIV_NN_Dk(num1:NNumber, num2:NNumber):
-#     result = []
-#     lower_num = num1.get_num()
-#     bigger_num = num2.get_num()
-#
-#     if COM_NN_D(lower_num, bigger_num) == 2:
-#         lower_num, bigger_num = bigger_num, lower_num
-#
+    # Заносим значения чисел в числовой массив
+    curr_num = 0
+    count = 0
+    template_value = []
+    lower_num = num1.get_num()
+    bigger_num = num2.get_num()
+
+    lower_num.reverse()
+    bigger_num.reverse()
+
+    # Проверяем, действительно ли в переменной, обозначающей большее число
+    # находится большее исло, при необзодимости меняем местами
+
+    if COM_NN_D(num1, num2) == 2:
+        lower_num, bigger_num = bigger_num, lower_num
+
+    # Берем из большего числа столько цифр, сколько их в меньшем и заносим
+    # в массив с временным значением
+
+    for i in range(len(lower_num)):
+        template_value.append(bigger_num[i])
+        curr_num = i
+
+    # Если так получилось, что число, получившееся на предыдущем шаге меньше
+    # числа, на которое делим, берем ещё одну цифру
+
+    if COM_NN_D(NNumber(lower_num), NNumber(template_value)) == 2:
+        template_value.append(bigger_num[curr_num + 1])
+
+    # k - переменная, обозначающая степень десятки и она разности длин
+    # начального большего числа и получившегося из последних шагов
+
+    k = len(bigger_num) - len(template_value)
+
+    # Пока получившееся число больше меньшего числа, отнимаем от него меньшее
+    # при этом на каждом шаге прибаляем к переменной count 1, эта переменная показывает
+    # на сколько мы "умножили" меьншее число
+
+    while COM_NN_D(NNumber(template_value), NNumber(lower_num)) == 2:
+        sub = SUB_NN_N(NNumber(template_value), NNumber(lower_num))
+        template_value = sub.get_num()
+        template_value.reverse()
+        count += 1
+
+    count = count * pow(10, k)
+
+    return count
+
+
+def MUL_ZZ_Z(num1: Integer, num2: Integer):
+    # Запоминаем знаки чисел в соответствующие переменные
+    sign1 = num1.get_sign()
+    sign2 = num2.get_sign()
+
+    # Берем модуль от каждого из чисел
+    lower_num = ABS_Z_N(num1)
+    bigger_num = ABS_Z_N(num2)
+
+    # Так как теперь мы имеем 2 натуральных числа можно просто перемножить их
+    # соответствующей функцией
+    result = MUL_NN_N(lower_num, bigger_num)
+
+    # Знак числа, получаемого при умножении легко вычисляется XOR'ом
+    res_sign = sign1 ^ sign2
+    result_digits = result.get_num()
+    result_digits.reverse()
+
+    result = Integer(result_digits, res_sign)
+    return result
+
+
+def MUL_NN_N(num1: NNumber, num2: NNumber):
+    # Записываем числа в числовые массивы
+    lower_num = num1.get_num()
+    bigger_num = num2.get_num()
+
+    lower_num.reverse()
+    bigger_num.reverse()
+
+    # Проверяем, действительно ли в переменной, обозначающей большее число
+    # находится большее исло, при необзодимости меняем местами
+    if COM_NN_D(num1, num2) == 2:
+        lower_num, bigger_num = bigger_num, lower_num
+
+    # result - результат умножения, изначально 0
+    result = NNumber([0])
+
+    for i in range(len(lower_num)):
+        # curr_digit - текущая цифра меньшего числа, на которую умножаем большее число
+        curr_digit = lower_num[len(lower_num) - 1 - i]
+        # Умножаем большее число на эту цифру
+        mul_result = MUL_ND_N(NNumber(bigger_num), curr_digit)
+        # Сдвигаем резальтат умножения
+        mul_result = MUL_Nk_N(mul_result, i)
+        # Прибавляем к результату умножения число, полученное на данном проходе цикда
+        result = ADD_NN_N(result, NNumber(mul_result))
+
+    return result
