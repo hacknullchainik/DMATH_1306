@@ -30,6 +30,7 @@ def MUL_ND_N(num: object, num_2: int):
         elif keeper != 0:
             # in case the next resulting number of the multiplication also exceeds or is equal to 10
             results.insert(0, (value + keeper) % 10)
+            keeper = (value+keeper) // 10
             if i == length:
                 results.insert(0, keeper)
         else:
@@ -46,5 +47,5 @@ def MUL_ND_N(num: object, num_2: int):
 # The set of integer numbers is from 0 to positive infinity as well as from 0 to negative infity.
 # Therefore, any conversion of natural numbers to integer numbers will be done on the sign(positive or negative)
 # depending on the user preference.
-def TRANS_N_Z(num: NNumber, sign: bool):
-    return Integer(num.get_num(), sign)
+def TRANS_N_Z(num:NNumber):
+    return Integer(num.get_num(), False)
