@@ -1,4 +1,7 @@
 from Dtypes import RNumber, NNumber, Integer, Polynomial
+from NIKITAT import SUB_NN_N, COM_NN_D
+from ALEX import MUL_ND_N
+
 
 def ADD_1N_N(num: NNumber):
     num = num.get_num()
@@ -13,6 +16,13 @@ def ADD_1N_N(num: NNumber):
     return NNumber(num)
 
 
+def SUB_NDN_N(num1: NNumber, digit: int, num2: NNumber):
+    num2 = MUL_ND_N(num2, digit)
+    if (COM_NN_D(num1, num2) in [2, 0]):
+        return SUB_NN_N(num1, num2)
+    else:
+        print("Negative result")
+
 def ABS_Z_N(num: Integer):
     num = num.get_num()
     num.reverse()
@@ -24,6 +34,6 @@ def TRANS_Z_Q(num: Integer):
     num = list(map(str, num.get_num()))
     num.reverse()
     num = int("".join(num))
-    print(num, 1, sign)
-    #return RNumber()
-
+    if (sign):
+        num = -num
+    return RNumber(num, 1)
