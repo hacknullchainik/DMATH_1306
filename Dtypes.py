@@ -84,7 +84,7 @@ class Polynomial:
                 break
         self.__coefs = coefficients[::-1]
         # Макс степень
-        self.__exp = len(self.__coefs)
+        self.__exp = len(self.__coefs)-1
 
     # ЧТОБЫ ВЫВОДИЛОСЬ НОРМАЛЬНО ПРИНТОМ
     def __str__(self):

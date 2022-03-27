@@ -1,5 +1,6 @@
 from Dtypes import Integer, NNumber, RNumber, Polynomial
 
+
 def MUL_ZM_Z(num: Integer):
     if num.get_sign():
         result = Integer(num.get_num(), False)
@@ -74,21 +75,60 @@ def SUB_NN_N(n: NNumber, m: NNumber):
     return result
 
 def DIV_NN_N(n: NNumber, m: NNumber):
+    # Создаём результирующий массив
     res = []
+    # Сравниваем числа. Если n больше, то делим n на m. Иначе - m на n
     if COM_NN_D(n, m) == 2:
-        n = n.get_num()[::-1]
-        m = m.get_num()[::-1]
         div = n
+        # Получаем само число и поциферно вычисляем результат деления
         while COM_NN_D(div, m)==2:
             res.append(DIV_NN_Dk(div, m))
-            div = SUB_NDN_N(div, m, DIV_NN_Dk(div, m))
+            # Ниже операция вычитания из делимого части делителя. Нашли первую цифру деления - DIV_NN_Dk(div, m),
+            # затем вычли из делимого делитель умноженный на эту цифру. Получили новый делитель. Повторяем,
+            # пока делимое больше делителя
+            div = SUB_NDN_N(div, DIV_NN_Dk(div, m), m)
     elif COM_NN_D(n, m) == 1:
         n = n.get_num()[::-1]
         m = m.get_num()[::-1]
         div = m
         while COM_NN_D(div, n) == 2:
             res.append(DIV_NN_Dk(div, n))
-            div = SUB_NDN_N(div, n, DIV_NN_Dk(div, n))
+            div = SUB_NDN_N(div, DIV_NN_Dk(div, n), n)
     else:
         res.append(1)
     return NNumber(res)
+
+def DIV_ZZ_Z(n: Integer, m: Integer):
+    res = []
+    # Проверяем числа на знаки (узнаём, в результате будет положительное число или отрицательное)
+    if (POZ_Z_D(n) + POZ_Z_D(m)) == 4:
+        sign = False
+    elif (POZ_Z_D(n) + POZ_Z_D(m))==3:
+        sign = True
+    else:
+        sign = False
+
+    n = ABS_Z_N(n)
+    m = ABS_Z_N(m)
+    res = DIV_NN_N(n, m).get_num()
+
+    return Integer(res, sign)
+
+
+def DIV_ZZ_Z(n: Integer, m: Integer):
+    res = []
+    # Проверяем числа на знаки (узнаём, в результате будет положительное число или отрицательное)
+    if (POZ_Z_D(n) + POZ_Z_D(m)) == 4:
+        sign = False
+    elif (POZ_Z_D(n) + POZ_Z_D(m)) == 3:
+        sign = True
+    else:
+        sign = False
+
+    # Берём абсолютные значения (знак уже запомнили) и применяем обычное деление натуральных чисел
+    # В результате всё равно целое
+    n = ABS_Z_N(n)
+    m = ABS_Z_N(m)
+    res = DIV_NN_N(n, m).get_num()
+
+    return Integer(res, sign)
