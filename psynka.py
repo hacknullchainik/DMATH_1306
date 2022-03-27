@@ -6,7 +6,7 @@ def TRANS_Z_N(num: Integer):
     return NNumber(num)
 
 def LED_P_Q(mchlen: Polynomial):
-    return mchlen.get_coefs()[len(mchlen.get_coefs())-1]
+    return mchlen.get_coefs()[0]
 
 #f = RNumber(1,5)
 #s = RNumber(2)

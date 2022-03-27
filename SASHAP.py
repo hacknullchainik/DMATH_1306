@@ -11,7 +11,7 @@ def MUL_Nk_N(num: NNumber, k):
     number1.reverse()
     for i in range(k):
         number1.append(0)
-    return number1
+    return NNumber(number1)
 
 
 def POZ_Z_D(num: Integer):
