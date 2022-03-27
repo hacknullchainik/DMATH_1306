@@ -40,9 +40,9 @@ def MUL_QQ_Q(n1: RNumber, n2: RNumber):
         return RNumber(-int(''.join(map(str, result_num.get_num()[::-1]))),
                        int(''.join(map(str, result_den.get_num()[::-1]))))
 
-n1 = RNumber(1,2)
-n2 = RNumber(-2,3)
-print(MUL_QQ_Q(n1,n2))
+#n1 = RNumber(10,2)
+#n2 = RNumber(-2,3)
+#print(MUL_QQ_Q(n1,n2))
 
 
 #f = RNumber(1,5)
