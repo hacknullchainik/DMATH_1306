@@ -9,7 +9,7 @@ def MUL_Nk_N(num: NNumber, k):
     number1.reverse()
     for i in range(k):
         number1.append(0)
-    return number1
+    return NNumber(number1)
 
 
 def POZ_Z_D(num: Integer):
@@ -195,7 +195,7 @@ def MUL_NN_N(num1: NNumber, num2: NNumber):
         # Сдвигаем резальтат умножения
         mul_result = MUL_Nk_N(mul_result, i)
         # Прибавляем к результату умножения число, полученное на данном проходе цикда
-        result = ADD_NN_N(result, NNumber(mul_result))
+        result = ADD_NN_N(result, mul_result)
 
     return result
 
@@ -234,4 +234,4 @@ def SUB_PP_P(pol1: Polynomial, pol2: Polynomial):
 #print(SUB_PP_P(Polynomial(rli1), Polynomial(rli2)))
 
 
-print(MUL_ZZ_Z(Integer([2], False), Integer([1,0], False)))
+print(MUL_ZZ_Z(Integer([1,0], False), Integer([2], False)))
