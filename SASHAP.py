@@ -219,19 +219,4 @@ def SUB_PP_P(pol1: Polynomial, pol2: Polynomial):
         else:
             result.append(SUB_QQ_Q(coefs_bigger[i], coefs_lower[i]))
 
-    print([i.__str__() for i in coefs_bigger])
-    print([i.__str__() for i in coefs_lower])
     return result
-
-
-# rli1 = [RNumber(i * 3, 2 + i) for i in range(5)]
-# rli2 = [RNumber(i, 2 + i) for i in range(4)]
-# print(MUL_ZZ_Z(Integer(list(input()), False), Integer(list(input()), False)))
-# print(MUL_ND_N(NNumber([1,0]), 2))
-# print(MUL_ND_N(NNumber(list(input())), 2))
-# print(SUB_PP_P(Polynomial(rli1), Polynomial(rli2)))
-
-#print(SUB_PP_P(Polynomial(rli1), Polynomial(rli2)))
-
-
-print(MUL_ZZ_Z(Integer([1,0], False), Integer([2], False)))
