@@ -53,3 +53,7 @@ def DIV_QQ_Q(n1: RNumber, n2: RNumber):
     else:
         return RNumber(-int(''.join(map(str, result_num.get_num()[::-1]))),
                        int(''.join(map(str, result_den.get_num()[::-1]))))
+
+#степень многочлена
+def DEG_P_N(pol:Polynomial):
+    return pol.get_exp()
