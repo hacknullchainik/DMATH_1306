@@ -1,5 +1,5 @@
 from Dtypes import Integer, NNumber, RNumber, Polynomial
-from SASHAP import MUL_ZZ_Z, TRANS_Q_Z
+from SASHAP import MUL_ZZ_Z, MUL_NN_N
 
 #Проверка на целое, если рациональное
 #число является целым,то «да», иначе «нет»
@@ -16,7 +16,7 @@ def LCM_NN_N(num1: NNumber, num2: NNumber):
     mult = MUL_NN_N(num1, num2)
     #найдем НОД двух чисел и НОК разделим на НОД
     #НОК(a,b)=a*b/НОД(a,b)
-    return (mult // GCF_NN_N(num1, num2))
+    return DIV_NN_N(mult, GCF_NN_N(num1, num2))
 
 
 #Деление дробей (делитель отличен от нуля)
