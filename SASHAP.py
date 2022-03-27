@@ -195,7 +195,7 @@ def MUL_NN_N(num1: NNumber, num2: NNumber):
         # Сдвигаем резальтат умножения
         mul_result = MUL_Nk_N(mul_result, i)
         # Прибавляем к результату умножения число, полученное на данном проходе цикда
-        result = ADD_NN_N(result, NNumber(mul_result))
+        result = ADD_NN_N(result, NNumber(mul_result.get_num()))
 
     return result
 
@@ -228,5 +228,4 @@ def SUB_PP_P(pol1: Polynomial, pol2: Polynomial):
 rli1 = [RNumber(i * 3, 2 + i) for i in range(5)]
 rli2 = [RNumber(i, 2 + i) for i in range(4)]
 # print(MUL_ZZ_Z(Integer(list(input()), False), Integer(list(input()), False)))
-print(SUB_PP_P(Polynomial(rli1), Polynomial(rli2)))
-
+#print(SUB_PP_P(Polynomial(rli1), Polynomial(rli2)))
