@@ -1,5 +1,5 @@
 from Dtypes import Integer, NNumber
-import Natural
+import Naturals
 
 # Модуль числа
 def ABS_Z_N(num: Integer):
