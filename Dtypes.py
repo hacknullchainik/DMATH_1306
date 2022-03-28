@@ -1,9 +1,33 @@
+class NNumber:
+    # Классическая инициализация
+    def __init__(self,numbers:list):
+        # value - значение, то бишь массив цифр
+        numbers = list(map(int, numbers))
+        for i in range(len(numbers)-1):
+            if numbers[0] == 0:
+                numbers.pop(0)
+            else:
+                break
+        self.__value = numbers[::-1]
+        # Последний разряд, то бишь если число длины 5, то это 4(т.к. нумерация с нуля)
+        self.__rank = len(numbers)-1
+
+    # ЧТОБЫ ВЫВОДИЛОСЬ НОРМАЛЬНО ПРИНТОМ
+    def __str__(self):
+        return ''.join(map(str,self.__value[::-1]))
+
+    def get_num(self):
+        return self.__value.copy()
+
+    def get_rank(self):
+        return self.__rank
+
 class Integer:
     # Классическая инициализация
     # sign выбрал за бул, чтобы меньше шансов было упороться
     # Знак рассматриваем как True = '-', False = '+' (1 - есть, 0 - нет)
     # П.с. к инту кастуйте и не ебите себе мозги int(True) == 1
-    def __init__(self, numbers: list, sign:bool):
+    def __init__(self, numbers: list, sign:bool = False):
         # value - значение, то бишь массив цифр
         numbers = list(map(int,numbers))
         for i in range(len(numbers)-1):
@@ -39,32 +63,34 @@ class Integer:
 
 class RNumber:
     # числитель, знаменатель - всё просто
-    def __init__(self, numerator:int, denominator:int = 1):
+    # Теперь непросто, я невнимательно прочитал условие числитель - целое, знаменатель натуральное
+    def __init__(self, numerator:Integer, denominator:NNumber = NNumber([1])):
         # если знаменатель == 0 кидаем ошибку
-        if denominator == 0:
-            raise ZeroDivisionError
+        if int(denominator.__str__()) == 0:
+            raise ZeroDivisionError("Знаменатель отрицательный!")
 
-        if numerator == 0:
-            self.__num = numerator
-            self.__den = 1
+        if numerator.__str__()[0] == '-':
+            if int(numerator.__str__()[1:]) == 0:
+                self.__num = numerator
+                self.__den = 1
+            else:
+                self.__num = numerator
+                self.__den = denominator
+
         else:
-            self.__num = numerator
-            self.__den = denominator
-
-        if self.__num < 0 and self.__den < 0:
-            self.__num = abs(self.__num)
-            self.__den = abs(self.__den)
-        elif self.__num < 0 or self.__den < 0:
-            if self.__den < 0:
-                self.__num = -self.__num
-                self.__den = -self.__den
+            if int(numerator.__str__()) == 0:
+                self.__num = numerator
+                self.__den = 1
+            else:
+                self.__num = numerator
+                self.__den = denominator
 
     # ЧТОБЫ ВЫВОДИЛОСЬ НОРМАЛЬНО ПРИНТОМ
     def __str__(self):
-        if not self.__num:
-            return f'{self.__num}'
+        if self.__den.__str__() == '1':
+            return self.__num.__str__()
         else:
-            return f'{self.__num}/{self.__den}'
+            return f'{self.__num.__str__()}/{self.__den.__str__()}'
 
     def get_num(self):
         return self.__num
@@ -78,7 +104,7 @@ class Polynomial:
     # Список коэффициентов пусть будет списком из объектов класса Rnumber
     def __init__(self, coefficients:list):
         for i in range(len(coefficients)-1):
-            if int(coefficients[0].get_num()) == 0:
+            if int(coefficients[0]) == 0:
                 coefficients.pop(0)
             else:
                 break
@@ -97,26 +123,3 @@ class Polynomial:
         return self.__exp
 
 
-class NNumber:
-    # Классическая инициализация
-    def __init__(self,numbers:list):
-        # value - значение, то бишь массив цифр
-        numbers = list(map(int, numbers))
-        for i in range(len(numbers)-1):
-            if numbers[0] == 0:
-                numbers.pop(0)
-            else:
-                break
-        self.__value = numbers[::-1]
-        # Последний разряд, то бишь если число длины 5, то это 4(т.к. нумерация с нуля)
-        self.__rank = len(numbers)-1
-
-    # ЧТОБЫ ВЫВОДИЛОСЬ НОРМАЛЬНО ПРИНТОМ
-    def __str__(self):
-        return ''.join(map(str,self.__value[::-1]))
-
-    def get_num(self):
-        return self.__value.copy()
-
-    def get_rank(self):
-        return self.__rank
