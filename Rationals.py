@@ -1,5 +1,5 @@
 from Dtypes import RNumber, Integer, NNumber
-import Naturals, Integers
+import Natural, Integer
 
 # Сокращение дроби
 # RED_Q_Q
