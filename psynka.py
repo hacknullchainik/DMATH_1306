@@ -43,9 +43,9 @@ def MUL_QQ_Q(n1: RNumber, n2: RNumber):
         result_den = result_den.get_num()[::-1]
         return RNumber(Integer(result_num,True), NNumber(result_den))
 
-n1 = RNumber('25','2')
-n2 = RNumber('-2','30')
-print(MUL_QQ_Q(n1,n2))
+#n1 = RNumber('25','2')
+#n2 = RNumber('-2','30')
+#print(MUL_QQ_Q(n1,n2))
 
 
 #f = RNumber(1,5)
