@@ -132,3 +132,12 @@ def DIV_ZZ_Z(n: Integer, m: Integer):
     res = DIV_NN_N(n, m).get_num()
 
     return Integer(res, sign)
+
+def MUL_PQ_Q(n: Polynomial, m: RNumber):
+    res = []
+    # Берём массив коэффициентов
+    work = n.get_coefs()
+    # И каждый коэффициент умножаем на число m
+    for i in range(len(work)):
+        res.append(MUL_QQ_Q(work[i], m))
+    return Polynomial(res)
