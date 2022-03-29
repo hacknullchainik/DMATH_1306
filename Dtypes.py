@@ -1,5 +1,5 @@
-# v 0.43
-# Че добавил: (Change log)
+# v 0.44 (minor) Зачекайте ноутбук dtypes_test
+# Че добавил: (Change log) (0.43)
 # 1. Integer и NNumber можно теперь задавать строками '123' итп
 # 2. RNumber теперь представляется двумя элементами Integer - числитель, NNumber - знаменатель
 # 3. RNumber можно задать строкой! '-123/123' или '123','123'
@@ -141,21 +141,30 @@ class RNumber:
     # ПС !!!!
     # Теперь непросто, я невнимательно прочитал условие числитель - целое, знаменатель натуральное
     def __init__(self, numerator, denominator = None):
+        # Если пара Integer/NNumber
         if isinstance(numerator,Integer) and isinstance(denominator, NNumber):
             pass
+        # Если пара строка/строка
         elif isinstance(numerator,str) and isinstance(denominator, str):
             numerator = Integer(numerator)
             denominator = NNumber(denominator)
-        elif isinstance(numerator,str) and denominator is None:
-            if numerator.count('/') == 0:
-                numerator = Integer(numerator)
-                denominator = NNumber('1')
-            elif numerator.count('/') > 1:
-                raise ValueError('Слишком много \'/\' для RNumber: {}'.format(numerator.count('/')))
+        # Если пара (строка или Integer) и не задан знаменатель
+        elif (isinstance(numerator,str) or isinstance(numerator,Integer)) and denominator is None:
+            # Если числитель - строка
+            if isinstance(numerator,str):
+                # Считаем разделители и
+                if numerator.count('/') == 0:
+                    numerator = Integer(numerator)
+                    denominator = NNumber('1')
+                elif numerator.count('/') > 1:
+                    raise ValueError('Слишком много \'/\' для RNumber: {}'.format(numerator.count('/')))
+                else:
+                    numerator, denominator = numerator.split('/')
+                    numerator = Integer(numerator)
+                    denominator = NNumber(denominator)
+            # Иначе (т.е. если числитель и так Integer
             else:
-                numerator, denominator = numerator.split('/')
-                numerator = Integer(numerator)
-                denominator = NNumber(denominator)
+                denominator = NNumber('1')
         else:
             raise TypeError(f'{type(numerator)} и {type(denominator)} не могут быть преобразованны в RNumber')
 
