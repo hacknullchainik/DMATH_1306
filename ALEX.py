@@ -1,9 +1,6 @@
 # The present module works with Integer, RNumber, Polynomial, NNumber instances
 # The module providing those classes is 'Dtypes.py'
 from Dtypes import Integer, NNumber
-from NIKITAT import DIV_ZZ_Z
-from SASHAP import MUL_ZZ_Z
-# Nastia's file lacking SUB_ZZ_Z
 
 def MUL_ND_N(num: object, num_2: int):
     # local variables storing the value from arugments
