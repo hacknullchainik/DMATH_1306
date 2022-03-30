@@ -1,6 +1,7 @@
 # The present module works with Integer, RNumber, Polynomial, NNumber instances
 # The module providing those classes is 'Dtypes.py'
-from Dtypes import Integer, NNumber
+from Dtypes import Integer, NNumber, Integer, RNumber, Polynomial
+import Naturals, Integers, Rationals
 
 def MUL_ND_N(num: object, num_2: int):
     # local variables storing the value from arugments
@@ -66,11 +67,11 @@ def MOD_ZZ_Z(num:Integer, num_2:Integer):
     
     # DIV_ZZ_Z FROM NIKITAT.PY
     # Finding the quotient from the division of an integer by an integer
-    q = DIV_ZZ_Z(a,b)
+    q = Integers.DIV_ZZ_Z(a,b)
 
     # MUL_ZZ_Z FROM SASHAP.PY
     # Storing the value of the divisor multiplied by the quotient
-    a_1 = MUL_ZZ_Z(a,q)
+    a_1 = Integers.MUL_ZZ_Z(a,q)
 
     # SUB_ZZ_Z() -> pending from Nastia <-
     # Substructing the value of the divident multiplied by the quotient from the dividend
