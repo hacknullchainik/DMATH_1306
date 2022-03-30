@@ -75,7 +75,7 @@ def MOD_ZZ_Z(num:Integer, num_2:Integer):
 
     # SUB_ZZ_Z() -> pending from Nastia <-
     # Substructing the value of the divident multiplied by the quotient from the dividend
-    r = SUB_ZZ_Z(a,a_1)
+    r = Integers.SUB_ZZ_Z(a,a_1)
 
     # MUL_ZM_Z FROM NIKITAT.PY
     # Putting the right sign the resulting integer.
@@ -83,5 +83,5 @@ def MOD_ZZ_Z(num:Integer, num_2:Integer):
         pass
     else:
         r = Integers.MUL_ZM_Z(r)
-        
+
     return r
