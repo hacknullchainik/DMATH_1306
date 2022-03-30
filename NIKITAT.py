@@ -76,13 +76,14 @@ def SUB_NN_N(n: NNumber, m: NNumber):
 
 def DIV_NN_N(n: NNumber, m: NNumber):
     # Создаём результирующий массив
-    res = []
+    res = 0
     # Сравниваем числа. Если n больше, то делим n на m. Иначе - m на n
     if COM_NN_D(n, m) == 2:
         div = n
+        res = 0
         # Получаем само число и поциферно вычисляем результат деления
-        while COM_NN_D(div, m)==2:
-            res.append(DIV_NN_Dk(div, m))
+        while COM_NN_D(div, m)!=1:
+            res += DIV_NN_Dk(div, m)
             # Ниже операция вычитания из делимого части делителя. Нашли первую цифру деления - DIV_NN_Dk(div, m),
             # затем вычли из делимого делитель умноженный на эту цифру. Получили новый делитель. Повторяем,
             # пока делимое больше делителя
@@ -91,28 +92,12 @@ def DIV_NN_N(n: NNumber, m: NNumber):
         n = n.get_num()[::-1]
         m = m.get_num()[::-1]
         div = m
-        while COM_NN_D(div, n) == 2:
-            res.append(DIV_NN_Dk(div, n))
+        while COM_NN_D(div, n) != 1:
+            res += DIV_NN_Dk(div, m)
             div = SUB_NDN_N(div, DIV_NN_Dk(div, n), n)
     else:
-        res.append(1)
-    return NNumber(res)
-
-def DIV_ZZ_Z(n: Integer, m: Integer):
-    res = []
-    # Проверяем числа на знаки (узнаём, в результате будет положительное число или отрицательное)
-    if (POZ_Z_D(n) + POZ_Z_D(m)) == 4:
-        sign = False
-    elif (POZ_Z_D(n) + POZ_Z_D(m))==3:
-        sign = True
-    else:
-        sign = False
-
-    n = ABS_Z_N(n)
-    m = ABS_Z_N(m)
-    res = DIV_NN_N(n, m).get_num()
-
-    return Integer(res, sign)
+        res += 1
+    return NNumber([i for i in str(res).split()])
 
 
 def DIV_ZZ_Z(n: Integer, m: Integer):

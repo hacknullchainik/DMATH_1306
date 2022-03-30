@@ -1,7 +1,7 @@
 # The present module works with Integer, RNumber, Polynomial, NNumber instances
 # The module providing those classes is 'Dtypes.py'
-from Dtypes import Integer, NNumber
-
+from Dtypes import Integer, NNumber, Integer, RNumber, Polynomial
+import Naturals, Integers, Rationals
 
 def MUL_ND_N(num: object, num_2: int):
     # local variables storing the value from arugments
@@ -37,6 +37,10 @@ def MUL_ND_N(num: object, num_2: int):
             # the second digit of the resulting number of the multiplication is stored inside of the list results
             keeper = value // 10
             results.insert(0, value % 10)
+            if (length + 1) == 1:
+                results.insert(0,keeper)
+            elif length == i:
+                results.insert(0,keeper)
 
     new_obj = NNumber(results)
 
@@ -49,3 +53,37 @@ def MUL_ND_N(num: object, num_2: int):
 # depending on the user preference.
 def TRANS_N_Z(num:NNumber):
     return Integer(num.get_num(), False)
+
+#------------function partially completed-----------#
+#------------ SUB_ZZ_Z not ready -------------------#
+#The function looks for the remainder of a division between two integers 
+def MOD_ZZ_Z(num:Integer, num_2:Integer):
+    #The function finds the remainder by using the euclidian theorem.
+    #'a' stores the value of the dividend.
+    #'b' stores the value of the divisor.
+    #'q' stores the value of the quotient.
+    #'r' stores the value of the remainder.
+    
+    a = Integer(num.get_num()[::-1],num.get_sign())
+    b = Integer(num_2.get_num()[::-1],num_2.get_sign())
+    
+    # DIV_ZZ_Z FROM NIKITAT.PY
+    # Finding the quotient from the division of an integer by an integer
+    q = Integers.DIV_ZZ_Z(a,b)
+
+    # MUL_ZZ_Z FROM SASHAP.PY
+    # Storing the value of the divisor multiplied by the quotient
+    a_1 = Integers.MUL_ZZ_Z(a,q)
+
+    # SUB_ZZ_Z() -> pending from Nastia <-
+    # Substructing the value of the divident multiplied by the quotient from the dividend
+    r = Integers.SUB_ZZ_Z(a,a_1)
+
+    # MUL_ZM_Z FROM NIKITAT.PY
+    # Putting the right sign the resulting integer.
+    if a.get_sign() and b.get_sign():
+        pass
+    else:
+        r = Integers.MUL_ZM_Z(r)
+
+    return r

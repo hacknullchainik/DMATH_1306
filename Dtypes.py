@@ -27,7 +27,7 @@ class NNumber:
             # Проверяем наличие стронний символов
             for i in numbers:
                 if i not in '1234567890':
-                    raise TypeError(f'{i} не может быть использовано в запиши NNumber')
+                    raise TypeError(f'{i} не может быть использовано в записи NNumber')
             # Создаём список
             self.__value = [int(i) for i in numbers]
             # Убираем не значащие нули
