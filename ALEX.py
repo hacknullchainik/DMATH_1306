@@ -37,6 +37,8 @@ def MUL_ND_N(num: object, num_2: int):
             # the second digit of the resulting number of the multiplication is stored inside of the list results
             keeper = value // 10
             results.insert(0, value % 10)
+            if (length + 1) == 1:
+                results.insert(0,keeper)
 
     new_obj = NNumber(results)
 
