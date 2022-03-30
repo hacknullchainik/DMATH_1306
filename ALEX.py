@@ -77,4 +77,11 @@ def MOD_ZZ_Z(num:Integer, num_2:Integer):
     # Substructing the value of the divident multiplied by the quotient from the dividend
     r = SUB_ZZ_Z(a,a_1)
 
+    # MUL_ZM_Z FROM NIKITAT.PY
+    # Putting the right sign the resulting integer.
+    if a.get_sign() and b.get_sign():
+        pass
+    else:
+        r = Integers.MUL_ZM_Z(r)
+        
     return r
