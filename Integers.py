@@ -7,30 +7,34 @@ def ABS_Z_N(num: Integer):
     num.reverse()
     return NNumber(num)
 
+#FIXED
 # Сравнение с нулем
 def POZ_Z_D(num: Integer):
     # Проверяем сначала первый символ массива,
     # ведь если наше число было нулем, в первом элементе тоже будет ноль
-    if num.get_num()[0] == 0:
+    if num.get_num()[-1] == 0:
         return 0
-
     elif num.get_sign():
         return 1
 
     else:
         return 2
 
+# FIXED
 # Умножение числа на -1
 def MUL_ZM_Z(num: Integer):
     if num.get_sign():
-        result = Integer(num.get_num(), False)
+        result = Integer(num.get_num()[::-1], False)
     else:
-        result = Integer(num.get_num(), True)
+        result = Integer(num.get_num()[::-1], True)
+
     return result
 
+# FIXED
 # Из натурального в целое
 def TRANS_N_Z(num:NNumber):
-    return Integer(num.get_num(), False)
+    return Integer(num.get_num()[::-1], False)
+
 
 # из целого (неотрицательного) в натуральное
 def TRANS_Z_N(num: Integer):
@@ -56,7 +60,7 @@ def MUL_ZZ_Z(num1: Integer, num2: Integer):
 
     # Так как теперь мы имеем 2 натуральных числа можно просто перемножить их
     # соответствующей функцией
-    result = Natural.MUL_NN_N(lower_num, bigger_num)
+    result = Naturals.MUL_NN_N(lower_num, bigger_num)
 
     # Знак числа, получаемого при умножении легко вычисляется XOR'ом
     res_sign = sign1 ^ sign2
