@@ -154,6 +154,8 @@ def MUL_ND_N(num: object, num_2: int):
             results.insert(0, value % 10)
             if (length + 1) == 1:
                 results.insert(0,keeper)
+            elif length == i:
+                results.insert(0,keeper)
 
     new_obj = NNumber(results)
 
