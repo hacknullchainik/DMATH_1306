@@ -47,10 +47,12 @@ def MUL_QQ_Q(n1: RNumber, n2: RNumber):
 
 def GCF_NN_N(num1: NNumber,num2: NNumber):
     while True:
+        # если первое больше второго, то ищем остаток от деления первого на второе и наоборот
         if COM_NN_D(num1 ,num2) == 2:
             num1 = NNumber(list(MOD_NN_N(num1,num2)))
         else:
             num2 = NNumber(list(MOD_NN_N(num2, num1)))
+        #как только получили нулевой остаток - выводим сумму чисел (чтобы не проверять какой из остатков нулевой)
         if NZER_N_B(num1) == True or NZER_N_B(num2) == True:
             return ADD_NN_N(num1, num2)
 
