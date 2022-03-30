@@ -71,7 +71,23 @@ def MUL_ZZ_Z(num1: Integer, num2: Integer):
     return result
 
 # Целая часть деления двух чисел
-# DIV_ZZ_Z
+def DIV_ZZ_Z(n: Integer, m: Integer):
+    res = []
+    # Проверяем числа на знаки (узнаём, в результате будет положительное число или отрицательное)
+    if (POZ_Z_D(n) + POZ_Z_D(m)) == 4:
+        sign = False
+    elif (POZ_Z_D(n) + POZ_Z_D(m)) == 3:
+        sign = True
+    else:
+        sign = False
+
+    # Берём абсолютные значения (знак уже запомнили) и применяем обычное деление натуральных чисел
+    # В результате всё равно целое
+    n = ABS_Z_N(n)
+    m = ABS_Z_N(m)
+    res = DIV_NN_N(n, m).get_num()
+
+    return Integer(res, sign)
 
 # Остаток от деления двух целых чисел
 # MOD_ZZ_Z
