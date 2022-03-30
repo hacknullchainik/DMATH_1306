@@ -98,22 +98,6 @@ def DIV_NN_N(n: NNumber, m: NNumber):
         res.append(1)
     return NNumber(res)
 
-def DIV_ZZ_Z(n: Integer, m: Integer):
-    res = []
-    # Проверяем числа на знаки (узнаём, в результате будет положительное число или отрицательное)
-    if (POZ_Z_D(n) + POZ_Z_D(m)) == 4:
-        sign = False
-    elif (POZ_Z_D(n) + POZ_Z_D(m))==3:
-        sign = True
-    else:
-        sign = False
-
-    n = ABS_Z_N(n)
-    m = ABS_Z_N(m)
-    res = DIV_NN_N(n, m).get_num()
-
-    return Integer(res, sign)
-
 
 def DIV_ZZ_Z(n: Integer, m: Integer):
     res = []

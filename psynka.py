@@ -1,5 +1,7 @@
 from Dtypes import Integer, NNumber, Polynomial, RNumber
-from SASHAP import MUL_ZZ_Z, MUL_NN_N
+from SASHAP import MUL_ZZ_Z, MUL_NN_N, ADD_NN_N
+from NIKITAT import COM_NN_D
+from MAXZ import NZER_N_B
 
 
 def TRANS_Z_N(num: Integer):
@@ -42,6 +44,15 @@ def MUL_QQ_Q(n1: RNumber, n2: RNumber):
         result_num = result_num.get_num()[::-1]
         result_den = result_den.get_num()[::-1]
         return RNumber(Integer(result_num,True), NNumber(result_den))
+
+def GCF_NN_N(num1: NNumber,num2: NNumber):
+    while True:
+        if COM_NN_D(num1 ,num2) == 2:
+            num1 = NNumber(list(MOD_NN_N(num1,num2)))
+        else:
+            num2 = NNumber(list(MOD_NN_N(num2, num1)))
+        if NZER_N_B(num1) == True or NZER_N_B(num2) == True:
+            return ADD_NN_N(num1, num2)
 
 #n1 = RNumber('25','2')
 #n2 = RNumber('-2','30')
