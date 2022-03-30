@@ -76,13 +76,13 @@ def SUB_NN_N(n: NNumber, m: NNumber):
 
 def DIV_NN_N(n: NNumber, m: NNumber):
     # Создаём результирующий массив
-    res = []
+    res = 0
     # Сравниваем числа. Если n больше, то делим n на m. Иначе - m на n
     if COM_NN_D(n, m) == 2:
         div = n
         res = 0
         # Получаем само число и поциферно вычисляем результат деления
-        while COM_NN_D(div, m)==2:
+        while COM_NN_D(div, m)!=1:
             res += DIV_NN_Dk(div, m)
             # Ниже операция вычитания из делимого части делителя. Нашли первую цифру деления - DIV_NN_Dk(div, m),
             # затем вычли из делимого делитель умноженный на эту цифру. Получили новый делитель. Повторяем,
@@ -92,7 +92,7 @@ def DIV_NN_N(n: NNumber, m: NNumber):
         n = n.get_num()[::-1]
         m = m.get_num()[::-1]
         div = m
-        while COM_NN_D(div, n) == 2:
+        while COM_NN_D(div, n) != 1:
             res += DIV_NN_Dk(div, m)
             div = SUB_NDN_N(div, DIV_NN_Dk(div, n), n)
     else:
