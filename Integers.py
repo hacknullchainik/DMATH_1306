@@ -60,7 +60,7 @@ def MUL_ZZ_Z(num1: Integer, num2: Integer):
 
     # Так как теперь мы имеем 2 натуральных числа можно просто перемножить их
     # соответствующей функцией
-    result = Naturals.MUL_NN_N(lower_num, bigger_num)
+    result = MUL_NN_N(lower_num, bigger_num)
 
     # Знак числа, получаемого при умножении легко вычисляется XOR'ом
     res_sign = sign1 ^ sign2
