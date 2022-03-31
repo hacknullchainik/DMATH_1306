@@ -1,6 +1,7 @@
-from NIKITAT import *
-from chernov import *
-from ALEX import *
+from Dtypes import NNumber, Integer, RNumber, Polynomial
+from Integers import *
+from Naturals import *
+from Rationals import *
 
 
 def MUL_Nk_N(num: NNumber, k):
@@ -138,7 +139,7 @@ def DIV_NN_Dk(num1: NNumber, num2: NNumber):
     # при этом на каждом шаге прибаляем к переменной count 1, эта переменная показывает
     # на сколько мы "умножили" меьншее число
 
-    while COM_NN_D(NNumber(template_value), NNumber(lower_num)) == 2:
+    while COM_NN_D(NNumber(template_value), NNumber(lower_num)) != 1:
         sub = SUB_NN_N(NNumber(template_value), NNumber(lower_num))
         template_value = sub.get_num()
         template_value.reverse()
