@@ -21,7 +21,13 @@ def COM_NN_D(num1: NNumber, num2: NNumber):
         return 1
 
 # Проверка на нуль
-# NZER_N_B
+def NZER_N_B(n: NNumber):
+    # Число - 0, если все его цифры нули
+    for i in range(len(n.get_num()[::-1])):
+        if n.get_num()[::-1][i] != 0:
+            return True
+    else:
+        return False
 
 # Прибавление 1 к числу
 def ADD_1N_N(num: NNumber):
@@ -189,7 +195,6 @@ def MUL_NN_N(num1: NNumber, num2: NNumber):
 
     return result
 
-
 # Разность числа и числа, умноженного на цифру
 def SUB_NDN_N(num1: NNumber, digit: int, num2: NNumber):
     num2 = MUL_ND_N(num2, digit)
@@ -271,13 +276,22 @@ def DIV_NN_N(n: NNumber, m: NNumber):
             div = SUB_NN_N(div, MUL_NN_N(NNumber(str(div_1)), m))
     elif COM_NN_D(n, m) == 0:
         res += 1
-    return NNumber([i for i in str(res)])
+    return NNumber(str(res))
 
 # Остаток от деления двух чисел
-# MOD_NN_N
+def MOD_NN_N(num1: NNumber, num2: NNumber):
+    # Остаток от деления = число - целая часть от деления, умноженная на делитель
+    return SUB_NN_N(num1, MUL_NN_N(DIV_NN_N(num1, num2), num2))
 
 # НОД чисел
-# GCF_NN_N
+def GCF_NN_N(num1: NNumber,num2: NNumber):
+    while True:
+        if COM_NN_D(num1 ,num2) == 2:
+            num1 = MOD_NN_N(num1, num2)
+        else:
+            num2 = MOD_NN_N(num2, num1)
+        if not int(num1.__str__()) or not int(num2.__str__()):
+            return ADD_NN_N(num1, num2)
 
 # НОК чисел
 def LCM_NN_N(num1: NNumber, num2: NNumber):
