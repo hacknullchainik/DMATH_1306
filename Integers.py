@@ -1,5 +1,5 @@
 from Dtypes import Integer, NNumber
-import Naturals
+from Naturals import *
 
 # Модуль числа
 def ABS_Z_N(num: Integer):
@@ -73,5 +73,5 @@ def MUL_ZZ_Z(num1: Integer, num2: Integer):
 # Целая часть деления двух чисел
 # DIV_ZZ_Z
 
-# Остаток от деления двух целых чисел
+# Остаток от деления двух чисел
 # MOD_ZZ_Z
