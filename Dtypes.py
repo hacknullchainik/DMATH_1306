@@ -1,4 +1,4 @@
-# v 0.44 (minor) Зачекайте ноутбук dtypes_test
+# v 0.45 (minor) Исправлена ошибка вывода Polynomial
 # Че добавил: (Change log) (0.43)
 # 1. Integer и NNumber можно теперь задавать строками '123' итп
 # 2. RNumber теперь представляется двумя элементами Integer - числитель, NNumber - знаменатель
@@ -220,22 +220,24 @@ class Polynomial:
         # Результирующая строка
         res_str = ''
         # i - счётчик, с - элемент списка
+
         for i, c in enumerate(self.__coefs[::-1]):
             # Если число отрицательное
             if c.get_sign():
                 res_str += ' - '
 
             # Добавляем ' + ' если элемент не последний
-            elif i>0 and not int(c.get_num().get_num()[-1]):
-                res_str +=' + '
+
+            elif i > 0 and int(c.get_num().get_num()[-1]):
+                res_str += ' + '
             # Добавляем элемент в рез. строку, если он не равен 0
             if c.get_num().get_num()[-1]:
                 if c.get_den().get_rank() == 0 and int(c.get_den().get_num()[0]) == 1:
                     res_str += '{}'.format(c.__str__().replace('-', ''))
                 else:
                     res_str += '({})'.format(c.__str__().replace('-',''))
-                if i-self.__exp !=0:
-                    res_str+=f'x^{self.__exp-i}'
+                if i-self.__exp != 0:
+                    res_str += f'x^{self.__exp-i}'
         return res_str
         # return '  '.join([f'({r.__str__()})'+f'x^{len(self.__coefs)-1-i}' for i, r in enumerate(self.__coefs[::-1]) if r.get_num() != 0])
 
