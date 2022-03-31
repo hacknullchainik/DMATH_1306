@@ -1,5 +1,6 @@
 from ALEX import TRANS_N_Z
 from Dtypes import Integer, NNumber, RNumber, Polynomial
+from Rationals import TRANS_Z_Q, MUL_QQ_Q
 from SASHAP import MUL_ZZ_Z, MUL_NN_N
 
 
@@ -86,7 +87,21 @@ def DIV_QQ_Q(n1: RNumber, n2: RNumber):
 def DEG_P_N(pol: Polynomial):
     return pol.get_exp()
 
+# производная многочлена
+def DER_P_P(pol: Polynomial):
+    pol2 = []
+    for i in range(1,len(pol.get_coefs())):
+        j = i
+        j = RNumber(Integer([i],False), NNumber([1]))
+        pol2.append(MUL_QQ_Q(pol.get_coefs()[i], j))
+    return Polynomial(pol2[::-1])
 
 #n1 = RNumber('-100','40')
 #n2 = RNumber('-2','30')
 #print(DIV_QQ_Q(n1,n2))
+
+f = RNumber('1','5')
+s = RNumber('2')
+t = RNumber('3')
+mchlen = Polynomial([f,s,t])
+print(DER_P_P(mchlen))
