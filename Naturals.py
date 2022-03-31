@@ -90,24 +90,14 @@ def SUB_NN_N(n: NNumber, m: NNumber):
             if n[i]-m[i] < 0:
                 res.append(10+n[i]-m[i])
                 n[i+1] -= 1
+                k = i + 1
+                while n[k] < 0:
+                    n[k] += 10
+                    n[k+1] -= 1
+                    k += 1
             else:
                 res.append(n[i]-m[i])
 
-    # Аналогично, если m больше
-    elif COM_NN_D(n, m) == 1:
-        n = n.get_num()
-        m = m.get_num()
-        while len(m) < len(n):
-            m.append(0)
-        while len(n) < len(m):
-            n.append(0)
-
-        for i in range(len(n)):
-            if m[i] - n[i] < 0:
-                res.append(10 + m[i] - n[i])
-                m[i + 1] -= 1
-            else:
-                res.append(m[i] - n[i])
     else:
         res.append(0)
 
@@ -162,15 +152,48 @@ def MUL_ND_N(num: object, num_2: int):
     return new_obj
 
 # Произведение числа на 10 в степени к
-# MUL_Nk_N
+def MUL_Nk_N(num: NNumber, k):
+    # Просто добавляем нули в конце числа
+    number1 = num.get_num()
+    number1.reverse()
+    for i in range(k):
+        number1.append(0)
+    return NNumber(number1)
 
 # Произведение двух чисел
-# MUL_NN_N
+def MUL_NN_N(num1: NNumber, num2: NNumber):
+    # Записываем числа в числовые массивы
+    lower_num = num1.get_num()
+    bigger_num = num2.get_num()
+
+    lower_num.reverse()
+    bigger_num.reverse()
+
+    # Проверяем, действительно ли в переменной, обозначающей большее число
+    # находится большее исло, при необзодимости меняем местами
+    if COM_NN_D(num1, num2) == 2:
+        lower_num, bigger_num = bigger_num, lower_num
+
+    # result - результат умножения, изначально 0
+    result = NNumber([0])
+
+    for i in range(len(lower_num)):
+        # curr_digit - текущая цифра меньшего числа, на которую умножаем большее число
+        curr_digit = lower_num[len(lower_num) - 1 - i]
+        # Умножаем большее число на эту цифру
+        mul_result = MUL_ND_N(NNumber(bigger_num), curr_digit)
+        # Сдвигаем резальтат умножения
+        mul_result = MUL_Nk_N(mul_result, i)
+        # Прибавляем к результату умножения число, полученное на данном проходе цикда
+        result = ADD_NN_N(result, mul_result)
+
+    return result
+
 
 # Разность числа и числа, умноженного на цифру
 def SUB_NDN_N(num1: NNumber, digit: int, num2: NNumber):
     num2 = MUL_ND_N(num2, digit)
-    if (COM_NN_D(num1, num2) in [2, 0]):
+    if (COM_NN_D(num1, num2) != 1):
         return SUB_NN_N(num1, num2)
     else:
         print("Negative result")
@@ -184,8 +207,8 @@ def DIV_NN_Dk(num1: NNumber, num2: NNumber):
     curr_num = 0
     count = 0
     template_value = []
-    lower_num = num1.get_num()
-    bigger_num = num2.get_num()
+    lower_num = num2.get_num()
+    bigger_num = num1.get_num()
 
     lower_num.reverse()
     bigger_num.reverse()
@@ -193,8 +216,10 @@ def DIV_NN_Dk(num1: NNumber, num2: NNumber):
     # Проверяем, действительно ли в переменной, обозначающей большее число
     # находится большее исло, при необзодимости меняем местами
 
-    if COM_NN_D(num1, num2) == 2:
-        lower_num, bigger_num = bigger_num, lower_num
+    if COM_NN_D(num1, num2) == 1:
+        return 0
+    elif COM_NN_D(num1, num2) == 0:
+        return 1
 
     # Берем из большего числа столько цифр, сколько их в меньшем и заносим
     # в массив с временным значением
@@ -218,7 +243,7 @@ def DIV_NN_Dk(num1: NNumber, num2: NNumber):
     # при этом на каждом шаге прибаляем к переменной count 1, эта переменная показывает
     # на сколько мы "умножили" меьншее число
 
-    while COM_NN_D(NNumber(template_value), NNumber(lower_num)) == 2:
+    while COM_NN_D(NNumber(template_value), NNumber(lower_num)) != 1:
         sub = SUB_NN_N(NNumber(template_value), NNumber(lower_num))
         template_value = sub.get_num()
         template_value.reverse()
@@ -229,7 +254,24 @@ def DIV_NN_Dk(num1: NNumber, num2: NNumber):
     return count
 
 # Целая часть деления двух чисел
-# DIV_NN_N
+def DIV_NN_N(n: NNumber, m: NNumber):
+    # Создаём результирующий массив
+    res = 0
+    # Сравниваем числа. Если n больше, то делим n на m. Иначе - возвращаем 0
+    if COM_NN_D(n, m) == 2:
+        div = n
+        res = 0
+        # Получаем само число и поциферно вычисляем результат деления
+        while COM_NN_D(div, m)!=1:
+            div_1 = DIV_NN_Dk(div, m)
+            res += div_1
+            # Ниже операция вычитания из делимого части делителя. Нашли первую цифру деления - DIV_NN_Dk(div, m),
+            # затем вычли из делимого делитель умноженный на эту цифру. Получили новый делитель. Повторяем,
+            # пока делимое больше делителя
+            div = SUB_NN_N(div, MUL_NN_N(NNumber(str(div_1)), m))
+    elif COM_NN_D(n, m) == 0:
+        res += 1
+    return NNumber([i for i in str(res)])
 
 # Остаток от деления двух чисел
 # MOD_NN_N
