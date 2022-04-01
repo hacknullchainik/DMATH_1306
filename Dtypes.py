@@ -1,3 +1,4 @@
+# v 0.46 Добавлены плюшки вывода Polynomial
 # v 0.45 (minor) Исправлена ошибка вывода Polynomial
 # Че добавил: (Change log) (0.43)
 # 1. Integer и NNumber можно теперь задавать строками '123' итп
@@ -27,7 +28,7 @@ class NNumber:
             # Проверяем наличие стронний символов
             for i in numbers:
                 if i not in '1234567890':
-                    raise TypeError(f'{i} не может быть использовано в записи NNumber')
+                    raise TypeError(f'\'{i}\' не может быть использовано в записи NNumber')
             # Создаём список
             self.__value = [int(i) for i in numbers]
             # Убираем не значащие нули
@@ -82,7 +83,7 @@ class Integer:
             # Проверяем наличие стронний символов
             for i in numbers:
                 if i not in '1234567890-+':
-                    raise TypeError(f'{i} не может быть использовано в записи Integer')
+                    raise TypeError(f'\'{i}\' не может быть использовано в записи Integer')
 
             # Смотрим и ставим знак
             if numbers[0] =='+':
@@ -205,7 +206,7 @@ class Polynomial:
         elif isinstance(coefficients, str):
             coefficients = list(map(RNumber, coefficients.split()))
         else:
-            raise TypeError(f'{coefficients} не может быть преобразован в Polynomial')
+            raise TypeError(f'{type(coefficients)} не может быть преобразован в Polynomial')
 
         for i in range(len(coefficients) - 1):
             if int(coefficients[0].get_num().get_num()[-1]) == 0:
@@ -215,8 +216,9 @@ class Polynomial:
         self.__coefs = coefficients[::-1]
         # Макс степень
         self.__exp = len(self.__coefs) - 1
+
     # ЧТОБЫ ВЫВОДИЛОСЬ НОРМАЛЬНО ПРИНТОМ
-    def __str__(self):
+    def __str__(self, show_exp=False):
         # Результирующая строка
         res_str = ''
         # i - счётчик, с - элемент списка
@@ -238,6 +240,10 @@ class Polynomial:
                     res_str += '({})'.format(c.__str__().replace('-',''))
                 if i-self.__exp != 0:
                     res_str += f'x^{self.__exp-i}'
+            elif not i-self.__exp:
+                res_str += '0'
+        if show_exp:
+            res_str += f'\nexp is: {self.__exp}'
         return res_str
         # return '  '.join([f'({r.__str__()})'+f'x^{len(self.__coefs)-1-i}' for i, r in enumerate(self.__coefs[::-1]) if r.get_num() != 0])
 
