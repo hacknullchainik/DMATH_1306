@@ -216,8 +216,9 @@ class Polynomial:
         self.__coefs = coefficients[::-1]
         # Макс степень
         self.__exp = len(self.__coefs) - 1
+
     # ЧТОБЫ ВЫВОДИЛОСЬ НОРМАЛЬНО ПРИНТОМ
-    def __str__(self):
+    def __str__(self, show_exp=False):
         # Результирующая строка
         res_str = ''
         # i - счётчик, с - элемент списка
@@ -241,7 +242,9 @@ class Polynomial:
                     res_str += f'x^{self.__exp-i}'
             elif not i-self.__exp:
                 res_str += '0'
-        return res_str + f'\nexp is: {self.__exp}'
+        if show_exp:
+            res_str += f'\nexp is: {self.__exp}'
+        return res_str
         # return '  '.join([f'({r.__str__()})'+f'x^{len(self.__coefs)-1-i}' for i, r in enumerate(self.__coefs[::-1]) if r.get_num() != 0])
 
     def get_coefs(self):
