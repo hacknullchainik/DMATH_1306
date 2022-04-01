@@ -67,9 +67,9 @@ def RED_Q_Q(drob: RNumber):
     #num = Integer(num,sign)
     return RNumber(Integer(num.get_num()[::-1],sign), NNumber(den.get_num()[::-1]))
 
-n1 = RNumber('-2','10')
-n2 = RNumber('-2','30')
-print(RED_Q_Q(n1))
+#n1 = RNumber('-2','10')
+#n2 = RNumber('-2','30')
+#print(RED_Q_Q(n1))
 
 
 #f = RNumber(1,5)
