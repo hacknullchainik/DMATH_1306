@@ -3,7 +3,6 @@ from Dtypes import *
 from math import gcd, lcm
 from Naturals import *
 # python Naturals_test.py -v
-# python -m unittest
 
 
 class TestNaturals(unittest.TestCase):

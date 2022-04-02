@@ -1,6 +1,8 @@
 # The present module works with Integer, RNumber, Polynomial, NNumber instances
 # The module providing those classes is 'Dtypes.py'
 
+from NIKITAT import DIV_ZZ_Z
+from nastya import SUB_ZZ_Z 
 from Dtypes import Integer, NNumber, Integer, RNumber, Polynomial
 import Naturals, Integers, Rationals
 
@@ -59,11 +61,9 @@ def MUL_ND_N(num: Integer, num_2: int):
 def TRANS_N_Z(num:NNumber):
     return Integer(num.get_num(), False)
 
-#------------function partially completed-----------#
-#------------ SUB_ZZ_Z not ready -------------------#
+
 #The function looks for the remainder of a division between two integers 
 def MOD_ZZ_Z(num:Integer, num_2:Integer):
-    #The function finds the remainder by using the euclidian theorem.
     #'a' stores the value of the dividend.
     #'b' stores the value of the divisor.
     #'q' stores the value of the quotient.
@@ -74,15 +74,15 @@ def MOD_ZZ_Z(num:Integer, num_2:Integer):
     
     # DIV_ZZ_Z FROM NIKITAT.PY
     # Finding the quotient from the division of an integer by an integer
-    q = Integers.DIV_ZZ_Z(a,b)
+    q = DIV_ZZ_Z(a,b)
 
     # MUL_ZZ_Z FROM SASHAP.PY
     # Storing the value of the divisor multiplied by the quotient
-    a_1 = Integers.MUL_ZZ_Z(a,q)
+    a_1 = Integers.MUL_ZZ_Z(b,q)
 
     # SUB_ZZ_Z() -> pending from Nastia <-
     # Substructing the value of the divident multiplied by the quotient from the dividend
-    r = Integers.SUB_ZZ_Z(a,a_1)
+    r = SUB_ZZ_Z(a,a_1)
 
     # MUL_ZM_Z FROM NIKITAT.PY
     # Putting the right sign the resulting integer.
@@ -93,6 +93,7 @@ def MOD_ZZ_Z(num:Integer, num_2:Integer):
 
     return r
 
+#Substructing function(between two rational numbers)
 def SUB_QQ_Q(num_1: RNumber, num_2: RNumber):
     #Finding the common divider that will allow the substruction 
     comon_divider = Naturals.LCM_NN_N(num_1.get_den(), num_2.get_den())
@@ -122,3 +123,27 @@ def SUB_QQ_Q(num_1: RNumber, num_2: RNumber):
     res = RNumber(final_num,comon_divider)
 
     return res
+
+#The function multiplies x^k to a polynomial
+#'poly_2' should only be x^k not x^k1 + x^k2 ...
+def MUL_Pxk_P(poly_1: Polynomial, poly_2: Polynomial):
+
+    p_1 = ''
+    p_2_cof = 0
+
+    #This loop looks for the coefficient of the x^k that will be multiplied to poly_1.
+    for i in poly_2.get_coefs():
+        if i.get_num() != 0:
+            p_2_cof = i
+
+    #Multiplying each coefficient to one another.    
+    for i in poly_1.get_coefs()[::-1]:
+        p_1 += str(Rationals.MUL_QQ_Q(i,p_2_cof))
+        p_1 += ' '
+    p_1 = p_1[:-1]
+   
+   #Increasing the value of the exponents of our polynomial by k.
+    for i in range(poly_2.get_exp()):
+        p_1 += ' 0'
+    
+    return Polynomial(p_1)
