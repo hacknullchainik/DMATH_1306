@@ -12,7 +12,6 @@
 # Стельба по своим - бан
 # Оскорбление администрации - расстрел, а потом бан.
 
-from ALEX import SUB_QQ_Q
 from Dtypes import RNumber, NNumber, Integer, Polynomial
 # показываю пример работы с типами
 rnum = RNumber(Integer('-0'), NNumber([1,2,3]))

@@ -1,7 +1,9 @@
 from ALEX import TRANS_N_Z
 from Dtypes import Integer, NNumber, RNumber, Polynomial
-from Rationals import TRANS_Z_Q, MUL_QQ_Q
-from SASHAP import MUL_ZZ_Z, MUL_NN_N
+from Naturals import*
+from Rationals import*
+from Integers import*
+from Polynomials import*
 
 
 # Проверка числа на ноль
@@ -100,8 +102,29 @@ def DER_P_P(pol: Polynomial):
 #n2 = RNumber('-2','30')
 #print(DIV_QQ_Q(n1,n2))
 
-f = RNumber('1','5')
-s = RNumber('2')
-t = RNumber('3')
-mchlen = Polynomial([f,s,t])
-print(DER_P_P(mchlen))
+#сложение целых чисел
+def ADD_ZZ_Z(num1:Integer, num2:Integer):
+    #если знаки чисел равны, то результат складывается
+    if num1.get_sign() == num2.get_sign():
+        res = ADD_NN_N(ABS_Z_N(num1),ABS_Z_N(num2)).get_num()
+        res.reverse()
+        res = Integer(res,num1.get_sign())
+    #если разные знаки, то будет происходить вычетание со сравнением чисел
+    else:
+        if (num1.get_sign() == True) and (num2.get_sign() == False) and (COM_NN_D(ABS_Z_N(num1), ABS_Z_N(num2)) == 1):
+            res = SUB_NN_N(ABS_Z_N(num2),ABS_Z_N(num1)).get_num()
+            res.reverse()
+            res = Integer(res, False)
+        elif (num1.get_sign() == True) and (num2.get_sign() == False) and (COM_NN_D(ABS_Z_N(num1), ABS_Z_N(num2)) == 2):
+            res = SUB_NN_N(ABS_Z_N(num1), ABS_Z_N(num2)).get_num()
+            res.reverse()
+            res = Integer(res, True)
+        elif (num1.get_sign() == False) and (num2.get_sign() == True) and (COM_NN_D(ABS_Z_N(num1), ABS_Z_N(num2)) == 2):
+            res = SUB_NN_N(ABS_Z_N(num1), ABS_Z_N(num2)).get_num()
+            res.reverse()
+            res = Integer(res, False)
+        else:
+            res = SUB_NN_N(ABS_Z_N(num2), ABS_Z_N(num1)).get_num()
+            res.reverse()
+            res = Integer(res, True)
+    return res

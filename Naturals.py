@@ -1,4 +1,4 @@
-from Dtypes import NNumber
+from Dtypes import Integer, NNumber
 
 # Сравнение чисел
 def COM_NN_D(num1: NNumber, num2: NNumber):
@@ -114,7 +114,7 @@ def SUB_NN_N(n: NNumber, m: NNumber):
     return result
 
 # Произведение числа на цифру
-def MUL_ND_N(num: object, num_2: int):
+def MUL_ND_N(num: Integer, num_2: int):
     # local variables storing the value from arugments
     # avoiding changes to the original data
     list_num = num.get_num()
@@ -136,12 +136,16 @@ def MUL_ND_N(num: object, num_2: int):
                 # the first digit of the resulting number of the multilpication is stored inside keeper
                 # the value of keeper is then added to the result of the next multiplication
                 value = value + keeper
-                results.insert(0, value)
+                if value < 10:
+                    results.insert(0, value)
+                else:
+                    results.insert(0,value%10)
+                    results.insert(0,value//10)
                 keeper = 0
         elif keeper != 0:
             # in case the next resulting number of the multiplication also exceeds or is equal to 10
             results.insert(0, (value + keeper) % 10)
-            keeper = value // 10
+            keeper = (value+keeper) // 10
             if i == length:
                 results.insert(0, keeper)
         else:
@@ -160,6 +164,8 @@ def MUL_ND_N(num: object, num_2: int):
 # Произведение числа на 10 в степени к
 def MUL_Nk_N(num: NNumber, k):
     # Просто добавляем нули в конце числа
+    if k < 0:
+        raise ValueError
     number1 = num.get_num()
     number1.reverse()
     for i in range(k):
