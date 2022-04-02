@@ -98,6 +98,10 @@ def ADD_NN_N(number1: NNumber, number2: NNumber):
 
 
 def DIV_NN_Dk(num1: NNumber, num2: NNumber):
+    # Проверка делителя на 0
+    if not int(num2.__str__()):
+        raise ZeroDivisionError
+
     # Этот алгоритм полностью повторяет деление в столбик, если с комментариями будет
     # что-то непонятно, распишите деление 2-х рандомных чисел и смотря на вашу запись и алгоритм, все поймете
 
@@ -221,3 +225,54 @@ def SUB_PP_P(pol1: Polynomial, pol2: Polynomial):
             result.append(SUB_QQ_Q(coefs_bigger[i], coefs_lower[i]))
 
     return result
+
+
+def MOD_NN_N(num1: NNumber, num2: NNumber):
+    x = 0  # < - для увеличение разрядности первого числа, можно увеличить разрядность путём создания вместа x массива 0
+    # берём целое от деления
+    k = DIV_NN_N(num1, num2)
+    k = k.get_num()
+    k.reverse()
+    k.append(x)  # увеличиваем разрядность
+    num1 = num1.get_num()
+    num1.reverse()
+    num1.append(x)  # увеличиваем разрядность первого чила
+    num1 = NNumber(num1)
+    # находим частное от большего первого и оригинального второго - получаем большее по разрядности частное(включающее первую цифру остатка)
+    l = DIV_NN_N(num1, num2)
+    # к примеру, при 10 и 4: l = 2, k = 25, увеличиваем l до 20, находим k = 25 (100/4), далее k - l = 5/ / / наш остаток
+    res = SUB_NDN_N(k, 1, l)
+    return res
+
+def SUB_ZZ_Z(num1:Integer, num2:Integer):
+    # - + = - - (сложение)
+    # + - = + + (сложение)
+    # - - = - + (не сложение)
+    # + + = + -  (не сложение)
+    if num1.get_sign() != num2.get_sign():
+        res = ADD_NN_N(ABS_Z_N(num1),ABS_Z_N(num2)).get_num()
+        res.reverse()
+        res = Integer(res,num1.get_sign())
+    else:
+        if COM_NN_D(num1,num2)  == 2:
+            sig = num1.get_sign()
+        else:
+            if num2.get_sign():
+                sig = 0
+            else:
+                sig = 1
+        res = SUB_NN_N(ABS_Z_N(num1),ABS_Z_N(num2)).get_num()
+        res.reverse()
+        res = Integer(res,sig)
+    return res
+
+def RED_Q_Q(drob: RNumber):
+    num = drob.get_num()
+    sign = num.get_sign()
+    den = drob.get_den()
+    gcd = GCF_NN_N(den,ABS_Z_N(num))
+    num = DIV_NN_N(num,gcd)
+    den = DIV_NN_N(den, gcd)
+    #num = Integer(num,sign)
+    return RNumber(Integer(num.get_num()[::-1],sign), NNumber(den.get_num()[::-1]))
+
