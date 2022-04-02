@@ -49,7 +49,7 @@ class TestNaturals(unittest.TestCase):
 
     def test_MUL_Nk_N(self):
         self.assertEqual(MUL_Nk_N(NNumber('123'),10).__str__(),'123'+'0'*10)
-        # self.assertEqual(MUL_Nk_N(NNumber('123'), -1).__str__(), '123')
+        self.assertEqual(MUL_Nk_N(NNumber('123'), -1).__str__(), '123')
         self.assertEqual(MUL_Nk_N(NNumber('123'), 0).__str__(), '123')
         self.assertEqual(MUL_Nk_N(NNumber('123'), 1).__str__(), '1230')
         self.assertEqual(MUL_Nk_N(NNumber('1'+'0'*100),100).__str__(),'1'+'0'*200)
@@ -78,9 +78,9 @@ class TestNaturals(unittest.TestCase):
         self.assertEqual(DIV_NN_Dk(NNumber('123123'),NNumber('123123')).__str__(),'1')
         self.assertEqual(DIV_NN_Dk(NNumber('123123'), NNumber('123')).__str__(), '1000')
         self.assertEqual(DIV_NN_Dk(NNumber('999999'), NNumber('1')).__str__(), '900000')
-        self.assertEqual(DIV_NN_Dk(NNumber('0'), NNumber('1111111')).__str__(), '0')
-        # self.assertEqual(DIV_NN_Dk(NNumber('123123'), NNumber('0')).__str__(), '1000')
         self.assertEqual(DIV_NN_Dk(NNumber('0'), NNumber('0')).__str__(), '0')
+        self.assertRaises(ZeroDivisionError, DIV_NN_Dk, NNumber('0'), NNumber('0'))
+        self.assertRaises(ZeroDivisionError, DIV_NN_Dk, NNumber('123123'), NNumber('0'))
 
     # python -m unittest Naturals_test.TestNaturals.test_DIV_NN_N
     def test_DIV_NN_N(self):
@@ -89,8 +89,8 @@ class TestNaturals(unittest.TestCase):
         self.assertEqual(DIV_NN_N(NNumber('123'*12),NNumber('7'*10)).__str__(), str(int('123'*12)//int('7'*10)))
         self.assertEqual(DIV_NN_N(NNumber('1107'), NNumber('9')).__str__(), '123')
         self.assertEqual(DIV_NN_N(NNumber('0'), NNumber('1111111')).__str__(), '0')
-        # self.assertEqual(DIV_NN_Dk(NNumber('123123'), NNumber('0')).__str__(), '1000')
-        self.assertEqual(DIV_NN_N(NNumber('0'),NNumber('0')).__str__(), '0')
+        self.assertRaises(ZeroDivisionError, DIV_NN_Dk, NNumber('0'), NNumber('0'))
+        self.assertRaises(ZeroDivisionError, DIV_NN_Dk, NNumber('123123'), NNumber('0'))
 
     # python -m unittest Naturals_test.TestNaturals.test_MOD_NN_N
     def test_MOD_NN_N(self):
@@ -102,28 +102,26 @@ class TestNaturals(unittest.TestCase):
         self.assertEqual(MOD_NN_N(NNumber('123'*9), NNumber('99'*9)).__str__(), str(int('123'*9) % int('99'*9)))
         self.assertEqual(MOD_NN_N(NNumber('0'), NNumber('1000000')).__str__(),'0')
         self.assertEqual(MOD_NN_N(NNumber('10'), NNumber('7')).__str__(),'3')
-        # self.assertEqual(MOD_NN_N(NNumber('10'),NNumber('0')).__str__(),0)
+        self.assertEqual(MOD_NN_N(NNumber('10'),NNumber('0')).__str__(),0)
 
     # python -m unittest Naturals_test.TestNaturals.test_GCF_NN_N
     def test_GCF_NN_N(self):
         self.assertEqual(GCF_NN_N(NNumber('0'),NNumber('0')).__str__(), str(gcd(0,0)))
-        # self.assertEqual(GCF_NN_N(NNumber('0'),NNumber('1')).__str__(), str(gcd(0,1)))
         self.assertEqual(GCF_NN_N(NNumber('100'),NNumber('10')).__str__(), str(gcd(100,10)))
         self.assertEqual(GCF_NN_N(NNumber('111'),NNumber('4')).__str__(), str(gcd(111,4)))
         self.assertEqual(GCF_NN_N(NNumber('123123123123'),NNumber('99999999')).__str__(),str(gcd(123123123123, 99999999)))
-        # self.assertEqual(GCF_NN_N(NNumber('1'),NNumber('0')).__str__(), str(gcd(1,0)))
+        self.assertEqual(GCF_NN_N(NNumber('1'),NNumber('0')).__str__(), str(gcd(1,0)))
+        self.assertEqual(GCF_NN_N(NNumber('0'), NNumber('1')).__str__(), str(gcd(0, 1)))
 
     # python -m unittest Naturals_test.TestNaturals.test_LCM_NN_N
     def test_LCM_NN_N(self):
         self.assertEqual(LCM_NN_N(NNumber('123'),NNumber('123')).__str__(),'123')
-        # self.assertEqual(LCM_NN_N(NNumber('0'),NNumber('123')).__str__(),'0')
-        # self.assertEqual(LCM_NN_N(NNumber('123'),NNumber('0')).__str__(),'0')
+        self.assertEqual(LCM_NN_N(NNumber('0'),NNumber('123')).__str__(),'0')
+        self.assertEqual(LCM_NN_N(NNumber('123'),NNumber('0')).__str__(),'0')
         self.assertEqual(LCM_NN_N(NNumber('1'),NNumber('123')).__str__(),'123')
         self.assertEqual(LCM_NN_N(NNumber('246'),NNumber('123')).__str__(),'246')
         self.assertEqual(LCM_NN_N(NNumber('99999'),NNumber('123')).__str__(),str(lcm(99999,123)))
-
         self.assertEqual(LCM_NN_N(NNumber('1111111111111111111111'),NNumber('123')).__str__(),str(lcm(1111111111111111111111,123)))
-
         a, b = '1122211111111', '121157'
         self.assertEqual(LCM_NN_N(NNumber(a), NNumber(b)).__str__(), str(lcm(int(a), int(b))))
         a, b = '1122211111111', '121199'
