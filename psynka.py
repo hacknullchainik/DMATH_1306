@@ -1,6 +1,8 @@
 from Dtypes import Integer, NNumber, Polynomial, RNumber
+from Integers import ABS_Z_N
+from Naturals import DIV_NN_N, MOD_NN_N
 from SASHAP import MUL_ZZ_Z, MUL_NN_N, ADD_NN_N
-from NIKITAT import COM_NN_D
+from NIKITAT import COM_NN_D, DIV_ZZ_Z
 from MAXZ import NZER_N_B
 
 
@@ -48,15 +50,26 @@ def MUL_QQ_Q(n1: RNumber, n2: RNumber):
 def GCF_NN_N(num1: NNumber,num2: NNumber):
     while True:
         if COM_NN_D(num1 ,num2) == 2:
-            num1 = NNumber(list(MOD_NN_N(num1,num2)))
+            num1 = MOD_NN_N(num1, num2)
         else:
-            num2 = NNumber(list(MOD_NN_N(num2, num1)))
-        if NZER_N_B(num1) == True or NZER_N_B(num2) == True:
+            num2 = MOD_NN_N(num2, num1)
+        if not int(num1.__str__()) or not int(num2.__str__()):
             return ADD_NN_N(num1, num2)
 
-#n1 = RNumber('25','2')
+
+def RED_Q_Q(drob: RNumber):
+    num = drob.get_num()
+    sign = num.get_sign()
+    den = drob.get_den()
+    gcd = GCF_NN_N(den,ABS_Z_N(num))
+    num = DIV_NN_N(num,gcd)
+    den = DIV_NN_N(den, gcd)
+    #num = Integer(num,sign)
+    return RNumber(Integer(num.get_num()[::-1],sign), NNumber(den.get_num()[::-1]))
+
+#n1 = RNumber('-2','10')
 #n2 = RNumber('-2','30')
-#print(MUL_QQ_Q(n1,n2))
+#print(RED_Q_Q(n1))
 
 
 #f = RNumber(1,5)

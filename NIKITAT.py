@@ -1,5 +1,5 @@
 from Dtypes import Integer, NNumber, RNumber, Polynomial
-
+import Naturals, Integers
 
 def MUL_ZM_Z(num: Integer):
     if num.get_sign():
@@ -33,7 +33,7 @@ def SUB_NN_N(n: NNumber, m: NNumber):
     # Результирующий массив
     res = []
     # Если n больше
-    if COM_NN_D(n, m)==2:
+    if Naturals.COM_NN_D(n, m)==2:
         n = n.get_num()
         m = m.get_num()
         # Заполняем "пустые" (недостающие) разряды нулями (чтобы длины чисел совпадали)
@@ -51,7 +51,7 @@ def SUB_NN_N(n: NNumber, m: NNumber):
                 res.append(n[i]-m[i])
 
     # Аналогично, если m больше
-    elif COM_NN_D(n, m) == 1:
+    elif Naturals.COM_NN_D(n, m) == 1:
         n = n.get_num()
         m = m.get_num()
         while len(m) < len(n):
@@ -78,23 +78,23 @@ def DIV_NN_N(n: NNumber, m: NNumber):
     # Создаём результирующий массив
     res = 0
     # Сравниваем числа. Если n больше, то делим n на m. Иначе - m на n
-    if COM_NN_D(n, m) == 2:
+    if Naturals.COM_NN_D(n, m) == 2:
         div = n
         res = 0
         # Получаем само число и поциферно вычисляем результат деления
-        while COM_NN_D(div, m)!=1:
+        while Naturals.COM_NN_D(div, m)!=1:
             res += DIV_NN_Dk(div, m)
             # Ниже операция вычитания из делимого части делителя. Нашли первую цифру деления - DIV_NN_Dk(div, m),
             # затем вычли из делимого делитель умноженный на эту цифру. Получили новый делитель. Повторяем,
             # пока делимое больше делителя
-            div = SUB_NDN_N(div, DIV_NN_Dk(div, m), m)
-    elif COM_NN_D(n, m) == 1:
+            div = Naturals.SUB_NDN_N(div, DIV_NN_Dk(div, m), m)
+    elif Naturals.COM_NN_D(n, m) == 1:
         n = n.get_num()[::-1]
         m = m.get_num()[::-1]
         div = m
-        while COM_NN_D(div, n) != 1:
-            res += DIV_NN_Dk(div, m)
-            div = SUB_NDN_N(div, DIV_NN_Dk(div, n), n)
+        while Naturals.COM_NN_D(div, n) != 1:
+            res += Naturals.DIV_NN_Dk(div, m)
+            div = Naturals.SUB_NDN_N(div, DIV_NN_Dk(div, n), n)
     else:
         res += 1
     return NNumber([i for i in str(res).split()])
@@ -103,18 +103,18 @@ def DIV_NN_N(n: NNumber, m: NNumber):
 def DIV_ZZ_Z(n: Integer, m: Integer):
     res = []
     # Проверяем числа на знаки (узнаём, в результате будет положительное число или отрицательное)
-    if (POZ_Z_D(n) + POZ_Z_D(m)) == 4:
+    if (Integers.POZ_Z_D(n) + Integers.POZ_Z_D(m)) == 4:
         sign = False
-    elif (POZ_Z_D(n) + POZ_Z_D(m)) == 3:
+    elif (Integers.POZ_Z_D(n) + Integers.POZ_Z_D(m)) == 3:
         sign = True
     else:
         sign = False
 
     # Берём абсолютные значения (знак уже запомнили) и применяем обычное деление натуральных чисел
     # В результате всё равно целое
-    n = ABS_Z_N(n)
-    m = ABS_Z_N(m)
-    res = DIV_NN_N(n, m).get_num()
+    n = Integers.ABS_Z_N(n)
+    m = Integers.ABS_Z_N(m)
+    res = Naturals.DIV_NN_N(n, m).get_num()
 
     return Integer(res, sign)
 
@@ -126,3 +126,16 @@ def MUL_PQ_Q(n: Polynomial, m: RNumber):
     for i in range(len(work)):
         res.append(MUL_QQ_Q(work[i], m))
     return Polynomial(res)
+
+def DIV_PP_P(n: Polynomial, m: Polynomial):
+    # Считаем, что n больше m
+    div = n
+    while get_exp(div) >= get_exp(m):
+        temp = []
+        temp.append(DIV_QQ_Q(div.get_coefs()[-1], m.get_coefs()[-1]))
+        res.append(DIV_QQ_Q(div.get_coefs()[-1], m.get_coefs()[-1]))
+        for i in range(len(get_exp(m))-1, 0, -1):
+            temp.append(SUB_QQ_Q(div[i], MUL_QQ_Q(temp[-1], m[i])))
+        div = Polynomial(temp)
+
+    return res
