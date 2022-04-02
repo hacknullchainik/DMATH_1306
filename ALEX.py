@@ -1,6 +1,7 @@
 # The present module works with Integer, RNumber, Polynomial, NNumber instances
 # The module providing those classes is 'Dtypes.py'
-
+from NIKITAT import DIV_ZZ_Z
+from nastya import SUB_ZZ_Z 
 from Dtypes import Integer, NNumber, Integer, RNumber, Polynomial
 import Naturals, Integers, Rationals
 
@@ -63,7 +64,6 @@ def TRANS_N_Z(num:NNumber):
 #------------ SUB_ZZ_Z not ready -------------------#
 #The function looks for the remainder of a division between two integers 
 def MOD_ZZ_Z(num:Integer, num_2:Integer):
-    #The function finds the remainder by using the euclidian theorem.
     #'a' stores the value of the dividend.
     #'b' stores the value of the divisor.
     #'q' stores the value of the quotient.
@@ -74,15 +74,15 @@ def MOD_ZZ_Z(num:Integer, num_2:Integer):
     
     # DIV_ZZ_Z FROM NIKITAT.PY
     # Finding the quotient from the division of an integer by an integer
-    q = Integers.DIV_ZZ_Z(a,b)
+    q = DIV_ZZ_Z(a,b)
 
     # MUL_ZZ_Z FROM SASHAP.PY
     # Storing the value of the divisor multiplied by the quotient
-    a_1 = Integers.MUL_ZZ_Z(a,q)
+    a_1 = Integers.MUL_ZZ_Z(b,q)
 
     # SUB_ZZ_Z() -> pending from Nastia <-
     # Substructing the value of the divident multiplied by the quotient from the dividend
-    r = Integers.SUB_ZZ_Z(a,a_1)
+    r = SUB_ZZ_Z(a,a_1)
 
     # MUL_ZM_Z FROM NIKITAT.PY
     # Putting the right sign the resulting integer.
