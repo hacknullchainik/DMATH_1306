@@ -1,9 +1,16 @@
 from Dtypes import RNumber, Integer, NNumber
-from Naturals import *
 from Integers import *
 
 # Сокращение дроби
-# RED_Q_Q
+def RED_Q_Q(drob: RNumber):
+    num = drob.get_num()
+    sign = num.get_sign()
+    den = drob.get_den()
+    gcd = GCF_NN_N(den,ABS_Z_N(num))
+    num = DIV_NN_N(num,gcd)
+    den = DIV_NN_N(den, gcd)
+    #num = Integer(num,sign)
+    return RNumber(Integer(num.get_num()[::-1],sign), NNumber(den.get_num()[::-1]))
 
 # Проверка на целое
 # INT_Q_B
@@ -54,10 +61,30 @@ def TRANS_Q_Z(num: RNumber):
         return num
 
 # Сложение дробей
-# ADD_QQ_Q
+def ADD_QQ_Q(num1:RNumber,num2:RNumber):
+    # Вычисляем НОК (знаменатель искомой дроби)
+    den = LCM_NN_N(num1.get_den(), num2.get_den())
+    # Вычисляем числитель первой дроби после приведения к общему знаменателю
+    num1_converted = MUL_ZZ_Z(num1.get_num(), TRANS_N_Z(DIV_NN_N(den, num1.get_den())))
+    # Вычисляем числитель второй дроби после приведения к общему знаменателю
+    num2_converted = MUL_ZZ_Z(num2.get_num(), TRANS_N_Z(DIV_NN_N(den, num2.get_den())))
+    # Суммируем числители
+    num = ADD_ZZ_Z(num1_converted, num2_converted)
+    # Возвращаем сокращённую дробь
+    return RED_Q_Q(RNumber(num, den))
 
 # Вычитание дробей
-# SUB_QQ_Q
+def SUB_QQ_Q(num_1: RNumber, num_2: RNumber):
+    # Вычисляем НОК (знаменатель искомой дроби)
+    den = LCM_NN_N(num_1.get_den(), num_2.get_den())
+    # Вычисляем числитель первой дроби после приведения к общему знаменателю
+    num_1_converted = MUL_ZZ_Z(num_1.get_num(), TRANS_N_Z(DIV_NN_N(den, num_1.get_den())))
+    # Вычисляем числитель второй дроби после приведения к общему знаменателю
+    num_2_converted = MUL_ZZ_Z(num_2.get_num(), TRANS_N_Z(DIV_NN_N(den, num_2.get_den())))
+    # Суммируем числители
+    num = SUB_ZZ_Z(num_1_converted, num_2_converted)
+    # Возвращаем сокращённую дробь
+    return RED_Q_Q(RNumber(num, den))
 
 # Умножение дробей
 def MUL_QQ_Q(n1: RNumber, n2: RNumber):
