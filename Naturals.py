@@ -205,6 +205,10 @@ def SUB_NDN_N(num1: NNumber, digit: int, num2: NNumber):
 
 # Первая цифра неполного частного, умноженная на 10 в степени к, где к - порядок цифры
 def DIV_NN_Dk(num1: NNumber, num2: NNumber):
+    # Проверка делителя на 0
+    if not int(num2.__str__()):
+        raise ZeroDivisionError
+
     # Этот алгоритм полностью повторяет деление в столбик, если с комментариями будет
     # что-то непонятно, распишите деление 2-х рандомных чисел и смотря на вашу запись и алгоритм, все поймете
 
@@ -212,8 +216,8 @@ def DIV_NN_Dk(num1: NNumber, num2: NNumber):
     curr_num = 0
     count = 0
     template_value = []
-    lower_num = num2.get_num()
-    bigger_num = num1.get_num()
+    lower_num = num1.get_num()
+    bigger_num = num2.get_num()
 
     lower_num.reverse()
     bigger_num.reverse()
@@ -221,10 +225,8 @@ def DIV_NN_Dk(num1: NNumber, num2: NNumber):
     # Проверяем, действительно ли в переменной, обозначающей большее число
     # находится большее исло, при необзодимости меняем местами
 
-    if COM_NN_D(num1, num2) == 1:
-        return 0
-    elif COM_NN_D(num1, num2) == 0:
-        return 1
+    if COM_NN_D(num1, num2) == 2:
+        lower_num, bigger_num = bigger_num, lower_num
 
     # Берем из большего числа столько цифр, сколько их в меньшем и заносим
     # в массив с временным значением
