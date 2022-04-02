@@ -4,7 +4,7 @@
 from Dtypes import Integer, NNumber, Integer, RNumber, Polynomial
 import Naturals, Integers, Rationals
 
-def MUL_ND_N(num: object, num_2: int):
+def MUL_ND_N(num: Integer, num_2: int):
     # local variables storing the value from arugments
     # avoiding changes to the original data
     list_num = num.get_num()
