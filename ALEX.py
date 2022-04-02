@@ -1,5 +1,6 @@
 # The present module works with Integer, RNumber, Polynomial, NNumber instances
 # The module providing those classes is 'Dtypes.py'
+
 from NIKITAT import DIV_ZZ_Z
 from nastya import SUB_ZZ_Z 
 from Dtypes import Integer, NNumber, Integer, RNumber, Polynomial
@@ -60,8 +61,7 @@ def MUL_ND_N(num: Integer, num_2: int):
 def TRANS_N_Z(num:NNumber):
     return Integer(num.get_num(), False)
 
-#------------function partially completed-----------#
-#------------ SUB_ZZ_Z not ready -------------------#
+
 #The function looks for the remainder of a division between two integers 
 def MOD_ZZ_Z(num:Integer, num_2:Integer):
     #'a' stores the value of the dividend.
@@ -93,6 +93,7 @@ def MOD_ZZ_Z(num:Integer, num_2:Integer):
 
     return r
 
+#Substructing function(between two rational numbers)
 def SUB_QQ_Q(num_1: RNumber, num_2: RNumber):
     #Finding the common divider that will allow the substruction 
     comon_divider = Naturals.LCM_NN_N(num_1.get_den(), num_2.get_den())
@@ -122,3 +123,27 @@ def SUB_QQ_Q(num_1: RNumber, num_2: RNumber):
     res = RNumber(final_num,comon_divider)
 
     return res
+
+#The function multiplies x^k to a polynomial
+#'poly_2' should only be x^k not x^k1 + x^k2 ...
+def MUL_Pxk_P(poly_1: Polynomial, poly_2: Polynomial):
+
+    p_1 = ''
+    p_2_cof = 0
+
+    #This loop looks for the coefficient of the x^k that will be multiplied to poly_1.
+    for i in poly_2.get_coefs():
+        if i.get_num() != 0:
+            p_2_cof = i
+
+    #Multiplying each coefficient to one another.    
+    for i in poly_1.get_coefs()[::-1]:
+        p_1 += str(Rationals.MUL_QQ_Q(i,p_2_cof))
+        p_1 += ' '
+    p_1 = p_1[:-1]
+   
+   #Increasing the value of the exponents of our polynomial by k.
+    for i in range(poly_2.get_exp()):
+        p_1 += ' 0'
+    
+    return Polynomial(p_1)
