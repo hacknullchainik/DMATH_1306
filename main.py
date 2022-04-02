@@ -12,7 +12,7 @@
 # Стельба по своим - бан
 # Оскорбление администрации - расстрел, а потом бан.
 
-from Naturals import MUL_ND_N
+
 from Dtypes import RNumber, NNumber, Integer, Polynomial
 # показываю пример работы с типами
 rnum = RNumber(Integer('-0'), NNumber([1,2,3]))
