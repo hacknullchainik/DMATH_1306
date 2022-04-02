@@ -226,21 +226,21 @@ class Polynomial:
         for i, c in enumerate(self.__coefs[::-1]):
             # Если число отрицательное
             if c.get_sign():
-                res_str += ' - '
+                res_str += ' -'
 
             # Добавляем ' + ' если элемент не последний
 
             elif i > 0 and int(c.get_num().get_num()[-1]):
                 res_str += ' + '
             # Добавляем элемент в рез. строку, если он не равен 0
-            if c.get_num().get_num()[-1]:
+            if int(c.get_num().__str__()):
                 if c.get_den().get_rank() == 0 and int(c.get_den().get_num()[0]) == 1:
                     res_str += '{}'.format(c.__str__().replace('-', ''))
                 else:
                     res_str += '({})'.format(c.__str__().replace('-',''))
                 if i-self.__exp != 0:
                     res_str += f'x^{self.__exp-i}'
-            elif not i-self.__exp:
+            elif not i-self.__exp and len(res_str) == 0:
                 res_str += '0'
         if show_exp:
             res_str += f'\nexp is: {self.__exp}'
