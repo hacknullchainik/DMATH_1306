@@ -1,6 +1,7 @@
 # The present module works with Integer, RNumber, Polynomial, NNumber instances
 # The module providing those classes is 'Dtypes.py'
-from unittest import result
+
+from typing import final
 from Dtypes import Integer, NNumber, Integer, RNumber, Polynomial
 import Naturals, Integers, Rationals
 
@@ -92,26 +93,31 @@ def MOD_ZZ_Z(num:Integer, num_2:Integer):
 def SUB_QQ_Q(num_1: RNumber, num_2: RNumber):
     #Finding the common divider that will allow the substruction 
     comon_divider = Naturals.LCM_NN_N(num_1.get_den(), num_2.get_den())
-    
+
     #Checking if the common diviser is equal to the denominator of num_1
     #If the they are equal then the numerator will not be affected
     if comon_divider == num_1.get_den():
-        new_nom_1 = num_1.get_num()
+        new_num_1 = Integer(str(num_1.get_num()),False)
     else:
-        temp_var = Integer(num_1.get_num(),num_1.get_sign())
-        temp_var_2 = Integer(comon_divider.get_num(),False)
-        new_nom_1 = Integers.MUL_ZZ_Z(temp_var,temp_var_2)
+        temp_var = Integer(str(num_1.get_num()), num_1.get_sign())
+        temp_var_2 = Integer(comon_divider.get_num()[::-1],False)
+
+        new_num_1 = Integers.MUL_ZZ_Z(temp_var,temp_var_2)
+        print(new_num_1.get_num()[::-1],new_num_1.get_sign())
     
     #Checking if the common diviser is equal to the denominator of the of num_2
     #If the they are equal then the numerator will not be affected
     if comon_divider == num_2.get_den():
-        new_nom_2 = num_2.get_num()
+        new_num_2 = Integer(str(num_2.get_num()),False)
     else:
-        temp_var = Integer(num_2.get_num(),num_2.get_sign())
-        temp_var_2 = Integer(comon_divider.get_num(),False)
-        new_nom_2 = Integers.MUL_ZZ_Z(temp_var,temp_var_2)
+        temp_var = Integer(str(num_2.get_num()),num_2.get_sign())
+        temp_var_2 = Integer(comon_divider.get_num()[::-1],False)
+
+        new_num_2 = Integers.MUL_ZZ_Z(temp_var,temp_var_2)
+        print(new_num_2.get_num()[::-1],new_num_2.get_sign())
 
     #Substracting the two resulting numerator 
-    res = RNumber(Integers.SUB_ZZ_Z(new_nom_1,new_nom_2),comon_divider)
+    final_num = Integers.SUB_ZZ_Z(new_num_1,new_num_2)
+    res = RNumber(final_num,comon_divider)
 
     return res
