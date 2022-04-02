@@ -54,9 +54,3 @@ print(pol)  # (3/5)x^3 (2/4)x^2 (1/3)x^1
 st = '0 0 0 123/166 0 123/123 -1999/1'
 pol = Polynomial(st)
 print(pol) # (123/166)x^3 + (123/123)x^1 - 1999
-
-r_1 = RNumber(Integer([1,0],False),NNumber([1,3]))
-r_2 = RNumber(Integer([5],True),NNumber([7]))
-print("\n\n\n")
-res = SUB_QQ_Q(r_1,r_2)
-print(res.get_num())
