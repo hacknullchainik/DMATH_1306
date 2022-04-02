@@ -103,7 +103,6 @@ def SUB_QQ_Q(num_1: RNumber, num_2: RNumber):
         temp_var_2 = Integer(comon_divider.get_num()[::-1],False)
 
         new_num_1 = Integers.MUL_ZZ_Z(temp_var,temp_var_2)
-        print(new_num_1.get_num()[::-1],new_num_1.get_sign())
     
     #Checking if the common diviser is equal to the denominator of the of num_2
     #If the they are equal then the numerator will not be affected
@@ -114,7 +113,6 @@ def SUB_QQ_Q(num_1: RNumber, num_2: RNumber):
         temp_var_2 = Integer(comon_divider.get_num()[::-1],False)
 
         new_num_2 = Integers.MUL_ZZ_Z(temp_var,temp_var_2)
-        print(new_num_2.get_num()[::-1],new_num_2.get_sign())
 
     #Substracting the two resulting numerator 
     final_num = Integers.SUB_ZZ_Z(new_num_1,new_num_2)
