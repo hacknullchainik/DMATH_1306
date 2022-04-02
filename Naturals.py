@@ -1,4 +1,4 @@
-from Dtypes import Integer, NNumber
+from Dtypes import NNumber
 
 # Сравнение чисел
 def COM_NN_D(num1: NNumber, num2: NNumber):
@@ -114,7 +114,7 @@ def SUB_NN_N(n: NNumber, m: NNumber):
     return result
 
 # Произведение числа на цифру
-def MUL_ND_N(num: Integer, num_2: int):
+def MUL_ND_N(num: object, num_2: int):
     # local variables storing the value from arugments
     # avoiding changes to the original data
     list_num = num.get_num()
@@ -136,16 +136,12 @@ def MUL_ND_N(num: Integer, num_2: int):
                 # the first digit of the resulting number of the multilpication is stored inside keeper
                 # the value of keeper is then added to the result of the next multiplication
                 value = value + keeper
-                if value < 10:
-                    results.insert(0, value)
-                else:
-                    results.insert(0,value%10)
-                    results.insert(0,value//10)
+                results.insert(0, value)
                 keeper = 0
         elif keeper != 0:
             # in case the next resulting number of the multiplication also exceeds or is equal to 10
             results.insert(0, (value + keeper) % 10)
-            keeper = (value+keeper) // 10
+            keeper = value // 10
             if i == length:
                 results.insert(0, keeper)
         else:
@@ -211,6 +207,8 @@ def SUB_NDN_N(num1: NNumber, digit: int, num2: NNumber):
 
 # Первая цифра неполного частного, умноженная на 10 в степени к, где к - порядок цифры
 def DIV_NN_Dk(num1: NNumber, num2: NNumber):
+    if num2.get_num() == [0]:
+        return NNumber('0')
     # Этот алгоритм полностью повторяет деление в столбик, если с комментариями будет
     # что-то непонятно, распишите деление 2-х рандомных чисел и смотря на вашу запись и алгоритм, все поймете
 
@@ -266,6 +264,8 @@ def DIV_NN_Dk(num1: NNumber, num2: NNumber):
 
 # Целая часть деления двух чисел
 def DIV_NN_N(n: NNumber, m: NNumber):
+    if m.get_num() == [0]:
+        return NNumber('0')
     # Создаём результирующий массив
     res = 0
     # Сравниваем числа. Если n больше, то делим n на m. Иначе - возвращаем 0
@@ -301,8 +301,6 @@ def GCF_NN_N(num1: NNumber,num2: NNumber):
 
 # НОК чисел
 def LCM_NN_N(num1: NNumber, num2: NNumber):
-    #найдем произведение двух чисел:
-    mult = MUL_NN_N(num1, num2)
     #найдем НОД двух чисел и НОК разделим на НОД
     #НОК(a,b)=a*b/НОД(a,b)
-    return DIV_NN_N(mult, GCF_NN_N(num1, num2))
+    return DIV_NN_N(MUL_NN_N(num1, num2), GCF_NN_N(num1, num2))
