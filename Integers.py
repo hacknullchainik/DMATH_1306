@@ -46,27 +46,6 @@ def TRANS_Z_N(num: Integer):
 # ADD_ZZ_Z
 
 # Разность целых чисел
-def SUB_ZZ_Z(num1:Integer, num2:Integer):
-    # - + = - - (сложение)
-    # + - = + + (сложение)
-    # - - = - + (не сложение)
-    # + + = + -  (не сложение)
-    if num1.get_sign() != num2.get_sign():
-        res = ADD_NN_N(ABS_Z_N(num1),ABS_Z_N(num2)).get_num()
-        res.reverse()
-        res = Integer(res,num1.get_sign())
-    else:
-        if COM_NN_D(num1,num2)  == 2:
-            sig = num1.get_sign()
-        else:
-            if num2.get_sign():
-                sig = 0
-            else:
-                sig = 1
-        res = SUB_NN_N(ABS_Z_N(num1),ABS_Z_N(num2)).get_num()
-        res.reverse()
-        res = Integer(res,sig)
-    return res
 # SUB_ZZ_Z
 
 # Произведение целых чисел
