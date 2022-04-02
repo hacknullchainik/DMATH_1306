@@ -4,40 +4,125 @@ from Integers import *
 from Rationals import *
 
 # Сложение многочленов
-# ADD_PP_P
+def ADD_PP_P(pol1: Polynomial, pol2: Polynomial):
+    coef1 = pol1.get_coefs()
+    coef2 = pol2.get_coefs()
+    coef1.reverse()
+    coef2.reverse()
+    coef_sum = [RNumber('0')] * max(len(coef1), len(coef2))
+    for i in range(len(coef1)):
+        coef_sum[i] = ADD_QQ_Q(coef_sum[i], coef1[i])
+    for i in range(len(coef2)):
+        coef_sum[i] = ADD_QQ_Q(coef_sum[i], coef2[i])
+    return Polynomial(coef_sum)
 
 # Вычитание многочленов
-# SUB_PP_P
+def SUB_PP_P(pol1: Polynomial, pol2: Polynomial):
+    flag = 0
+    result = []
+    coefs_bigger = pol1.get_coefs()
+    coefs_lower = pol2.get_coefs()
+
+    if pol1.get_exp() < pol2.get_exp():
+        coefs_bigger, coefs_lower = coefs_lower, coefs_bigger
+        flag = 1
+
+    while len(coefs_bigger) > len(coefs_lower):
+        coefs_lower.append(RNumber(0, 1))
+
+    for i in range(len(coefs_bigger)):
+        if flag:
+            result.append(SUB_QQ_Q(coefs_lower[i], coefs_bigger[i]))
+        else:
+            result.append(SUB_QQ_Q(coefs_bigger[i], coefs_lower[i]))
+
+    return result
 
 # Умножение многочлена на рациональное число
-# MUL_PQ_P
+def MUL_PQ_Q(n: Polynomial, m: RNumber):
+    res = []
+    # Берём массив коэффициентов
+    work = n.get_coefs()
+    # И каждый коэффициент умножаем на число m
+    for i in range(len(work)):
+        res.append(MUL_QQ_Q(work[i], m))
+    return Polynomial(res)
 
 # Умножение многочлена на х**к
 # MUL_Pxk_P
 
 # Старший коэффициент многочлена
-# LED_P_Q
+def LED_P_Q(mchlen: Polynomial):
+    return mchlen.get_coefs()[0]
 
 # Степень многочлена
-# DEG_P_N
+def DEG_P_N(pol: Polynomial):
+    return pol.get_exp()
 
 # Вынесение НОК/НОД
-# FAC_P_Q
+def FAC_P_Q(pol: Polynomial):
+    coef = pol.get_coefs()
+    nums = [ABS_Z_N(i.get_num()) for i in coef]
+    dens = [i.get_den() for i in coef]
+    lcm = dens[0]
+    for i in range(1, len(dens)):
+        lcm = LCM_NN_N(lcm, dens[i])
+    gcf = nums[0]
+    for i in range(1, len(nums)):
+        gcf = GCF_NN_N(lcm, nums[i])
+    gcf = TRANS_N_Z(gcf)
+    return RNumber(gcf, lcm)
 
 # Умножение многочленов
-# MUL_PP_P
+def MUL_PP_P(num1: Polynomial, num2: Polynomial):
+    ar1 = num1.get_coefs()
+    ar1.reverse()
+    for i in range(len(ar1)):
+        re = MUL_Pxk_P(MUL_PQ_Q(num2,ar1[i]),len(ar1)-(i+1))
+        if (i == 0):
+            res = re
+        else:
+            res = ADD_PP_P(res,re)
+    return res
 
 # Целочисленное деление
-# DIV_PP_P
+def DIV_PP_P(n: Polynomial, m: Polynomial):
+    # Считаем, что n больше m
+    div = n
+    while get_exp(div) >= get_exp(m):
+        temp = []
+        temp.append(DIV_QQ_Q(div.get_coefs()[-1], m.get_coefs()[-1]))
+        res.append(DIV_QQ_Q(div.get_coefs()[-1], m.get_coefs()[-1]))
+        for i in range(len(get_exp(m))-1, 0, -1):
+            temp.append(SUB_QQ_Q(div[i], MUL_QQ_Q(temp[-1], m[i])))
+        div = Polynomial(temp)
+
+    return res
 
 # Остаток от деления
 # MOD_PP_P
 
 # НОД
-# GCF_PP_P
+def GCF_PP_P(num1:Polynomial,num2:Polynomial):
+    res = MOD_PP_P(num1,num2)
+    while(DEG_P_N(res)!=0):
+        num1 = num2
+        num2=res
+        res = MOD_PP_P(num1,num2)
+    return num2
 
 # Производная
-# DER_P_P
+def DER_P_P(pol: Polynomial):
+    pol2 = []
+    for i in range(1,len(pol.get_coefs())):
+        j = i
+        j = RNumber(Integer([i],False), NNumber([1]))
+        pol2.append(MUL_QQ_Q(pol.get_coefs()[i], j))
+    return Polynomial(pol2[::-1])
 
 # Кратные корни в простые
-# NMR_P_P
+def NMR_P_P(pol: Polynomial):
+    derivative = DER_P_P(pol)
+    gcf = GCF_PP_P(pol, derivative)
+    return DIV_PP_P(pol, gcf)
+
