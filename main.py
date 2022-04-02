@@ -54,8 +54,3 @@ print(pol)  # (3/5)x^3 (2/4)x^2 (1/3)x^1
 st = '0 0 0 123/166 0 123/123 -1999/1'
 pol = Polynomial(st)
 print(pol) # (123/166)x^3 + (123/123)x^1 - 1999
-
-inst = Integer([6,0,0,0,0,0],False)
-inst_r = MUL_ND_N(inst,2)
-print("\n\n\n\n")
-print(inst_r.get_num())
