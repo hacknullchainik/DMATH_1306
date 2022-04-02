@@ -1,6 +1,6 @@
 from Dtypes import Integer, NNumber, Polynomial, RNumber
 from Integers import ABS_Z_N
-from Naturals import DIV_NN_N, MOD_NN_N
+from Naturals import DIV_NN_N, MOD_NN_N, MUL_Nk_N
 from SASHAP import MUL_ZZ_Z, MUL_NN_N, ADD_NN_N
 from NIKITAT import COM_NN_D, DIV_ZZ_Z
 from MAXZ import NZER_N_B
@@ -70,8 +70,8 @@ def RED_Q_Q(drob: RNumber):
 #n1 = RNumber('-2','10')
 #n2 = RNumber('-2','30')
 #print(RED_Q_Q(n1))
-
-
+#num = NNumber([1,2])
+#print(MUL_Nk_N(num, -2))
 #f = RNumber(1,5)
 #s = RNumber(2)
 #t = RNumber(3)

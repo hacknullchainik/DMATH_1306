@@ -160,6 +160,8 @@ def MUL_ND_N(num: object, num_2: int):
 # Произведение числа на 10 в степени к
 def MUL_Nk_N(num: NNumber, k):
     # Просто добавляем нули в конце числа
+    if k < 0:
+        raise ValueError
     number1 = num.get_num()
     number1.reverse()
     for i in range(k):
