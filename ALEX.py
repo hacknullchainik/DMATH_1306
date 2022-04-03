@@ -2,7 +2,7 @@
 # The module providing those classes is 'Dtypes.py'
 
 from NIKITAT import DIV_ZZ_Z
-from nastya import SUB_ZZ_Z 
+from Nastya import SUB_ZZ_Z
 from Dtypes import Integer, NNumber, Integer, RNumber, Polynomial
 import Naturals, Integers, Rationals
 
