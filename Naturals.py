@@ -294,10 +294,14 @@ def MOD_NN_N(num1: NNumber, num2: NNumber):
 # НОД чисел
 def GCF_NN_N(num1: NNumber,num2: NNumber):
     while True:
+        # в бесконечном цикле делим числа друг на друга и записываем остаток от деления в меньшее из них. выполняется пока одно из чисел не станет нулем
+        if not int(num1.__str__()) or not int(num2.__str__()):
+            return ADD_NN_N(num1, num2)
         if COM_NN_D(num1 ,num2) == 2:
             num1 = MOD_NN_N(num1, num2)
         else:
             num2 = MOD_NN_N(num2, num1)
+        # возвращаем суммы чисел, чтобы не сравнивать их
         if not int(num1.__str__()) or not int(num2.__str__()):
             return ADD_NN_N(num1, num2)
 
