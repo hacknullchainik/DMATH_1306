@@ -4,6 +4,7 @@ from Naturals import*
 from Rationals import*
 from Integers import*
 from Polynomials import*
+from math import gcd, lcm
 
 
 # Проверка числа на ноль
@@ -40,7 +41,7 @@ def LCM_NN_N(num1: NNumber, num2: NNumber):
     mult = MUL_NN_N(num1, num2)
     # найдем НОД двух чисел и произведение разделим на НОД
     # НОК(a,b)=a*b/НОД(a,b)
-    if (mult.get_num()[0] != 0):
+    if (mult.get_num() != 0):
         return DIV_NN_N(mult, GCF_NN_N(num1, num2))
     else:
         return NNumber('0')
@@ -97,6 +98,8 @@ def DEG_P_N(pol: Polynomial):
 # производная многочлена
 def DER_P_P(pol: Polynomial):
     pol2 = []
+    #если многочлен ненулевой степени, то перемножаем
+    #коэффициенты с каждой степенью, иначе выводим нуль
     if pol.get_exp()!=0:
         for i in range(1,len(pol.get_coefs())):
             j = i
@@ -136,3 +139,17 @@ def ADD_ZZ_Z(num1:Integer, num2:Integer):
             res.reverse()
             res = Integer(res, True)
     return res
+
+#print(DIV_NN_N(NNumber('1123125'), NNumber('15165')))
+
+from Naturals_test import Ntest,Nlist
+from Integers_test import Itest,Ilist
+from Rationals_test import Rtest,Rlist
+from Polynomials_test import Ptest,Plist
+
+
+#print(GCF_NN_N(NNumber('1122211111111'), NNumber('100000000000000000000000000000000000')))
+#print(MUL_NN_N(NNumber('136666666666666666666653'), NNumber('123')))
+
+#Rtest(["DIV_QQ_Q"])
+
