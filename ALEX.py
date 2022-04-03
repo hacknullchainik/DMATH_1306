@@ -3,7 +3,7 @@
 
 from NIKITAT import DIV_ZZ_Z
 from Dtypes import Integer, NNumber, Integer, RNumber, Polynomial
-import Naturals, Integers, Rationals
+import Naturals, Integers, Rationals, Polynomials
 
 def MUL_ND_N(num: Naturals, num_2: int):
     # local variables storing the value from arugments
@@ -74,7 +74,7 @@ def MOD_ZZ_Z(num:Integer, num_2:Integer):
     # DIV_ZZ_Z FROM NIKITAT.PY
     # Finding the quotient from the division of an integer by an integer
     q = DIV_ZZ_Z(a,b)
-    
+    print("Quotient DIV_ZZ_Z:",q)
     # MUL_ZZ_Z FROM SASHAP.PY
     # Storing the value of the divisor multiplied by the quotient
     a_1 = Integers.MUL_ZZ_Z(b,q)
@@ -152,3 +152,26 @@ def MUL_Pxk_P(poly_1: Polynomial, poly_2: Polynomial):
         p_1 += ' 0'
     
     return Polynomial(p_1)
+
+#The function finds the remainder of the division between two polynomials
+def MOD_PP_P(poly_1: Polynomial, poly_2: Polynomial):
+    #divid will is the  dividend
+    #divis will is the divisor
+    divid = poly_1
+    divis = poly_2
+
+    #quotient of the division is stored inside of quo
+    quo = Polynomials.DIV_PP_P(divid,divis)
+
+    #the result of the multiplication between the divis and the quotien is stored in q_divis.
+    q_divis = Polynomials.MUL_PP_P(divis,quo)
+
+    #Once q_divis has been found it is substructed from divid(the dividend).
+    res = Polynomials.SUB_PP_P(divid,q_divis)
+    
+    #if the remainder can still be divided by the divisor resent to the function.
+    #if the remainder can't be divided anyfurther the function returns the result.
+    if res.get_exp() >= divis.get_exp():
+        MOD_PP_P(res,divis)
+        
+    return res
