@@ -78,7 +78,7 @@ def MOD_ZZ_Z(num:Integer, num_2:Integer):
     # MUL_ZZ_Z FROM SASHAP.PY
     # Storing the value of the divisor multiplied by the quotient
     a_1 = Integers.MUL_ZZ_Z(b,q)
-    # SUB_ZZ_Z() -> pending from Nastia <-
+    
     # Substructing the value of the divident multiplied by the quotient from the dividend
     r = Integers.SUB_ZZ_Z(a,a_1)
 
@@ -121,7 +121,7 @@ def SUB_QQ_Q(num_1: RNumber, num_2: RNumber):
         temp_var_3 = Integer(DIV_ZZ_Z(temp_var_2,temp_var).get_num(),DIV_ZZ_Z(temp_var_2,temp_var).get_sign())
 
         new_num_2 = Integers.MUL_ZZ_Z(temp_var_1,temp_var_3)
-       
+
     #Substracting the two resulting numerator 
     final_num = Integers.SUB_ZZ_Z(new_num_1,new_num_2)
     

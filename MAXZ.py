@@ -22,14 +22,16 @@ def NZER_N_B(n: NNumber):
 # Проверка на целое, если рациональное
 # число является целым,то «да», иначе «нет»
 def INT_Q_B(num: RNumber):
-    # сокращаем дробь
-    num2 = RED_Q_Q(num)
-
-    # првоеряем является ли знаменатель 1 в сокращенной дроби
-    if (num2.get_den() == 1) or (num2.get_num() == 0):
+    if num.get_num().get_num()[0] == 0:
         return True
     else:
-        return False
+        # сокращаем дробь
+        num2 = RED_Q_Q(num)
+        # првоеряем является ли знаменатель 1 в сокращенной дроби
+        if (num2.get_den().get_num()[0] == 1):
+            return True
+        else:
+            return False
 
 
 # НОК натуральных чисел
@@ -38,7 +40,10 @@ def LCM_NN_N(num1: NNumber, num2: NNumber):
     mult = MUL_NN_N(num1, num2)
     # найдем НОД двух чисел и произведение разделим на НОД
     # НОК(a,b)=a*b/НОД(a,b)
-    return DIV_NN_N(mult, GCF_NN_N(num1, num2))
+    if (mult.get_num()[0] != 0):
+        return DIV_NN_N(mult, GCF_NN_N(num1, num2))
+    else:
+        return NNumber('0')
 
 
 # Деление дробей (делитель отличен от нуля)
@@ -74,7 +79,7 @@ def DIV_QQ_Q(n1: RNumber, n2: RNumber):
         result_den = MUL_NN_N(den1, num2)
         result_num = result_num.get_num()[::-1]
         result_den = result_den.get_num()[::-1]
-        return RNumber(Integer(result_num ,False), NNumber(result_den))
+        return RED_Q_Q(RNumber(Integer(result_num ,False), NNumber(result_den)))
     else:
         den2 = Integer(den2.get_num()[::-1], False)
         num2 = NNumber(num2.get_num()[::-1])
@@ -82,7 +87,7 @@ def DIV_QQ_Q(n1: RNumber, n2: RNumber):
         result_den = MUL_NN_N(den1, num2)
         result_num = result_num.get_num()[::-1]
         result_den = result_den.get_num()[::-1]
-        return RNumber(Integer(result_num,True), NNumber(result_den))
+        return RED_Q_Q(RNumber(Integer(result_num,True), NNumber(result_den)))
 
 
 # степень многочлена
@@ -92,11 +97,14 @@ def DEG_P_N(pol: Polynomial):
 # производная многочлена
 def DER_P_P(pol: Polynomial):
     pol2 = []
-    for i in range(1,len(pol.get_coefs())):
-        j = i
-        j = RNumber(Integer([i],False), NNumber([1]))
-        pol2.append(MUL_QQ_Q(pol.get_coefs()[i], j))
-    return Polynomial(pol2[::-1])
+    if pol.get_exp()!=0:
+        for i in range(1,len(pol.get_coefs())):
+            j = i
+            j = RNumber(Integer([i],False), NNumber([1]))
+            pol2.append(MUL_QQ_Q(pol.get_coefs()[i], j))
+        return Polynomial(pol2[::-1])
+    else:
+        return Polynomial('0')
 
 #n1 = RNumber('-100','40')
 #n2 = RNumber('-2','30')
