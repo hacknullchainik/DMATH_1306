@@ -1,12 +1,8 @@
-from Dtypes import NNumber, Integer, RNumber, Polynomial
-from Integers import *
-from Naturals import *
-from Rationals import *
+from Polynomials import *
 from Naturals_test import Ntest
 from Polynomials_test import Ptest
 from Rationals_test import Rtest
-import ALEX
-import chernov
+
 
 def MUL_Nk_N(num: NNumber, k):
     # Просто добавляем нули в конце числа
@@ -84,8 +80,6 @@ def ADD_NN_N(number1: NNumber, number2: NNumber):
 
 
 def DIV_NN_Dk(num1: NNumber, num2: NNumber):
-
-
     # Этот алгоритм полностью повторяет деление в столбик, если с комментариями будет
     # что-то непонятно, распишите деление 2-х рандомных чисел и смотря на вашу запись и алгоритм, все поймете
 
@@ -194,18 +188,22 @@ def MUL_NN_N(num1: NNumber, num2: NNumber):
 
 
 def SUB_PP_P(pol1: Polynomial, pol2: Polynomial):
-    flag = 0
+    flag = 0  # Переменная, показывающая, менялись ли значения местами
     result = []
     coefs_bigger = pol1.get_coefs()
     coefs_lower = pol2.get_coefs()
 
+    # Меняем местами массивы коэффициентов, если степень первого больше степени второго
     if pol1.get_exp() < pol2.get_exp():
         coefs_bigger, coefs_lower = coefs_lower, coefs_bigger
         flag = 1
 
+    # Добавляем незначащие нули в массиве коэффициентов многочлена с меньшей степенью, пока длины массивов
+    # не будут одинаковыми
     while len(coefs_bigger) > len(coefs_lower):
         coefs_lower.append(RNumber("0"))
 
+    # Вычитаем
     for i in range(len(coefs_bigger)):
         if flag:
             result.append(SUB_QQ_Q(coefs_lower[i], coefs_bigger[i]))
@@ -216,11 +214,14 @@ def SUB_PP_P(pol1: Polynomial, pol2: Polynomial):
 
     return Polynomial(result)
 
+
 # Ntest(['ADD_NN_N', 'DIV_NN_Dk', 'MUL_NN_N'])
 # print(MUL_NN_N(NNumber("123"), NNumber("9")))
 # print(POZ_Z_D(Integer([0], False)))
 # Ptest(['SUB_PP_P'])
-# print(SUB_PP_P(Polynomial('2 1 1 1 1'), Polynomial('1 1 1 1 1')))
+# print(SUB_PP_P(Polynomial('5'), Polynomial('2 2 2 2 2')))
 # print(RED_Q_Q(RNumber(0,0)))
-# print(TRANS_Q_Z(RNumber("123/12")))
-Rtest(['TRANS_Q_Z'])
+# print(TRANS_Q_Z(RNumber("-123/1")))
+# print(DIV_PP_P(Polynomial("1 -12 0 -42"), Polynomial("1 -3")))
+# Rtest(['TRANS_Q_Z'])
+
