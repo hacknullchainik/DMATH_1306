@@ -64,6 +64,8 @@ class TestNaturals(unittest.TestCase):
         self.assertEqual(MUL_NN_N(NNumber('123'), NNumber('111')).__str__(), str(111 * 123))
         self.assertEqual(MUL_NN_N(NNumber('100'), NNumber('123')).__str__(), str(123 * 100))
         self.assertEqual(MUL_NN_N(NNumber('765433123'), NNumber('123')).__str__(), str(765433123 * 123))
+        self.assertEqual(MUL_NN_N(NNumber('765431167180999993123'), NNumber('12312312312399999')).__str__(), str(765431167180999993123 * 12312312312399999))
+        self.assertEqual(MUL_NN_N(NNumber('7654765431167180999993123765431167180999993123'), NNumber('123765431167180999993123765431167180999993123')).__str__(), str(7654765431167180999993123765431167180999993123 * 123765431167180999993123765431167180999993123))
 
     def test_SUB_NDN_N(self):
         self.assertEqual(SUB_NDN_N(NNumber('745386'),9,NNumber('123')).__str__(),str(745386-(9*123)))
