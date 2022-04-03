@@ -3,7 +3,6 @@ from Integers import *
 
 # Сокращение дроби
 def RED_Q_Q(drob: RNumber):
-    def RED_Q_Q(drob: RNumber):
     #сохраняем числитель
     num = drob.get_num()
     # сохраняем знак
