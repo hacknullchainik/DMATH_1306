@@ -114,11 +114,14 @@ def GCF_PP_P(num1:Polynomial,num2:Polynomial):
 # Производная
 def DER_P_P(pol: Polynomial):
     pol2 = []
-    for i in range(1,len(pol.get_coefs())):
-        j = i
-        j = RNumber(Integer([i],False), NNumber([1]))
-        pol2.append(MUL_QQ_Q(pol.get_coefs()[i], j))
-    return Polynomial(pol2[::-1])
+    if pol.get_exp()!=0:
+        for i in range(1,len(pol.get_coefs())):
+            j = i
+            j = RNumber(Integer([i],False), NNumber([1]))
+            pol2.append(MUL_QQ_Q(pol.get_coefs()[i], j))
+        return Polynomial(pol2[::-1])
+    else:
+        return Polynomial('0')
 
 # Кратные корни в простые
 def NMR_P_P(pol: Polynomial):
