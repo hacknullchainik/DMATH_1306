@@ -28,7 +28,7 @@ def SUB_PP_P(pol1: Polynomial, pol2: Polynomial):
         flag = 1
 
     while len(coefs_bigger) > len(coefs_lower):
-        coefs_lower.append(RNumber(0, 1))
+        coefs_lower.append(RNumber("0"))
 
     for i in range(len(coefs_bigger)):
         if flag:
@@ -36,7 +36,9 @@ def SUB_PP_P(pol1: Polynomial, pol2: Polynomial):
         else:
             result.append(SUB_QQ_Q(coefs_bigger[i], coefs_lower[i]))
 
-    return result
+    result.reverse()
+
+    return Polynomial(result)
 
 # Умножение многочлена на рациональное число
 def MUL_PQ_Q(n: Polynomial, m: RNumber):
