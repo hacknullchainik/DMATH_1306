@@ -8,13 +8,13 @@ from Rationals import *
 def ADD_PP_P(pol1: Polynomial, pol2: Polynomial):
     coef1 = pol1.get_coefs()
     coef2 = pol2.get_coefs()
-    coef1.reverse()
-    coef2.reverse()
+
     coef_sum = [RNumber('0')] * max(len(coef1), len(coef2))
     for i in range(len(coef1)):
         coef_sum[i] = ADD_QQ_Q(coef_sum[i], coef1[i])
     for i in range(len(coef2)):
         coef_sum[i] = ADD_QQ_Q(coef_sum[i], coef2[i])
+    coef_sum.reverse()
     return Polynomial(coef_sum)
 
 
