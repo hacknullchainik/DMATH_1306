@@ -1,6 +1,7 @@
 from Dtypes import Integer, NNumber, Polynomial, RNumber
 from Integers import ABS_Z_N
 from SASHAP import POZ_Z_D, ADD_NN_N
+
 from NIKITAT import SUB_NN_N, MUL_ZM_Z
 from MAXZ import DEG_P_N
 from ALEX import MOD_PP_P
