@@ -69,12 +69,15 @@ class TestNaturals(unittest.TestCase):
 
     def test_SUB_NDN_N(self):
         self.assertEqual(SUB_NDN_N(NNumber('745386'),9,NNumber('123')).__str__(),str(745386-(9*123)))
+        self.assertEqual(SUB_NDN_N(NNumber('74538683945791303426'),9,NNumber('987654123')).__str__(),str(74538683945791303426-(9*987654123)))
+        self.assertEqual(SUB_NDN_N(NNumber('7453868798798798792879348795487934'),9,NNumber('126754673424873463')).__str__(),str(7453868798798798792879348795487934-(9*126754673424873463)))
         self.assertEqual(SUB_NDN_N(NNumber('9999999'), 9, NNumber('1111111')).__str__(),'0')
         self.assertEqual(SUB_NDN_N(NNumber('0'), 0, NNumber('0')).__str__(), '0')
         self.assertEqual(SUB_NDN_N(NNumber('1'), 1, NNumber('1')).__str__(), '0')
         self.assertEqual(SUB_NDN_N(NNumber('10'), 9, NNumber('1')).__str__(), '1')
         self.assertEqual(SUB_NDN_N(NNumber('9'*100), 9, NNumber('1'+'0'*99)).__str__(),'9'*99)
         self.assertRaises(ValueError,SUB_NDN_N,NNumber('2'), 2, NNumber('2'))
+
     # python -m unittest Naturals_test.TestNaturals.test_DIV_NN_Dk
     def test_DIV_NN_Dk(self):
         self.assertEqual(DIV_NN_Dk(NNumber('123123'),NNumber('123123')).__str__(),'1')
@@ -91,6 +94,8 @@ class TestNaturals(unittest.TestCase):
         self.assertEqual(DIV_NN_N(NNumber('123'*12),NNumber('7'*10)).__str__(), str(int('123'*12)//int('7'*10)))
         self.assertEqual(DIV_NN_N(NNumber('1107'), NNumber('9')).__str__(), '123')
         self.assertEqual(DIV_NN_N(NNumber('0'), NNumber('1111111')).__str__(), '0')
+        self.assertEqual(DIV_NN_N(NNumber('1123125'), NNumber('15165')).__str__(),str(1123125//15165))
+        self.assertEqual(DIV_NN_N(NNumber('12412159183579187985371097315155'),NNumber('1551515719586198375')).__str__(),str(12412159183579187985371097315155//1551515719586198375))
         self.assertRaises(ZeroDivisionError, DIV_NN_Dk, NNumber('0'), NNumber('0'))
         self.assertRaises(ZeroDivisionError, DIV_NN_Dk, NNumber('123123'), NNumber('0'))
 
@@ -104,6 +109,8 @@ class TestNaturals(unittest.TestCase):
         self.assertEqual(MOD_NN_N(NNumber('123'*9), NNumber('99'*9)).__str__(), str(int('123'*9) % int('99'*9)))
         self.assertEqual(MOD_NN_N(NNumber('0'), NNumber('1000000')).__str__(),'0')
         self.assertEqual(MOD_NN_N(NNumber('10'), NNumber('7')).__str__(),'3')
+        self.assertEqual(MOD_NN_N(NNumber('1248179861956178649586198'), NNumber('7529386519698146')).__str__(), str(1248179861956178649586198%7529386519698146))
+        self.assertEqual(MOD_NN_N(NNumber('10384758689746'), NNumber('73456743')).__str__(), str(10384758689746/73456743))
         self.assertRaises(ZeroDivisionError, MOD_NN_N, NNumber('123123'), NNumber('0'))
     # python -m unittest Naturals_test.TestNaturals.test_GCF_NN_N
 
