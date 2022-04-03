@@ -2,11 +2,10 @@
 # The module providing those classes is 'Dtypes.py'
 
 from NIKITAT import DIV_ZZ_Z
-from Nastya import SUB_ZZ_Z
 from Dtypes import Integer, NNumber, Integer, RNumber, Polynomial
 import Naturals, Integers, Rationals
 
-def MUL_ND_N(num: Integer, num_2: int):
+def MUL_ND_N(num: Naturals, num_2: int):
     # local variables storing the value from arugments
     # avoiding changes to the original data
     list_num = num.get_num()
