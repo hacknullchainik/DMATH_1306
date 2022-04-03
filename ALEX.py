@@ -75,7 +75,7 @@ def MOD_ZZ_Z(num:Integer, num_2:Integer):
     # DIV_ZZ_Z FROM NIKITAT.PY
     # Finding the quotient from the division of an integer by an integer
     q = DIV_ZZ_Z(a,b)
-    
+
     # MUL_ZZ_Z FROM SASHAP.PY
     # Storing the value of the divisor multiplied by the quotient
     a_1 = Integers.MUL_ZZ_Z(b,q)
