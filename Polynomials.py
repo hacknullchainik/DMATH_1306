@@ -28,7 +28,7 @@ def SUB_PP_P(pol1: Polynomial, pol2: Polynomial):
         flag = 1
 
     while len(coefs_bigger) > len(coefs_lower):
-        coefs_lower.append(RNumber(0, 1))
+        coefs_lower.append(RNumber("0"))
 
     for i in range(len(coefs_bigger)):
         if flag:
@@ -36,7 +36,9 @@ def SUB_PP_P(pol1: Polynomial, pol2: Polynomial):
         else:
             result.append(SUB_QQ_Q(coefs_bigger[i], coefs_lower[i]))
 
-    return result
+    result.reverse()
+
+    return Polynomial(result)
 
 # Умножение многочлена на рациональное число
 def MUL_PQ_Q(n: Polynomial, m: RNumber):
@@ -114,11 +116,14 @@ def GCF_PP_P(num1:Polynomial,num2:Polynomial):
 # Производная
 def DER_P_P(pol: Polynomial):
     pol2 = []
-    for i in range(1,len(pol.get_coefs())):
-        j = i
-        j = RNumber(Integer([i],False), NNumber([1]))
-        pol2.append(MUL_QQ_Q(pol.get_coefs()[i], j))
-    return Polynomial(pol2[::-1])
+    if pol.get_exp()!=0:
+        for i in range(1,len(pol.get_coefs())):
+            j = i
+            j = RNumber(Integer([i],False), NNumber([1]))
+            pol2.append(MUL_QQ_Q(pol.get_coefs()[i], j))
+        return Polynomial(pol2[::-1])
+    else:
+        return Polynomial('0')
 
 # Кратные корни в простые
 def NMR_P_P(pol: Polynomial):

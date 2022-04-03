@@ -13,14 +13,16 @@ def RED_Q_Q(drob: RNumber):
 
 # Проверка на целое
 def INT_Q_B(num: RNumber):
-    # сокращаем дробь
-    num2 = RED_Q_Q(num)
-
-    # првоеряем является ли знаменатель 1 в сокращенной дроби
-    if (num2.get_den() == 1) or (num2.get_num() == 0):
+    if num.get_num().get_num()[0] == 0:
         return True
     else:
-        return False
+        # сокращаем дробь
+        num2 = RED_Q_Q(num)
+        # првоеряем является ли знаменатель 1 в сокращенной дроби
+        if (num2.get_den().get_num()[0] == 1):
+            return True
+        else:
+            return False
 
 # Преобразование из целого в дробное
 def TRANS_Z_Q(num: Integer):
