@@ -29,8 +29,7 @@ def ABS_Z_N(num: Integer):
 
 
 def TRANS_Z_Q(num: Integer):
-    return RNumber(num, 1)
-
+    return RNumber(num.__str__())
 
 def ADD_PP_P(pol1: Polynomial, pol2: Polynomial):
     coef1 = pol1.get_coefs()
