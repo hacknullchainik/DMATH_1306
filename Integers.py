@@ -13,9 +13,9 @@ def POZ_Z_D(num: Integer):
     # ведь если наше число было нулем, в первом элементе тоже будет ноль
     if num.get_num()[-1] == 0:
         return 0
+    # Проверяем знак числа
     elif num.get_sign():
         return 1
-
     else:
         return 2
 
@@ -30,10 +30,12 @@ def MUL_ZM_Z(num: Integer):
 
 # Из натурального в целое
 def TRANS_N_Z(num:NNumber):
+    # возвращаем число со знаком +
     return Integer(num.get_num()[::-1], False)
 
 # из целого (неотрицательного) в натуральное
 def TRANS_Z_N(num: Integer):
+    # берем число без знака и переводим в тип integer
     num = num.get_num()
     num.reverse()
     return NNumber(num)

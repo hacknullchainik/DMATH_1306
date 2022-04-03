@@ -4,6 +4,7 @@ from Naturals import *
 from Rationals import *
 from Naturals_test import Ntest
 from Polynomials_test import Ptest
+from Rationals_test import Rtest
 import ALEX
 import chernov
 
@@ -215,3 +216,11 @@ def SUB_PP_P(pol1: Polynomial, pol2: Polynomial):
 
     return Polynomial(result)
 
+# Ntest(['ADD_NN_N', 'DIV_NN_Dk', 'MUL_NN_N'])
+# print(MUL_NN_N(NNumber("123"), NNumber("9")))
+# print(POZ_Z_D(Integer([0], False)))
+# Ptest(['SUB_PP_P'])
+# print(SUB_PP_P(Polynomial('2 1 1 1 1'), Polynomial('1 1 1 1 1')))
+# print(RED_Q_Q(RNumber(0,0)))
+# print(TRANS_Q_Z(RNumber("123/12")))
+Rtest(['TRANS_Q_Z'])
