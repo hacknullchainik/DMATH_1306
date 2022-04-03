@@ -2,7 +2,9 @@ from Dtypes import NNumber, Integer, RNumber, Polynomial
 from Integers import *
 from Naturals import *
 from Rationals import *
-
+from Naturals_test import Ntest
+import ALEX
+import chernov
 
 def MUL_Nk_N(num: NNumber, k):
     # Просто добавляем нули в конце числа
@@ -230,3 +232,6 @@ def SUB_PP_P(pol1: Polynomial, pol2: Polynomial):
 
     return Polynomial(result)
 
+# Ntest(['ADD_NN_N', 'DIV_NN_Dk', 'MUL_NN_N'])
+# print(MUL_NN_N(NNumber("123"), NNumber("9")))
+print(chernov.TRANS_Z_Q(Integer("123")))
