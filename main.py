@@ -14,5 +14,11 @@
 
 from Dtypes import RNumber, NNumber, Integer, Polynomial
 from Naturals_test import Ntest,Nlist
+from Integers_test import Itest,Ilist
+from Rationals_test import Rtest,Rlist
+from Polynomials_test import Ptest,Plist
 
-Ntest([Nlist])
+Ntest(Nlist) #............EF
+# Itest(Ilist) #......F.FF
+# Rtest(Rlist) # E...FE.F
+# Ptest(Plist)

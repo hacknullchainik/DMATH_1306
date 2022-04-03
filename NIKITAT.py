@@ -2,8 +2,10 @@ from Dtypes import Integer, NNumber, RNumber, Polynomial
 import Naturals, Integers
 
 def MUL_ZM_Z(num: Integer):
+    # Проверяем знак. Если число отрицательное, то возвращаем положительное
     if num.get_sign():
         result = Integer(num.get_num(), False)
+    # Иначе - возвращаем отрицательное
     else:
         result = Integer(num.get_num(), True)
     return result

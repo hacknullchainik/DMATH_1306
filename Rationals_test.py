@@ -39,13 +39,14 @@ class TestRationals(unittest.TestCase):
 
     def test_TRANS_Q_Z(self):
         self.assertEqual(TRANS_Q_Z(RNumber('123/1')).__str__(), '123')
-        self.assertEqual(TRANS_Q_Z(RNumber('-121/11')).__str__(), '-11')
-        self.assertEqual(TRANS_Q_Z(RNumber('-123/123')).__str__(),'-1')
-        self.assertEqual(TRANS_Q_Z(RNumber('123/123')).__str__(), '1')
-        self.assertEqual(TRANS_Q_Z(RNumber('-246/123')).__str__(),'2')
-        self.assertEqual(TRANS_Q_Z(RNumber('124/123')).__str__(),'1')
-        self.assertEqual(TRANS_Q_Z(RNumber('11111111/11')).__str__(),'1010101')
-        self.assertEqual(TRANS_Q_Z(RNumber('2222/3')).__str__(),'1')
+        self.assertEqual(TRANS_Q_Z(RNumber('-123/1')).__str__(), '-123')
+        self.assertEqual(TRANS_Q_Z(RNumber('-121/11')).__str__(), '-121/11')
+        self.assertEqual(TRANS_Q_Z(RNumber('-123/123')).__str__(),'-123/123')
+        self.assertEqual(TRANS_Q_Z(RNumber('123/123')).__str__(), '123/123')
+        self.assertEqual(TRANS_Q_Z(RNumber('-246/123')).__str__(),'-246/123')
+        self.assertEqual(TRANS_Q_Z(RNumber('124/123')).__str__(),'124/123')
+        self.assertEqual(TRANS_Q_Z(RNumber('11111111/11')).__str__(),'11111111/11')
+        self.assertEqual(TRANS_Q_Z(RNumber('2222/3')).__str__(),'2222/3')
 
     def test_ADD_QQ_Q(self):
         self.assertEqual(ADD_QQ_Q(RNumber('1'),RNumber('1')).__str__(),'2')
