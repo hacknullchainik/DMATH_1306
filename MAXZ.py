@@ -26,7 +26,7 @@ def INT_Q_B(num: RNumber):
     num2 = RED_Q_Q(num)
 
     # првоеряем является ли знаменатель 1 в сокращенной дроби
-    if (num2.get_den() == 1) or (num2.get_num() == 0):
+    if (num2.get_den().get_num()[0] == 1) or (num2.get_num() == 0):
         return True
     else:
         return False
