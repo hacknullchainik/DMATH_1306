@@ -110,7 +110,7 @@ class TestNaturals(unittest.TestCase):
         self.assertEqual(MOD_NN_N(NNumber('0'), NNumber('1000000')).__str__(),'0')
         self.assertEqual(MOD_NN_N(NNumber('10'), NNumber('7')).__str__(),'3')
         self.assertEqual(MOD_NN_N(NNumber('1248179861956178649586198'), NNumber('7529386519698146')).__str__(), str(1248179861956178649586198%7529386519698146))
-        self.assertEqual(MOD_NN_N(NNumber('10384758689746'), NNumber('73456743')).__str__(), str(10384758689746/73456743))
+        self.assertEqual(MOD_NN_N(NNumber('10384758689746'), NNumber('73456743')).__str__(), str(10384758689746%73456743))
         self.assertRaises(ZeroDivisionError, MOD_NN_N, NNumber('123123'), NNumber('0'))
     # python -m unittest Naturals_test.TestNaturals.test_GCF_NN_N
 
