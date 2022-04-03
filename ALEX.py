@@ -81,7 +81,7 @@ def MOD_ZZ_Z(num:Integer, num_2:Integer):
 
     # SUB_ZZ_Z() -> pending from Nastia <-
     # Substructing the value of the divident multiplied by the quotient from the dividend
-    r = SUB_ZZ_Z(a,a_1)
+    r = Integers.SUB_ZZ_Z(a,a_1)
 
     # MUL_ZM_Z FROM NIKITAT.PY
     # Putting the right sign the resulting integer.
@@ -102,20 +102,24 @@ def SUB_QQ_Q(num_1: RNumber, num_2: RNumber):
     if comon_divider == num_1.get_den():
         new_num_1 = Integer(str(num_1.get_num()),False)
     else:
-        temp_var = Integer(str(num_1.get_num()), num_1.get_sign())
+        temp_var = Integer(str(num_1.get_den()), num_1.get_sign())
+        temp_var_1 = Integer(str(num_1.get_num()), num_1.get_sign())
         temp_var_2 = Integer(comon_divider.get_num()[::-1],False)
+        temp_var_3 = Integer(DIV_ZZ_Z(temp_var_2,temp_var).get_num(),DIV_ZZ_Z(temp_var_2,temp_var).get_sign())
 
-        new_num_1 = Integers.MUL_ZZ_Z(temp_var,temp_var_2)
-    
+        new_num_1 = Integers.MUL_ZZ_Z(temp_var_1,temp_var_3)
+        
     #Checking if the common diviser is equal to the denominator of the of num_2
     #If the they are equal then the numerator will not be affected
     if comon_divider == num_2.get_den():
         new_num_2 = Integer(str(num_2.get_num()),False)
     else:
-        temp_var = Integer(str(num_2.get_num()),num_2.get_sign())
+        temp_var = Integer(str(num_2.get_den()),num_2.get_sign())
+        temp_var_1 = Integer(str(num_2.get_num()), num_2.get_sign())
         temp_var_2 = Integer(comon_divider.get_num()[::-1],False)
+        temp_var_3 = Integer(DIV_ZZ_Z(temp_var_2,temp_var).get_num(),DIV_ZZ_Z(temp_var_2,temp_var).get_sign())
 
-        new_num_2 = Integers.MUL_ZZ_Z(temp_var,temp_var_2)
+        new_num_2 = Integers.MUL_ZZ_Z(temp_var_1,temp_var_3)
 
     #Substracting the two resulting numerator 
     final_num = Integers.SUB_ZZ_Z(new_num_1,new_num_2)

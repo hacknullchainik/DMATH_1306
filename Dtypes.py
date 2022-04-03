@@ -1,4 +1,4 @@
-# v 0.46 Добавлены плюшки вывода Polynomial
+# v 0.47 Добавлены плюшки вывода Polynomial, параметр simple у __str__() выводит "сухие" коэфициенты
 # v 0.45 (minor) Исправлена ошибка вывода Polynomial
 # Че добавил: (Change log) (0.43)
 # 1. Integer и NNumber можно теперь задавать строками '123' итп
@@ -218,32 +218,34 @@ class Polynomial:
         self.__exp = len(self.__coefs) - 1
 
     # ЧТОБЫ ВЫВОДИЛОСЬ НОРМАЛЬНО ПРИНТОМ
-    def __str__(self, show_exp=False):
+    def __str__(self, show_exp=False, simple=False):
         # Результирующая строка
         res_str = ''
         # i - счётчик, с - элемент списка
+        if simple:
+            return ' '.join([i.__str__() for i in self.__coefs[::-1]])
+        else:
+            for i, c in enumerate(self.__coefs[::-1]):
+                # Если число отрицательное
+                if c.get_sign():
+                    res_str += ' -'
 
-        for i, c in enumerate(self.__coefs[::-1]):
-            # Если число отрицательное
-            if c.get_sign():
-                res_str += ' -'
+                # Добавляем ' + ' если элемент не последний
 
-            # Добавляем ' + ' если элемент не последний
-
-            elif i > 0 and int(c.get_num().get_num()[-1]):
-                res_str += ' + '
-            # Добавляем элемент в рез. строку, если он не равен 0
-            if int(c.get_num().__str__()):
-                if c.get_den().get_rank() == 0 and int(c.get_den().get_num()[0]) == 1:
-                    res_str += '{}'.format(c.__str__().replace('-', ''))
-                else:
-                    res_str += '({})'.format(c.__str__().replace('-',''))
-                if i-self.__exp != 0:
-                    res_str += f'x^{self.__exp-i}'
-            elif not i-self.__exp and len(res_str) == 0:
-                res_str += '0'
-        if show_exp:
-            res_str += f'\nexp is: {self.__exp}'
+                elif i > 0 and int(c.get_num().get_num()[-1]):
+                    res_str += ' + '
+                # Добавляем элемент в рез. строку, если он не равен 0
+                if int(c.get_num().__str__()):
+                    if c.get_den().get_rank() == 0 and int(c.get_den().get_num()[0]) == 1:
+                        res_str += '{}'.format(c.__str__().replace('-', ''))
+                    else:
+                        res_str += '({})'.format(c.__str__().replace('-',''))
+                    if i-self.__exp != 0:
+                        res_str += f'x^{self.__exp-i}'
+                elif not i-self.__exp and len(res_str) == 0:
+                    res_str += '0'
+            if show_exp:
+                res_str += f'\nexp is: {self.__exp}'
         return res_str
         # return '  '.join([f'({r.__str__()})'+f'x^{len(self.__coefs)-1-i}' for i, r in enumerate(self.__coefs[::-1]) if r.get_num() != 0])
 
