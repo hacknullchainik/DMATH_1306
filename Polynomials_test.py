@@ -4,7 +4,7 @@ from math import gcd, lcm
 from Polynomials import *
 # python Polynomials_test.py -v
 
-Plist = ['ADD_PP_P','SUB_PP_P','MUL_PQ_Q','LED_P_Q','DEG_P_N','FAC_P_Q','DER_P_P']
+Plist = ['ADD_PP_P','SUB_PP_P','MUL_PQ_Q','LED_P_Q','DEG_P_N','FAC_P_Q','DER_P_P','MUL_Pxk_P']
 
 
 class TestPolynomials(unittest.TestCase):
@@ -23,9 +23,9 @@ class TestPolynomials(unittest.TestCase):
         self.assertEqual(ADD_PP_P(Polynomial('-1'), Polynomial('1 1 1 1 1')).__str__(simple=True), '1 1 1 1 0')
 
     def test_SUB_PP_P(self):
-        self.assertEqual(SUB_PP_P(Polynomial('3'), Polynomial('1')).__str__(simple=True), '0')
+        self.assertEqual(SUB_PP_P(Polynomial('3'), Polynomial('1')).__str__(simple=True), '2')
         self.assertEqual(SUB_PP_P(Polynomial('2 1 1 1 1'), Polynomial('1 1 1 1 1')).__str__(simple=True), '1 0 0 0 0')
-        # self.assertEqual(SUB_PP_P(Polynomial('1 1 1 1 1'),Polynomial('1 1 1 1 1')).__str__(simple=True),'0')
+        self.assertEqual(SUB_PP_P(Polynomial('1 1 1 1 1'),Polynomial('1 1 1 1 1')).__str__(simple=True),'0')
 
     def test_MUL_PQ_Q(self):
         self.assertEqual(MUL_PQ_Q(Polynomial('1 1 1 1'), RNumber('1')).__str__(simple=True), '1 1 1 1')
@@ -68,6 +68,13 @@ class TestPolynomials(unittest.TestCase):
         self.assertEqual(DER_P_P(Polynomial('-1/12 0 0 0 0 0 0 0 0 0 0 0 0')).__str__(simple=True),'-12/12 0 0 0 0 0 0 0 0 0 0 0')
         self.assertEqual(DER_P_P(Polynomial('228')).__str__(simple=True), '0')
 
+    def test_MUL_Pxk_P(self):
+        self.assertEqual(MUL_Pxk_P(Polynomial('1 1'),Polynomial('1')).__str__(simple=True),'1 1')
+        self.assertEqual(MUL_Pxk_P(Polynomial('0'),Polynomial('1 0 0 0')).__str__(simple=True),'0')
+        self.assertEqual(MUL_Pxk_P(Polynomial('10 1'),Polynomial('1 0 0')).__str__(simple=True),'10 1 0 0')
+        self.assertEqual(MUL_Pxk_P(Polynomial('1 1'),Polynomial('1')).__str__(simple=True),'1 1')
+        self.assertEqual(MUL_Pxk_P(Polynomial('0'), Polynomial('0')).__str__(simple=True), '0')
+        self.assertEqual(MUL_Pxk_P(Polynomial('1 0 0 0 0'), Polynomial('0')).__str__(simple=True), '0')
 
 def Ptest(name:list):
     suite = unittest.TestSuite()
