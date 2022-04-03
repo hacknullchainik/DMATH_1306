@@ -104,6 +104,7 @@ class TestNaturals(unittest.TestCase):
         self.assertEqual(MOD_NN_N(NNumber('10'), NNumber('7')).__str__(),'3')
         self.assertRaises(ZeroDivisionError, MOD_NN_N, NNumber('123123'), NNumber('0'))
     # python -m unittest Naturals_test.TestNaturals.test_GCF_NN_N
+
     def test_GCF_NN_N(self):
         self.assertEqual(GCF_NN_N(NNumber('0'),NNumber('0')).__str__(), str(gcd(0,0)))
         self.assertEqual(GCF_NN_N(NNumber('100'),NNumber('10')).__str__(), str(gcd(100,10)))

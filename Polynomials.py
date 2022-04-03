@@ -48,7 +48,7 @@ def MUL_PQ_Q(n: Polynomial, m: RNumber):
     # И каждый коэффициент умножаем на число m
     for i in range(len(work)):
         res.append(MUL_QQ_Q(work[i], m))
-    return Polynomial(res)
+    return Polynomial(res[::-1])
 
 # Умножение многочлена на х**к
 def MUL_Pxk_P(poly_1: Polynomial, poly_2: Polynomial):
@@ -74,7 +74,7 @@ def MUL_Pxk_P(poly_1: Polynomial, poly_2: Polynomial):
 
 # Старший коэффициент многочлена
 def LED_P_Q(mchlen: Polynomial):
-    return mchlen.get_coefs()[0]
+    return mchlen.get_coefs()[-1]
 
 # Степень многочлена
 def DEG_P_N(pol: Polynomial):
