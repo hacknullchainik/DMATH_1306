@@ -30,10 +30,12 @@ def MUL_ZM_Z(num: Integer):
 
 # Из натурального в целое
 def TRANS_N_Z(num:NNumber):
+    # возвращаем число со знаком +
     return Integer(num.get_num()[::-1], False)
 
 # из целого (неотрицательного) в натуральное
 def TRANS_Z_N(num: Integer):
+    # берем число без знака и переводим в тип integer
     num = num.get_num()
     num.reverse()
     return NNumber(num)
