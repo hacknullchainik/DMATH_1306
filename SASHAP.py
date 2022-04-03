@@ -217,3 +217,8 @@ def SUB_PP_P(pol1: Polynomial, pol2: Polynomial):
 
     return Polynomial(result)
 
+
+# Ntest(Nlist)
+Itest(['MUL_ZZ_Z'])
+# Rtest([Rlist])
+# Ptest([Plist])
