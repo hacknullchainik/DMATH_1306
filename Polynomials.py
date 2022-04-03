@@ -147,13 +147,15 @@ def GCF_PP_P(num1: Polynomial, num2: Polynomial):
     return num2
 
 
-# Производная
+#Производная
 def DER_P_P(pol: Polynomial):
     pol2 = []
-    if pol.get_exp() != 0:
-        for i in range(1, len(pol.get_coefs())):
+    #если многочлен ненулевой степени, то перемножаем
+    #коэффициенты с каждой степенью, иначе выводим нуль
+    if pol.get_exp()!=0:
+        for i in range(1,len(pol.get_coefs())):
             j = i
-            j = RNumber(Integer([i], False), NNumber([1]))
+            j = RNumber(Integer([i],False), NNumber([1]))
             pol2.append(MUL_QQ_Q(pol.get_coefs()[i], j))
         return Polynomial(pol2[::-1])
     else:

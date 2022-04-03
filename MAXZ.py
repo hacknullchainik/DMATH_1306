@@ -4,11 +4,9 @@ from Naturals import*
 from Rationals import*
 from Integers import*
 from Polynomials import*
-from math import gcd, lcm
 
 
 # Проверка числа на ноль
-from Integers import TRANS_Z_N
 
 
 def NZER_N_B(n: NNumber):
