@@ -27,12 +27,13 @@ def MUL_ND_N(num: NNumber, num_2: int):
                 # the first digit of the resulting number of the multilpication is stored inside keeper
                 # the value of keeper is then added to the result of the next multiplication
                 value = value + keeper
+                keeper = value//10
                 if value < 10:
                     results.insert(0, value)
                 else:
                     results.insert(0,value%10)
-                    results.insert(0,value//10)
-                keeper = 0
+                    if length == i:
+                        results.insert(0,keeper)
         elif keeper != 0:
             # in case the next resulting number of the multiplication also exceeds or is equal to 10
             results.insert(0, (value + keeper) % 10)
