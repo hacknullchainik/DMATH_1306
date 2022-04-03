@@ -130,6 +130,7 @@ def DIV_ZZ_Z(n: Integer, m: Integer):
     n = ABS_Z_N(n)
     m = ABS_Z_N(m)
     res = DIV_NN_N(n, m).get_num()
+    res.reverse()
 
     return Integer(res, sign)
 
