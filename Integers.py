@@ -1,12 +1,14 @@
 from Dtypes import Integer, NNumber
 from Naturals import *
 
+
 # Модуль числа
 def ABS_Z_N(num: Integer):
     # Возвращаем числа без знака
     num = num.get_num()
     num.reverse()
     return NNumber(num)
+
 
 # Сравнение с нулем
 def POZ_Z_D(num: Integer):
@@ -20,6 +22,7 @@ def POZ_Z_D(num: Integer):
     else:
         return 2
 
+
 # Умножение числа на -1
 def MUL_ZM_Z(num: Integer):
     # Меняем знак числа
@@ -30,10 +33,12 @@ def MUL_ZM_Z(num: Integer):
 
     return result
 
+
 # Из натурального в целое
-def TRANS_N_Z(num:NNumber):
+def TRANS_N_Z(num: NNumber):
     # возвращаем число со знаком +
     return Integer(num.get_num()[::-1], False)
+
 
 # из целого (неотрицательного) в натуральное
 def TRANS_Z_N(num: Integer):
@@ -42,17 +47,18 @@ def TRANS_Z_N(num: Integer):
     num.reverse()
     return NNumber(num)
 
+
 # Сумма целых чисел
-def ADD_ZZ_Z(num1:Integer, num2:Integer):
-    #если знаки чисел равны, то результат складывается
+def ADD_ZZ_Z(num1: Integer, num2: Integer):
+    # если знаки чисел равны, то результат складывается
     if num1.get_sign() == num2.get_sign():
-        res = ADD_NN_N(ABS_Z_N(num1),ABS_Z_N(num2)).get_num()
+        res = ADD_NN_N(ABS_Z_N(num1), ABS_Z_N(num2)).get_num()
         res.reverse()
-        res = Integer(res,num1.get_sign())
-    #если разные знаки, то будет происходить вычетание со сравнением чисел
+        res = Integer(res, num1.get_sign())
+    # если разные знаки, то будет происходить вычетание со сравнением чисел
     else:
         if (num1.get_sign() == True) and (num2.get_sign() == False) and (COM_NN_D(ABS_Z_N(num1), ABS_Z_N(num2)) == 1):
-            res = SUB_NN_N(ABS_Z_N(num2),ABS_Z_N(num1)).get_num()
+            res = SUB_NN_N(ABS_Z_N(num2), ABS_Z_N(num1)).get_num()
             res.reverse()
             res = Integer(res, False)
         elif (num1.get_sign() == True) and (num2.get_sign() == False) and (COM_NN_D(ABS_Z_N(num1), ABS_Z_N(num2)) == 2):
@@ -69,28 +75,36 @@ def ADD_ZZ_Z(num1:Integer, num2:Integer):
             res = Integer(res, True)
     return res
 
+
 # Разность целых чисел
-def SUB_ZZ_Z(num1:Integer, num2:Integer):
+def SUB_ZZ_Z(num1: Integer, num2: Integer):
+    bigger_num = TRANS_Z_N(num1)
+    lower_num = TRANS_Z_N(num2)
     # - + = - - (сложение)
     # + - = + + (сложение)
     # - - = - + (не сложение)
     # + + = + -  (не сложение)
     if num1.get_sign() != num2.get_sign():
-        res = ADD_NN_N(ABS_Z_N(num1),ABS_Z_N(num2)).get_num()
+        res = ADD_NN_N(ABS_Z_N(num1), ABS_Z_N(num2)).get_num()
         res.reverse()
-        res = Integer(res,num1.get_sign())
+        res = Integer(res, num1.get_sign())
     else:
-        if COM_NN_D(num1,num2)  == 2:
+        if COM_NN_D(bigger_num, lower_num) == 2:
             sig = num1.get_sign()
         else:
             if num2.get_sign():
                 sig = 0
             else:
                 sig = 1
-        res = SUB_NN_N(ABS_Z_N(num1),ABS_Z_N(num2)).get_num()
+
+        if COM_NN_D(bigger_num, lower_num) == 1:
+            bigger_num, lower_num = lower_num, bigger_num
+
+        res = SUB_NN_N(bigger_num, lower_num).get_num()
         res.reverse()
-        res = Integer(res,sig)
+        res = Integer(res, sig)
     return res
+
 
 # Произведение целых чисел
 def MUL_ZZ_Z(num1: Integer, num2: Integer):
@@ -114,6 +128,7 @@ def MUL_ZZ_Z(num1: Integer, num2: Integer):
     result = Integer(result_digits, res_sign)
     return result
 
+
 # Целая часть деления двух чисел
 def DIV_ZZ_Z(n: Integer, m: Integer):
     res = []
@@ -133,6 +148,7 @@ def DIV_ZZ_Z(n: Integer, m: Integer):
     res.reverse()
 
     return Integer(res, sign)
+
 
 # Остаток от деления двух чисел
 def MOD_ZZ_Z(num: Integer, num_2: Integer):
@@ -165,4 +181,3 @@ def MOD_ZZ_Z(num: Integer, num_2: Integer):
         r = MUL_ZM_Z(r)
 
     return r
-
