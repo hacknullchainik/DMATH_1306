@@ -114,7 +114,7 @@ def SUB_NN_N(n: NNumber, m: NNumber):
     return result
 
 # Произведение числа на цифру
-def MUL_ND_N(num: object, num_2: int):
+def MUL_ND_N(num: NNumber, num_2: int):
     # local variables storing the value from arugments
     # avoiding changes to the original data
     list_num = num.get_num()
@@ -136,12 +136,16 @@ def MUL_ND_N(num: object, num_2: int):
                 # the first digit of the resulting number of the multilpication is stored inside keeper
                 # the value of keeper is then added to the result of the next multiplication
                 value = value + keeper
-                results.insert(0, value)
+                if value < 10:
+                    results.insert(0, value)
+                else:
+                    results.insert(0,value%10)
+                    results.insert(0,value//10)
                 keeper = 0
         elif keeper != 0:
             # in case the next resulting number of the multiplication also exceeds or is equal to 10
             results.insert(0, (value + keeper) % 10)
-            keeper = value // 10
+            keeper = (value+keeper) // 10
             if i == length:
                 results.insert(0, keeper)
         else:
@@ -201,13 +205,11 @@ def SUB_NDN_N(num1: NNumber, digit: int, num2: NNumber):
     if (COM_NN_D(num1, num2) != 1):
         return SUB_NN_N(num1, num2)
     else:
-        print("Negative result")
+        raise ValueError('Negative result')
 
 # Первая цифра неполного частного, умноженная на 10 в степени к, где к - порядок цифры
 def DIV_NN_Dk(num1: NNumber, num2: NNumber):
-    # Проверка делителя на 0
-    if not int(num2.__str__()):
-        raise ZeroDivisionError
+
 
     # Этот алгоритм полностью повторяет деление в столбик, если с комментариями будет
     # что-то непонятно, распишите деление 2-х рандомных чисел и смотря на вашу запись и алгоритм, все поймете
@@ -227,6 +229,10 @@ def DIV_NN_Dk(num1: NNumber, num2: NNumber):
 
     if COM_NN_D(num1, num2) == 2:
         lower_num, bigger_num = bigger_num, lower_num
+
+    # Проверка делителя на 0
+    if not int(NNumber(lower_num).__str__()):
+        raise ZeroDivisionError
 
     # Берем из большего числа столько цифр, сколько их в меньшем и заносим
     # в массив с временным значением
@@ -288,17 +294,24 @@ def MOD_NN_N(num1: NNumber, num2: NNumber):
 # НОД чисел
 def GCF_NN_N(num1: NNumber,num2: NNumber):
     while True:
+        # в бесконечном цикле делим числа друг на друга и записываем остаток от деления в меньшее из них. выполняется пока одно из чисел не станет нулем
+        if not int(num1.__str__()) or not int(num2.__str__()):
+            return ADD_NN_N(num1, num2)
         if COM_NN_D(num1 ,num2) == 2:
             num1 = MOD_NN_N(num1, num2)
         else:
             num2 = MOD_NN_N(num2, num1)
+        # возвращаем суммы чисел, чтобы не сравнивать их
         if not int(num1.__str__()) or not int(num2.__str__()):
             return ADD_NN_N(num1, num2)
 
 # НОК чисел
 def LCM_NN_N(num1: NNumber, num2: NNumber):
-    #найдем произведение двух чисел:
+    # найдем произведение двух чисел:
     mult = MUL_NN_N(num1, num2)
-    #найдем НОД двух чисел и НОК разделим на НОД
-    #НОК(a,b)=a*b/НОД(a,b)
-    return DIV_NN_N(mult, GCF_NN_N(num1, num2))
+    # найдем НОД двух чисел и произведение разделим на НОД
+    # НОК(a,b)=a*b/НОД(a,b)
+    if (mult.get_num()[0] != 0):
+        return DIV_NN_N(mult, GCF_NN_N(num1, num2))
+    else:
+        return NNumber('0')

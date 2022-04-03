@@ -13,14 +13,16 @@ def RED_Q_Q(drob: RNumber):
 
 # Проверка на целое
 def INT_Q_B(num: RNumber):
-    # сокращаем дробь
-    num2 = RED_Q_Q(num)
-
-    # првоеряем является ли знаменатель 1 в сокращенной дроби
-    if (num2.get_den() == 1) or (num2.get_num() == 0):
+    if num.get_num().get_num()[0] == 0:
         return True
     else:
-        return False
+        # сокращаем дробь
+        num2 = RED_Q_Q(num)
+        # првоеряем является ли знаменатель 1 в сокращенной дроби
+        if (num2.get_den().get_num()[0] == 1):
+            return True
+        else:
+            return False
 
 # Преобразование из целого в дробное
 def TRANS_Z_Q(num: Integer):
@@ -30,30 +32,12 @@ def TRANS_Z_Q(num: Integer):
 def TRANS_Q_Z(num: RNumber):
     # Создаём массив, в который будет записан результат и записываем числитель в
     # служебную переменную
-    numer_list = []
     numer = num.get_num()
 
     # Проверяем, равен ли знаменатель единице и продолжаем работу в случае равенства
 
-    if num.get_den() == 1:
-        # Проверяем знак знаменателя, т.к. знак дроби хранится в нем
-        if numer > 0:
-            sign = False
-        else:
-            sign = True
-
-        # Передаем в массив по одной цифре числа и переворачиваем его в конце, т.к
-        # в массив цифры заноcились с конца
-
-        numer = abs(numer)
-
-        while numer > 0:
-            numer_list.append(numer % 10)
-            numer //= 10
-
-        numer_list.reverse()
-
-        return Integer(numer_list, sign)
+    if COM_NN_D(num.get_den(), NNumber("1")) == 0:
+        return numer
 
     # В случае, если знаменатель
     # не равен нулю, функция возвращает изначальную дробь

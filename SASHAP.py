@@ -3,6 +3,8 @@ from Integers import *
 from Naturals import *
 from Rationals import *
 from Naturals_test import Ntest
+from Polynomials_test import Ptest
+from Rationals_test import Rtest
 import ALEX
 import chernov
 
@@ -31,30 +33,12 @@ def POZ_Z_D(num: Integer):
 def TRANS_Q_Z(num: RNumber):
     # Создаём массив, в который будет записан результат и записываем числитель в
     # служебную переменную
-    numer_list = []
     numer = num.get_num()
 
     # Проверяем, равен ли знаменатель единице и продолжаем работу в случае равенства
 
-    if num.get_den() == 1:
-        # Проверяем знак знаменателя, т.к. знак дроби хранится в нем
-        if numer > 0:
-            sign = False
-        else:
-            sign = True
-
-        # Передаем в массив по одной цифре числа и переворачиваем его в конце, т.к
-        # в массив цифры заноcились с конца
-
-        numer = abs(numer)
-
-        while numer > 0:
-            numer_list.append(numer % 10)
-            numer //= 10
-
-        numer_list.reverse()
-
-        return Integer(numer_list, sign)
+    if COM_NN_D(num.get_den(), NNumber("1")) == 0:
+        return numer
 
     # В случае, если знаменатель
     # не равен нулю, функция возвращает изначальную дробь
@@ -234,4 +218,9 @@ def SUB_PP_P(pol1: Polynomial, pol2: Polynomial):
 
 # Ntest(['ADD_NN_N', 'DIV_NN_Dk', 'MUL_NN_N'])
 # print(MUL_NN_N(NNumber("123"), NNumber("9")))
-print(chernov.TRANS_Z_Q(Integer("123")))
+# print(POZ_Z_D(Integer([0], False)))
+# Ptest(['SUB_PP_P'])
+# print(SUB_PP_P(Polynomial('2 1 1 1 1'), Polynomial('1 1 1 1 1')))
+# print(RED_Q_Q(RNumber(0,0)))
+# print(TRANS_Q_Z(RNumber("123/12")))
+Rtest(['TRANS_Q_Z'])

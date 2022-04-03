@@ -64,18 +64,18 @@ class TestIntegers(unittest.TestCase):
 
     # python -m unittest Integers_test.TestIntegers.test_SUB_ZZ_Z
     def test_SUB_ZZ_Z(self):
-        self.assertEqual(ADD_ZZ_Z(Integer('-' + '1' * 100), Integer('1' * 100)).__str__(), '-'+'2'*100)
-        self.assertEqual(ADD_ZZ_Z(Integer('1' * 100), Integer('-' + '1' * 100)).__str__(), '2'*100)
-        self.assertEqual(ADD_ZZ_Z(Integer('2' * 100), Integer('-' + '1' * 100)).__str__(), '3' * 100)
-        self.assertEqual(ADD_ZZ_Z(Integer('0' * 100), Integer('1' * 100)).__str__(), '-' + '1' * 100)
-        self.assertEqual(ADD_ZZ_Z(Integer('0' * 100), Integer('-' + '1' * 100)).__str__(), '1' * 100)
-        self.assertEqual(ADD_ZZ_Z(Integer('1' * 100), Integer('1' * 100)).__str__(), '0')
-        self.assertEqual(ADD_ZZ_Z(Integer('-' + '1' * 100), Integer('-' + '1' * 100)).__str__(), '0')
-        self.assertEqual(ADD_ZZ_Z(Integer('-' + '1' * 100), Integer('0')).__str__(), '-' + '1' * 100)
+        self.assertEqual(SUB_ZZ_Z(Integer('-' + '1' * 100), Integer('1' * 100)).__str__(), '-'+'2'*100)
+        self.assertEqual(SUB_ZZ_Z(Integer('1' * 100), Integer('-' + '1' * 100)).__str__(), '2'*100)
+        self.assertEqual(SUB_ZZ_Z(Integer('2' * 100), Integer('-' + '1' * 100)).__str__(), '3' * 100)
+        self.assertEqual(SUB_ZZ_Z(Integer('0' * 100), Integer('1' * 100)).__str__(), '-' + '1' * 100)
+        self.assertEqual(SUB_ZZ_Z(Integer('0' * 100), Integer('-' + '1' * 100)).__str__(), '1' * 100)
+        self.assertEqual(SUB_ZZ_Z(Integer('1' * 100), Integer('1' * 100)).__str__(), '0')
+        self.assertEqual(SUB_ZZ_Z(Integer('-' + '1' * 100), Integer('-' + '1' * 100)).__str__(), '0')
+        self.assertEqual(SUB_ZZ_Z(Integer('-' + '1' * 100), Integer('0')).__str__(), '-' + '1' * 100)
         a, b = '987' * 10, '-' + '1' * 10
-        self.assertEqual(ADD_ZZ_Z(Integer(a), Integer(b)).__str__(), str(int(a) - int(b)))
+        self.assertEqual(SUB_ZZ_Z(Integer(a), Integer(b)).__str__(), str(int(a) - int(b)))
         a, b = b, a
-        self.assertEqual(ADD_ZZ_Z(Integer(a), Integer(b)).__str__(), str(int(a) - int(b)))
+        self.assertEqual(SUB_ZZ_Z(Integer(a), Integer(b)).__str__(), str(int(a) - int(b)))
 
     # python -m unittest Integers_test.TestIntegers.test_MUL_ZZ_Z
     def test_MUL_ZZ_Z(self):

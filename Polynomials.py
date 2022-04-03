@@ -28,7 +28,7 @@ def SUB_PP_P(pol1: Polynomial, pol2: Polynomial):
         flag = 1
 
     while len(coefs_bigger) > len(coefs_lower):
-        coefs_lower.append(RNumber(0, 1))
+        coefs_lower.append(RNumber("0"))
 
     for i in range(len(coefs_bigger)):
         if flag:
@@ -36,7 +36,9 @@ def SUB_PP_P(pol1: Polynomial, pol2: Polynomial):
         else:
             result.append(SUB_QQ_Q(coefs_bigger[i], coefs_lower[i]))
 
-    return result
+    result.reverse()
+
+    return Polynomial(result)
 
 # Умножение многочлена на рациональное число
 def MUL_PQ_Q(n: Polynomial, m: RNumber):
@@ -49,7 +51,26 @@ def MUL_PQ_Q(n: Polynomial, m: RNumber):
     return Polynomial(res)
 
 # Умножение многочлена на х**к
-# MUL_Pxk_P
+def MUL_Pxk_P(poly_1: Polynomial, poly_2: Polynomial):
+    p_1 = ''
+    p_2_cof = 0
+
+    # This loop looks for the coefficient of the x^k that will be multiplied to poly_1.
+    for i in poly_2.get_coefs():
+        if i.get_num() != 0:
+            p_2_cof = i
+
+    # Multiplying each coefficient to one another.
+    for i in poly_1.get_coefs()[::-1]:
+        p_1 += str(MUL_QQ_Q(i, p_2_cof))
+        p_1 += ' '
+    p_1 = p_1[:-1]
+
+    # Increasing the value of the exponents of our polynomial by k.
+    for i in range(poly_2.get_exp()):
+        p_1 += ' 0'
+
+    return Polynomial(p_1)
 
 # Старший коэффициент многочлена
 def LED_P_Q(mchlen: Polynomial):
@@ -89,7 +110,7 @@ def MUL_PP_P(num1: Polynomial, num2: Polynomial):
 def DIV_PP_P(n: Polynomial, m: Polynomial):
     # Считаем, что n больше m
     div = n
-    while get_exp(div) >= get_exp(m):
+    while div.get_exp() >= m.get_exp():
         temp = []
         temp.append(DIV_QQ_Q(div.get_coefs()[-1], m.get_coefs()[-1]))
         res.append(DIV_QQ_Q(div.get_coefs()[-1], m.get_coefs()[-1]))
@@ -114,11 +135,14 @@ def GCF_PP_P(num1:Polynomial,num2:Polynomial):
 # Производная
 def DER_P_P(pol: Polynomial):
     pol2 = []
-    for i in range(1,len(pol.get_coefs())):
-        j = i
-        j = RNumber(Integer([i],False), NNumber([1]))
-        pol2.append(MUL_QQ_Q(pol.get_coefs()[i], j))
-    return Polynomial(pol2[::-1])
+    if pol.get_exp()!=0:
+        for i in range(1,len(pol.get_coefs())):
+            j = i
+            j = RNumber(Integer([i],False), NNumber([1]))
+            pol2.append(MUL_QQ_Q(pol.get_coefs()[i], j))
+        return Polynomial(pol2[::-1])
+    else:
+        return Polynomial('0')
 
 # Кратные корни в простые
 def NMR_P_P(pol: Polynomial):
