@@ -98,9 +98,7 @@ def ADD_NN_N(number1: NNumber, number2: NNumber):
 
 
 def DIV_NN_Dk(num1: NNumber, num2: NNumber):
-    # Проверка делителя на 0
-    if not int(num2.__str__()):
-        raise ZeroDivisionError
+
 
     # Этот алгоритм полностью повторяет деление в столбик, если с комментариями будет
     # что-то непонятно, распишите деление 2-х рандомных чисел и смотря на вашу запись и алгоритм, все поймете
@@ -120,6 +118,10 @@ def DIV_NN_Dk(num1: NNumber, num2: NNumber):
 
     if COM_NN_D(num1, num2) == 2:
         lower_num, bigger_num = bigger_num, lower_num
+
+    # Проверка делителя на 0
+    if not int(NNumber(lower_num).__str__()):
+        raise ZeroDivisionError
 
     # Берем из большего числа столько цифр, сколько их в меньшем и заносим
     # в массив с временным значением
@@ -227,5 +229,4 @@ def SUB_PP_P(pol1: Polynomial, pol2: Polynomial):
     result.reverse()
 
     return Polynomial(result)
-
 
