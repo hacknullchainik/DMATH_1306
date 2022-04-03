@@ -13,9 +13,9 @@ def POZ_Z_D(num: Integer):
     # ведь если наше число было нулем, в первом элементе тоже будет ноль
     if num.get_num()[-1] == 0:
         return 0
+    # Проверяем знак числа
     elif num.get_sign():
         return 1
-
     else:
         return 2
 
