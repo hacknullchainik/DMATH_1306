@@ -1,8 +1,36 @@
+from Dtypes import NNumber, Integer, RNumber, Polynomial
+from Integers import *
+from Naturals import *
+from Rationals import *
 # остаток от деления большего на меньшее или равное
 # код не будет работать из за ошибки в функции Div_NN_N
 # можно писать доп условия с увеличением остатка при ситуации 2,399 до 2,4. . . А оно надо ?
+def DIV_NN_N(n: NNumber, m: NNumber):
+    # Создаём результирующий массив
+    res = 0
+    # Сравниваем числа. Если n больше, то делим n на m. Иначе - m на n
+    if Naturals.COM_NN_D(n, m) == 2:
+        div = n
+        res = 0
+        # Получаем само число и поциферно вычисляем результат деления
+        while Naturals.COM_NN_D(div, m)!=1:
+            res += DIV_NN_Dk(div, m)
+            # Ниже операция вычитания из делимого части делителя. Нашли первую цифру деления - DIV_NN_Dk(div, m),
+            # затем вычли из делимого делитель умноженный на эту цифру. Получили новый делитель. Повторяем,
+            # пока делимое больше делителя
+            div = Naturals.SUB_NDN_N(div, DIV_NN_Dk(div, m), m)
+    elif Naturals.COM_NN_D(n, m) == 1:
+        n = n.get_num()[::-1]
+        m = m.get_num()[::-1]
+        div = m
+        while Naturals.COM_NN_D(div, n) != 1:
+            res += Naturals.DIV_NN_Dk(div, m)
+            div = Naturals.SUB_NDN_N(div, DIV_NN_Dk(div, n), n)
+    else:
+        res += 1
+    return NNumber([i for i in str(res).split()])
+
 def MOD_NN_N(num1: NNumber, num2: NNumber):
-    
     x = 0 # < - для увеличение разрядности первого числа, можно увеличить разрядность путём создания вместа x массива 0
     # берём целое от деления
     k = DIV_NN_N(num1,num2)
@@ -17,7 +45,6 @@ def MOD_NN_N(num1: NNumber, num2: NNumber):
     # к примеру, при 10 и 4: l = 2, k = 25, увеличиваем l до 20, находим k = 25 (100/4), далее k - l = 5/ / / наш остаток
     res = SUB_NDN_N(k,1,l)
     return res
-
 
 def ADD_QQ_Q(num1:RNumber,num2:RNumber):
     print(num1.get_num(),num2.get_den()) #целое
@@ -50,6 +77,15 @@ def ADD_QQ_Q(num1:RNumber,num2:RNumber):
     res = RNumber(num,LCM)
     return res
 
+def MUL_PQ_Q(n: Polynomial, m: RNumber):
+    res = []
+    # Берём массив коэффициентов
+    work = n.get_coefs()
+    # И каждый коэффициент умножаем на число m
+    for i in range(len(work)):
+        res.append(MUL_QQ_Q(work[i], m))
+    res.reverse()
+    return Polynomial(res)
 
 # умножение многочленов
 def MUL_PP_P(num1: Polynomial, num2: Polynomial):
