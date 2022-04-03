@@ -152,32 +152,22 @@ def DIV_ZZ_Z(n: Integer, m: Integer):
 
 # Остаток от деления двух чисел
 def MOD_ZZ_Z(num: Integer, num_2: Integer):
-    # The function finds the remainder by using the euclidian theorem.
-    # 'a' stores the value of the dividend.
-    # 'b' stores the value of the divisor.
-    # 'q' stores the value of the quotient.
-    # 'r' stores the value of the remainder.
+    # Конвертируем числа из типа Integer в тип Nnumber
+    a = TRANS_Z_N(num)
+    b = TRANS_Z_N(num_2)
 
-    a = Integer(num.get_num()[::-1], num.get_sign())
-    b = Integer(num_2.get_num()[::-1], num_2.get_sign())
+    # Запоминаем занки, для определения будущего знака числа
+    sign1 = num.get_sign()
+    sign2 = num_2.get_sign()
 
-    # DIV_ZZ_Z FROM NIKITAT.PY
-    # Finding the quotient from the division of an integer by an integer
-    q = DIV_ZZ_Z(a, b)
+    # С помощью XOR определяем знак результата
+    sign_res = sign1 ^ sign2
 
-    # MUL_ZZ_Z FROM SASHAP.PY
-    # Storing the value of the divisor multiplied by the quotient
-    a_1 = MUL_ZZ_Z(a, q)
+    # Применяем уже готовую функцию для натуральных чисел
+    res = MOD_NN_N(a, b)
 
-    # SUB_ZZ_Z() -> pending from Nastia <-
-    # Substructing the value of the divident multiplied by the quotient from the dividend
-    r = SUB_ZZ_Z(a, a_1)
+    # Формируем результат
+    result = TRANS_N_Z(res).get_num()
+    result = Integer(result, sign_res)
 
-    # MUL_ZM_Z FROM NIKITAT.PY
-    # Putting the right sign the resulting integer.
-    if a.get_sign() and b.get_sign():
-        pass
-    else:
-        r = MUL_ZM_Z(r)
-
-    return r
+    return result
