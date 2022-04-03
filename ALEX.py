@@ -74,21 +74,22 @@ def MOD_ZZ_Z(num:Integer, num_2:Integer):
     # DIV_ZZ_Z FROM NIKITAT.PY
     # Finding the quotient from the division of an integer by an integer
     q = DIV_ZZ_Z(a,b)
-
+    
     # MUL_ZZ_Z FROM SASHAP.PY
     # Storing the value of the divisor multiplied by the quotient
     a_1 = Integers.MUL_ZZ_Z(b,q)
-
-    # SUB_ZZ_Z() -> pending from Nastia <-
+    
     # Substructing the value of the divident multiplied by the quotient from the dividend
     r = Integers.SUB_ZZ_Z(a,a_1)
 
     # MUL_ZM_Z FROM NIKITAT.PY
     # Putting the right sign the resulting integer.
-    if a.get_sign() and b.get_sign():
-        pass
-    else:
+    if a.get_sign()==True and b.get_sign() == True:
         r = Integers.MUL_ZM_Z(r)
+    elif (a.get_sign()== False and b.get_sign() == True) or (a.get_sign()== True and b.get_sign() == False):
+        r = Integers.MUL_ZM_Z(r)
+    else:
+        pass
 
     return r
 
@@ -123,6 +124,7 @@ def SUB_QQ_Q(num_1: RNumber, num_2: RNumber):
 
     #Substracting the two resulting numerator 
     final_num = Integers.SUB_ZZ_Z(new_num_1,new_num_2)
+    
     res = RNumber(final_num,comon_divider)
 
     return res

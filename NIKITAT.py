@@ -116,7 +116,7 @@ def DIV_ZZ_Z(n: Integer, m: Integer):
     m = Integers.ABS_Z_N(m)
     res = Naturals.DIV_NN_N(n, m).get_num()
 
-    res = res.reverse()
+    res.reverse()
     return Integer(res, sign)
 
 def MUL_PQ_Q(n: Polynomial, m: RNumber):
@@ -126,7 +126,7 @@ def MUL_PQ_Q(n: Polynomial, m: RNumber):
     # И каждый коэффициент умножаем на число m
     for i in range(len(work)):
         res.append(MUL_QQ_Q(work[i], m))
-    res = res.reverse()
+    res.reverse()
     return Polynomial(res)
 
 def DIV_PP_P(n: Polynomial, m: Polynomial):
