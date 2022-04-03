@@ -3,6 +3,7 @@ from Naturals import *
 
 # Модуль числа
 def ABS_Z_N(num: Integer):
+    # Возвращаем числа без знака
     num = num.get_num()
     num.reverse()
     return NNumber(num)
@@ -21,6 +22,7 @@ def POZ_Z_D(num: Integer):
 
 # Умножение числа на -1
 def MUL_ZM_Z(num: Integer):
+    # Меняем знак числа
     if num.get_sign():
         result = Integer(num.get_num()[::-1], False)
     else:

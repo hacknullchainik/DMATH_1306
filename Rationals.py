@@ -3,12 +3,18 @@ from Integers import *
 
 # Сокращение дроби
 def RED_Q_Q(drob: RNumber):
+    #сохраняем числитель
     num = drob.get_num()
+    # сохраняем знак
     sign = num.get_sign()
+    # сохраняем знаменатель
     den = drob.get_den()
+    # находим нод
     gcd = GCF_NN_N(den,ABS_Z_N(num))
+    # делим числитель и знаменатель на нод
     num = DIV_NN_N(num,gcd)
     den = DIV_NN_N(den, gcd)
+    # возвращаем результат
     return RNumber(Integer(num.get_num()[::-1],sign), NNumber(den.get_num()[::-1]))
 
 # Проверка на целое

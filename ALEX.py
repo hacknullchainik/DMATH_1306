@@ -5,7 +5,7 @@ from NIKITAT import DIV_ZZ_Z
 from Dtypes import Integer, NNumber, Integer, RNumber, Polynomial
 import Naturals, Integers, Rationals, Polynomials
 
-def MUL_ND_N(num: Naturals, num_2: int):
+def MUL_ND_N(num: NNumber, num_2: int):
     # local variables storing the value from arugments
     # avoiding changes to the original data
     list_num = num.get_num()
@@ -27,12 +27,13 @@ def MUL_ND_N(num: Naturals, num_2: int):
                 # the first digit of the resulting number of the multilpication is stored inside keeper
                 # the value of keeper is then added to the result of the next multiplication
                 value = value + keeper
+                keeper = value//10
                 if value < 10:
                     results.insert(0, value)
                 else:
                     results.insert(0,value%10)
-                    results.insert(0,value//10)
-                keeper = 0
+                    if length == i:
+                        results.insert(0,keeper)
         elif keeper != 0:
             # in case the next resulting number of the multiplication also exceeds or is equal to 10
             results.insert(0, (value + keeper) % 10)
@@ -74,7 +75,7 @@ def MOD_ZZ_Z(num:Integer, num_2:Integer):
     # DIV_ZZ_Z FROM NIKITAT.PY
     # Finding the quotient from the division of an integer by an integer
     q = DIV_ZZ_Z(a,b)
-    
+
     # MUL_ZZ_Z FROM SASHAP.PY
     # Storing the value of the divisor multiplied by the quotient
     a_1 = Integers.MUL_ZZ_Z(b,q)
