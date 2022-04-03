@@ -16,4 +16,3 @@ from Dtypes import RNumber, NNumber, Integer, Polynomial
 from Naturals_test import Ntest,Nlist
 
 Ntest([Nlist])
-
