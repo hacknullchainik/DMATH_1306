@@ -116,6 +116,7 @@ def DIV_ZZ_Z(n: Integer, m: Integer):
     m = Integers.ABS_Z_N(m)
     res = Naturals.DIV_NN_N(n, m).get_num()
 
+    res.reverse()
     return Integer(res, sign)
 
 def MUL_PQ_Q(n: Polynomial, m: RNumber):
