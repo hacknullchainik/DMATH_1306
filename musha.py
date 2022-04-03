@@ -31,7 +31,6 @@ def DIV_NN_N(n: NNumber, m: NNumber):
     return NNumber([i for i in str(res).split()])
 
 def MOD_NN_N(num1: NNumber, num2: NNumber):
-    
     x = 0 # < - для увеличение разрядности первого числа, можно увеличить разрядность путём создания вместа x массива 0
     # берём целое от деления
     k = DIV_NN_N(num1,num2)
