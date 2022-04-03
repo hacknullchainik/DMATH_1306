@@ -24,13 +24,7 @@ def INT_Q_B(num: RNumber):
 
 # Преобразование из целого в дробное
 def TRANS_Z_Q(num: Integer):
-    sign = num.get_sign()
-    num = list(map(str, num.get_num()))
-    num.reverse()
-    num = int("".join(num))
-    if (sign):
-        num = -num
-    return RNumber(num, 1)
+    return RNumber(num.__str__())
 
 # Из дробного в целое, если а/1
 def TRANS_Q_Z(num: RNumber):
