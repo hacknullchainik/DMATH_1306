@@ -4,6 +4,7 @@ from math import gcd, lcm
 from Naturals import *
 # python Naturals_test.py -v
 
+Nlist = ['COM_NN_D','NZER_N_B','ADD_1N_N','ADD_NN_N','SUB_NN_N','MUL_ND_N','MUL_Nk_N','MUL_NN_N','SUB_NDN_N']
 
 class TestNaturals(unittest.TestCase):
     # python -m unittest Naturals_test.TestNaturals.test_COM_NN_D
@@ -65,7 +66,7 @@ class TestNaturals(unittest.TestCase):
         self.assertEqual(MUL_NN_N(NNumber('765433123'), NNumber('123')).__str__(), str(765433123 * 123))
 
     def test_SUB_NDN_N(self):
-        self.assertEqual(SUB_NDN_N(NNumber('745386'),9,NNumber('123')).__str__(),str(74586-(9*123)))
+        self.assertEqual(SUB_NDN_N(NNumber('745386'),9,NNumber('123')).__str__(),str(745386-(9*123)))
         self.assertEqual(SUB_NDN_N(NNumber('9999999'), 9, NNumber('11111')).__str__(),'0')
         self.assertEqual(SUB_NDN_N(NNumber('0'), 0, NNumber('0')).__str__(), '0')
         self.assertEqual(SUB_NDN_N(NNumber('1'), 1, NNumber('1')).__str__(), '0')
@@ -134,5 +135,9 @@ class TestNaturals(unittest.TestCase):
         self.assertEqual(LCM_NN_N(NNumber(a),NNumber(b)).__str__(),str(lcm(int(a), int(b))))
 
 
-if __name__ == "__main__":
-    unittest.main()
+def Ntest(name:list):
+    suite = unittest.TestSuite()
+    for i in name:
+        suite.addTest(TestNaturals('test_'+i))
+    runner = unittest.TextTestRunner()
+    runner.run(suite)

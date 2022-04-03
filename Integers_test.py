@@ -4,6 +4,8 @@ from math import gcd, lcm
 from Integers import *
 # python Integers_test.py -v
 
+Ilist = ['ABS_Z_N','POZ_Z_D','MUL_ZM_Z','TRANS_N_Z','TRANS_Z_N','ADD_ZZ_Z','SUB_ZZ_Z','MUL_ZZ_Z','DIV_ZZ_Z','MOD_ZZ_Z']
+
 
 class TestIntegers(unittest.TestCase):
     # python -m unittest Integers_test.TestIntegers.test_ABS_Z_N
@@ -127,6 +129,9 @@ class TestIntegers(unittest.TestCase):
         a, b = '0', '0'
         self.assertEqual(MOD_ZZ_Z(Integer('1'), Integer('1')).__str__(), str(int(a) % int(b)))
 
-
-if __name__ == "__main__":
-    unittest.main()
+def Itest(name:list):
+    suite = unittest.TestSuite()
+    for i in name:
+        suite.addTest(TestIntegers('test_'+i))
+    runner = unittest.TextTestRunner()
+    runner.run(suite)
