@@ -125,7 +125,7 @@ def DIV_PP_P(n: Polynomial, m: Polynomial):
     # Делим пока степень делителя не больше делимого
     while(n.get_exp() >= m.get_exp()):
         # Записываем коэффициент деления в массив
-        res.append(MUL_QQ_Q(LED_P_Q(n), LED_P_Q(m)))
+        res.append(DIV_QQ_Q(LED_P_Q(n), LED_P_Q(m)))
         # Вычетаем из делимого делитель, умноженный на коэффициент деления, со сдвигом влево
         n = SUB_PP_P(n, MUL_Pxk_P(MUL_PQ_Q(m, res[-1]), n.get_exp()-m.get_exp()))
     return Polynomial(res)
