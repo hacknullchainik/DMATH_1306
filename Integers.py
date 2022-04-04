@@ -130,44 +130,57 @@ def MUL_ZZ_Z(num1: Integer, num2: Integer):
 
 
 # Целая часть деления двух чисел
-def DIV_ZZ_Z(n: Integer, m: Integer):
-    res = []
-    # Проверяем числа на знаки (узнаём, в результате будет положительное число или отрицательное)
-    if (POZ_Z_D(n) + POZ_Z_D(m)) == 4:
-        sign = False
-    elif (POZ_Z_D(n) + POZ_Z_D(m)) == 3:
-        sign = True
-    else:
-        sign = False
-
-    # Берём абсолютные значения (знак уже запомнили) и применяем обычное деление натуральных чисел
-    # В результате всё равно целое
-    n = ABS_Z_N(n)
-    m = ABS_Z_N(m)
-    res = DIV_NN_N(n, m).get_num()
-    res.reverse()
-
-    return Integer(res, sign)
-
-
-# Остаток от деления двух чисел
-def MOD_ZZ_Z(num: Integer, num_2: Integer):
+def DIV_ZZ_Z(num: Integer, num_2: Integer):
+    if num_2.get_num()[0] == 0:
+        raise ZeroDivisionError
     # Конвертируем числа из типа Integer в тип Nnumber
     a = TRANS_Z_N(num)
     b = TRANS_Z_N(num_2)
 
+    temp = DIV_NN_N(a, b)
+    # Запоминаем занки, для определения будущего знака числа
+    sign1 = num.get_sign()
+    sign2 = num_2.get_sign()
+    if COM_NN_D(MUL_NN_N(temp, b), a) == 0:
+        return Integer(temp.get_num(), (sign1 ^ sign2))
+
+    if sign1 == False and sign2 == False:
+        res = temp
+    elif sign1 == False and sign2 == True:
+        res = Integer(temp.get_num()[::-1], True)
+    elif sign1 == True and sign2 == False:
+        res = Integer(temp.get_num()[::-1], True)
+        res = SUB_ZZ_Z(res, Integer("1", False))
+    elif sign1 == True and sign2 == True:
+        res = ADD_ZZ_Z(Integer(temp.get_num()[::-1], False), Integer("1", False))
+
+    return res
+
+
+def MOD_ZZ_Z(num: Integer, num_2: Integer):
+    if num_2.get_num()[0] == 0:
+        raise ZeroDivisionError
+
+    div = DIV_ZZ_Z(num, num_2)
+    if MUL_ZZ_Z(div, num_2) == num:
+        return Integer("0", False)
+
+    # Конвертируем числа из типа Integer в тип Nnumber
+    a = TRANS_Z_N(num)
+    b = TRANS_Z_N(num_2)
+
+    temp = MOD_NN_N(a, b)
     # Запоминаем занки, для определения будущего знака числа
     sign1 = num.get_sign()
     sign2 = num_2.get_sign()
 
-    # С помощью XOR определяем знак результата
-    sign_res = sign1 ^ sign2
+    if sign1 == False and sign2 == False:
+        res = Integer(temp.get_num()[::-1], False)
+    elif sign1 == False and sign2 == True:
+        res = Integer(temp.get_num()[::-1], False)
+    elif sign1 == True and sign2 == False:
+        res = SUB_ZZ_Z(num, MUL_ZZ_Z(num_2, div))
+    elif sign1 == True and sign2 == True:
+        res = SUB_ZZ_Z(num, MUL_ZZ_Z(num_2, div))
 
-    # Применяем уже готовую функцию для натуральных чисел
-    res = MOD_NN_N(a, b)
-
-    # Формируем результат
-    result = TRANS_N_Z(res).get_num()
-    result = Integer(result, sign_res)
-
-    return result
+    return res
