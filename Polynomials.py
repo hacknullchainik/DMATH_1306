@@ -125,7 +125,7 @@ def DIV_PP_P(n: Polynomial, m: Polynomial):
     # Делим пока степень делителя не больше делимого
     while(n.get_exp() >= m.get_exp()):
         # Записываем коэффициент деления в массив
-        res.append(MUL_QQ_Q(LED_P_Q(n), LED_P_Q(m)))
+        res.append(DIV_QQ_Q(LED_P_Q(n), LED_P_Q(m)))
         # Вычетаем из делимого делитель, умноженный на коэффициент деления, со сдвигом влево
         n = SUB_PP_P(n, MUL_Pxk_P(MUL_PQ_Q(m, res[-1]), n.get_exp()-m.get_exp()))
     return Polynomial(res)
@@ -155,12 +155,18 @@ def MOD_PP_P(poly_1: Polynomial, poly_2: Polynomial):
 
 # НОД
 def GCF_PP_P(num1: Polynomial, num2: Polynomial):
+    result = []
     res = MOD_PP_P(num1, num2)
     while (DEG_P_N(res) != 0):
         num1 = num2
         num2 = res
         res = MOD_PP_P(num1, num2)
-    return num2
+    fac = FAC_P_Q(num2)
+
+    for i in range(len(num2.get_coefs())):
+        result.append(DIV_QQ_Q(num2.get_coefs()[i], fac))
+    result.reverse()
+    return Polynomial(result)
 
 
 # Производная

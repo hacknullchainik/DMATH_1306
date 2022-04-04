@@ -115,8 +115,8 @@ class TestIntegers(unittest.TestCase):
     # python -m unittest Integers_test.TestIntegers.test_MOD_ZZ_Z
     def test_MOD_ZZ_Z(self):
         self.assertEqual(MOD_ZZ_Z(Integer('1'), Integer('1')).__str__(), str(1 % 1))
-        #self.assertEqual(MOD_ZZ_Z(Integer('1'),Integer('-1')).__str__(),str(1%-1))
-        #self.assertEqual(MOD_ZZ_Z(Integer('-1'),Integer('1')).__str__(),str(-1%1))
+        # self.assertEqual(MOD_ZZ_Z(Integer('1'),Integer('-1')).__str__(),str(1%-1))
+        # self.assertEqual(MOD_ZZ_Z(Integer('-1'),Integer('1')).__str__(),str(-1%1))
         self.assertEqual(MOD_ZZ_Z(Integer('-1'), Integer('-1')).__str__(), str(-1 % -1))
 
         a, b = '123', '-9'
