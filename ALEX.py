@@ -125,8 +125,19 @@ def SUB_QQ_Q(num_1: RNumber, num_2: RNumber):
     
     #Substracting the two resulting numerator 
     final_num = Integers.SUB_ZZ_Z(new_num_1,new_num_2)
-    
+
+    val = final_num
+    val_2 = Integer(str(comon_divider),False)
+
+    if str(Integers.ABS_Z_N(val)) >= str(val_2):
+       val_3 = MOD_ZZ_Z(val,val_2)
+       if len(val_3.get_num()) == 1 and str(val_3.get_num()) == '[0]':
+            val_4 = DIV_ZZ_Z(val,val_2)
+            res = RNumber(val_4)
+            return res
+
     res = RNumber(final_num,comon_divider)
+
     return res
 
 #The function multiplies x^k to a polynomial
