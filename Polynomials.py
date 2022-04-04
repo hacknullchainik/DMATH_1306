@@ -133,9 +133,9 @@ def DIV_PP_P(n: Polynomial, m: Polynomial):
         res.append(DIV_QQ_Q(div.get_coefs()[-1], m.get_coefs()[-1]))
         # Длобавляем в буфферную переменную результат деления первых коээф-ов, умноженный на каждый коэффициент знаменателя.
         # Соответствующие коэффициенты вычитаем из коэффициентов знаменателя
-        for i in range(m.get_exp() - 1, 0, -1):
-            temp.append(SUB_QQ_Q(div[i], MUL_QQ_Q(temp[-1], m[i])))
-        # Присваиваем div'у значение буфферной переменной 
+        for i in range(div.get_exp()-1, 0, -1):
+            temp.append(SUB_QQ_Q(div.get_coefs()[i], MUL_QQ_Q(temp[-1], m.get_coefs()[i])))
+        # Присваиваем div'у значение буфферной переменной
         div = Polynomial(temp)
 
     return Polynomial(res)
