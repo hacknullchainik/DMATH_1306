@@ -68,7 +68,7 @@ class TestRationals(unittest.TestCase):
     def test_SUB_QQ_Q(self):
         self.assertEqual(
             SUB_QQ_Q(RNumber('125558563222564588/224571828157826397658257'), RNumber('40987654/30987654123')).__str__(),
-            '-3066927208450374706520358720918/2319651378908172222037708357014537')
+            '-1022309069483458235506786240306/773217126302724074012569452338179')
         self.assertEqual(SUB_QQ_Q(RNumber('1/2'), RNumber('1')).__str__(), '-1/2')
         self.assertEqual(SUB_QQ_Q(RNumber('-1/2'), RNumber('1')).__str__(), '-3/2')
         self.assertEqual(SUB_QQ_Q(RNumber('3/3'), RNumber('9/3')).__str__(), '-2')
