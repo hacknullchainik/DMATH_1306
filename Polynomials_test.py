@@ -71,12 +71,11 @@ class TestPolynomials(unittest.TestCase):
         self.assertEqual(DER_P_P(Polynomial('228')).__str__(simple=True), '0')
 
     def test_MUL_Pxk_P(self):
-        self.assertEqual(MUL_Pxk_P(Polynomial('1 1'),Polynomial('1')).__str__(simple=True),'1 1')
-        self.assertEqual(MUL_Pxk_P(Polynomial('0'),Polynomial('1 0 0 0')).__str__(simple=True),'0')
-        self.assertEqual(MUL_Pxk_P(Polynomial('10 1'),Polynomial('1 0 0')).__str__(simple=True),'10 1 0 0')
-        self.assertEqual(MUL_Pxk_P(Polynomial('1 1'),Polynomial('1')).__str__(simple=True),'1 1')
-        self.assertEqual(MUL_Pxk_P(Polynomial('0'), Polynomial('0')).__str__(simple=True), '0')
-        self.assertEqual(MUL_Pxk_P(Polynomial('1 0 0 0 0'), Polynomial('0')).__str__(simple=True), '0')
+        self.assertEqual(MUL_Pxk_P(Polynomial('1 1'),0).__str__(simple=True),'1 1')
+        self.assertEqual(MUL_Pxk_P(Polynomial('0'),0).__str__(simple=True),'0')
+        self.assertEqual(MUL_Pxk_P(Polynomial('10 1'),2).__str__(simple=True),'10 1 0 0')
+        self.assertEqual(MUL_Pxk_P(Polynomial('1 1'),0).__str__(simple=True),'1 1')
+        self.assertEqual(MUL_Pxk_P(Polynomial('1 0 0 0 0'), 0).__str__(simple=True), '1 0 0 0 0')
 
 def Ptest(name:list):
     suite = unittest.TestSuite()

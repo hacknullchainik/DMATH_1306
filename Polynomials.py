@@ -59,7 +59,8 @@ def MUL_PQ_Q(n: Polynomial, m: RNumber):
 
 
 # Умножение многочлена на х**к
-def MUL_Pxk_P(poly_1: Polynomial, poly_2: Polynomial):
+def MUL_Pxk_P(poly_1: Polynomial, poly_2: int):
+    poly_2 = Polynomial('1' + ' 0 '*poly_2)
     p_1 = ''
     p_2_cof = 0
 
