@@ -59,10 +59,10 @@ def MUL_PQ_Q(n: Polynomial, m: RNumber):
 
 
 # Умножение многочлена на х**к
-def MUL_Pxk_P(poly_1: Polynomial, poly_2: Polynomial):
+def MUL_Pxk_P(poly_1: Polynomial, poly_2: int):
     p_1 = ''
     p_2_cof = 0
-
+    poly_2 = Polynomial('1' + ' 0'*poly_2)
     # This loop looks for the coefficient of the x^k that will be multiplied to poly_1.
     for i in poly_2.get_coefs():
         if i.get_num() != 0:
@@ -120,26 +120,15 @@ def MUL_PP_P(num1: Polynomial, num2: Polynomial):
 
 # Целочисленное деление
 def DIV_PP_P(n: Polynomial, m: Polynomial):
-    # Считаем, что n больше m
-    div = n
+    # Создаем массив с конечными коэффициентами
     res = []
-    # Пока степень числителя больше степени знаменателя - делим
-    while div.get_exp() >= m.get_exp():
-        # Буферная переменная
-        temp = []
-        # Добавляем в неё результат деления первого коэффициента числителя на первый коэфф-т знаменателя
-        # (стандартный алгоритм деления "в столбик")
-        temp.append(DIV_QQ_Q(div.get_coefs()[-1], m.get_coefs()[-1]))
-        res.append(DIV_QQ_Q(div.get_coefs()[-1], m.get_coefs()[-1]))
-        # Длобавляем в буфферную переменную результат деления первых коээф-ов, умноженный на каждый коэффициент знаменателя.
-        # Соответствующие коэффициенты вычитаем из коэффициентов знаменателя
-        for i in range(div.get_exp()-1, 0, -1):
-            temp.append(SUB_QQ_Q(div.get_coefs()[i], MUL_QQ_Q(temp[-1], m.get_coefs()[i])))
-        # Присваиваем div'у значение буфферной переменной
-        div = Polynomial(temp)
-
+    # Делим пока степень делителя не больше делимого
+    while(n.get_exp() >= m.get_exp()):
+        # Записываем коэффициент деления в массив
+        res.append(MUL_QQ_Q(LED_P_Q(n), LED_P_Q(m)))
+        # Вычетаем из делимого делитель, умноженный на коэффициент деления, со сдвигом влево
+        n = SUB_PP_P(n, MUL_Pxk_P(MUL_PQ_Q(m, res[-1]), n.get_exp()-m.get_exp()))
     return Polynomial(res)
-
 
 # Остаток от деления
 def MOD_PP_P(poly_1: Polynomial, poly_2: Polynomial):
@@ -164,7 +153,6 @@ def MOD_PP_P(poly_1: Polynomial, poly_2: Polynomial):
 
     return res
 
-print(MOD_PP_P(Polynomial(input()), Polynomial(input())))
 # НОД
 def GCF_PP_P(num1: Polynomial, num2: Polynomial):
     res = MOD_PP_P(num1, num2)
