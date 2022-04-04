@@ -66,16 +66,16 @@ class TestRationals(unittest.TestCase):
         self.assertEqual(ADD_QQ_Q(RNumber('0'), RNumber('0')).__str__(), '0')
 
     def test_SUB_QQ_Q(self):
-        self.assertEqual(SUB_QQ_Q(RNumber('1/2'), RNumber('1')).__str__(), '-1/2')
         self.assertEqual(
             SUB_QQ_Q(RNumber('125558563222564588/224571828157826397658257'), RNumber('40987654/30987654123')).__str__(),
-            '-1022309069483458235506786240306/773217126302724074012569452338179')
+            '-3066927208450374706520358720918/2319651378908172222037708357014537')
+        self.assertEqual(SUB_QQ_Q(RNumber('1/2'), RNumber('1')).__str__(), '-1/2')
         self.assertEqual(SUB_QQ_Q(RNumber('-1/2'), RNumber('1')).__str__(), '-3/2')
         self.assertEqual(SUB_QQ_Q(RNumber('3/3'), RNumber('9/3')).__str__(), '-2')
         self.assertEqual(SUB_QQ_Q(RNumber('1/2'), RNumber('4/3')).__str__(), '-5/6')
         self.assertEqual(SUB_QQ_Q(RNumber('0'), RNumber('1')).__str__(), '-1')
         self.assertEqual(SUB_QQ_Q(RNumber('1'), RNumber('1')).__str__(), '0')
-        self.assertEqual(SUB_QQ_Q(RNumber('19/113'), RNumber('17/13')).__str__(), '-1674/1469')
+        self.assertEqual(SUB_QQ_Q(RNumber('17/13'), RNumber('19/113')).__str__(), '1674/1469')
         self.assertEqual(SUB_QQ_Q(RNumber('-17/13'), RNumber('19/113')).__str__(), '-2168/1469')
         self.assertEqual(SUB_QQ_Q(RNumber('0'), RNumber('0')).__str__(), '0')
 
