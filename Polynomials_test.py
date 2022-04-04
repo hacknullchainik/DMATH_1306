@@ -113,6 +113,15 @@ class TestPolynomials(unittest.TestCase):
         self.assertRaises(ZeroDivisionError, MOD_PP_P, Polynomial('123 512 127 1236 -23 512 421 243231'),
                           Polynomial('0'))
 
+    def test_GCF_PP_P(self):
+        self.assertEqual(GCF_PP_P(Polynomial('1 -1 -5 -3'), Polynomial('1 1 -12')).__str__(simple=True), '1 -3')
+        self.assertEqual(GCF_PP_P(Polynomial('2 1 -4 -1'), Polynomial('5 -3 2 -4')).__str__(simple=True), '1 -1')
+        self.assertEqual(GCF_PP_P(Polynomial('3 -1 2 -4'), Polynomial('1 -2 1')).__str__(simple=True), '1 -1')
+        # self.assertEqual(GCF_PP_P(Polynomial(''), Polynomial('')).__str__(simple=True), '')
+        # self.assertEqual(GCF_PP_P(Polynomial(''), Polynomial('')).__str__(simple=True), '')
+        # self.assertEqual(GCF_PP_P(Polynomial(''), Polynomial('')).__str__(simple=True), '')
+        # self.assertEqual(GCF_PP_P(Polynomial(''), Polynomial('')).__str__(simple=True), '')
+
 
 def Ptest(name: list):
     suite = unittest.TestSuite()

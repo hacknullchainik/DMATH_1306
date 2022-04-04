@@ -155,12 +155,18 @@ def MOD_PP_P(poly_1: Polynomial, poly_2: Polynomial):
 
 # НОД
 def GCF_PP_P(num1: Polynomial, num2: Polynomial):
+    result = []
     res = MOD_PP_P(num1, num2)
     while (DEG_P_N(res) != 0):
         num1 = num2
         num2 = res
         res = MOD_PP_P(num1, num2)
-    return num2
+    fac = FAC_P_Q(num2)
+
+    for i in range(len(num2.get_coefs())):
+        result.append(DIV_QQ_Q(num2.get_coefs()[i], fac))
+    result.reverse()
+    return Polynomial(result)
 
 
 # Производная
