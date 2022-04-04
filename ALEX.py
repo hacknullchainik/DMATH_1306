@@ -76,6 +76,7 @@ def MOD_ZZ_Z(num:Integer, num_2:Integer):
     # Finding the quotient from the division of an integer by an integer
     q = DIV_ZZ_Z(a,b)
 
+
     # MUL_ZZ_Z FROM SASHAP.PY
     # Storing the value of the divisor multiplied by the quotient
     a_1 = Integers.MUL_ZZ_Z(b,q)
@@ -85,12 +86,13 @@ def MOD_ZZ_Z(num:Integer, num_2:Integer):
 
     # MUL_ZM_Z FROM NIKITAT.PY
     # Putting the right sign the resulting integer.
-    if a.get_sign()==True and b.get_sign() == True:
-        r = Integers.MUL_ZM_Z(r)
-    elif (a.get_sign()== False and b.get_sign() == True) or (a.get_sign()== True and b.get_sign() == False):
-        r = Integers.MUL_ZM_Z(r)
-    else:
-        pass
+    
+    if a.get_sign() == True:
+        if r.get_sign() != True:
+            r = Integers.MUL_ZM_Z(r)
+
+    if (str(a) and str(b)) == '0':
+        raise ZeroDivisionError("0 divided by 0")
 
     return r
 
