@@ -98,7 +98,7 @@ def MOD_ZZ_Z(num:Integer, num_2:Integer):
 def SUB_QQ_Q(num_1: RNumber, num_2: RNumber):
     #Finding the common divider that will allow the substruction 
     comon_divider = Naturals.LCM_NN_N(num_1.get_den(), num_2.get_den())
-
+    
     #Checking if the common diviser is equal to the denominator of num_1
     #If the they are equal then the numerator will not be affected
     if comon_divider == num_1.get_den():
@@ -107,10 +107,10 @@ def SUB_QQ_Q(num_1: RNumber, num_2: RNumber):
         temp_var = Integer(str(num_1.get_den()), num_1.get_sign())
         temp_var_1 = Integer(str(num_1.get_num()), num_1.get_sign())
         temp_var_2 = Integer(comon_divider.get_num()[::-1],False)
-        temp_var_3 = Integer(DIV_ZZ_Z(temp_var_2,temp_var).get_num(),DIV_ZZ_Z(temp_var_2,temp_var).get_sign())
+        temp_var_3 = DIV_ZZ_Z(temp_var_2,temp_var)
 
         new_num_1 = Integers.MUL_ZZ_Z(temp_var_1,temp_var_3)
-        
+
     #Checking if the common diviser is equal to the denominator of the of num_2
     #If the they are equal then the numerator will not be affected
     if comon_divider == num_2.get_den():
@@ -119,15 +119,14 @@ def SUB_QQ_Q(num_1: RNumber, num_2: RNumber):
         temp_var = Integer(str(num_2.get_den()),num_2.get_sign())
         temp_var_1 = Integer(str(num_2.get_num()), num_2.get_sign())
         temp_var_2 = Integer(comon_divider.get_num()[::-1],False)
-        temp_var_3 = Integer(DIV_ZZ_Z(temp_var_2,temp_var).get_num(),DIV_ZZ_Z(temp_var_2,temp_var).get_sign())
+        temp_var_3 = DIV_ZZ_Z(temp_var_2,temp_var)
 
         new_num_2 = Integers.MUL_ZZ_Z(temp_var_1,temp_var_3)
-
+    
     #Substracting the two resulting numerator 
     final_num = Integers.SUB_ZZ_Z(new_num_1,new_num_2)
     
     res = RNumber(final_num,comon_divider)
-
     return res
 
 #The function multiplies x^k to a polynomial
