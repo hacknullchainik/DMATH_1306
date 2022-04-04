@@ -100,11 +100,10 @@ def FAC_P_Q(pol: Polynomial):
     for i in range(1, len(dens)):
         lcm = LCM_NN_N(lcm, dens[i])
     gcf = nums[0]
-    for i in range(1, len(nums)):
-        gcf = GCF_NN_N(lcm, nums[i])
+    for i in nums:
+        gcf = GCF_NN_N(gcf, i)
     gcf = TRANS_N_Z(gcf)
     return RNumber(gcf, lcm)
-
 
 # Умножение многочленов
 def MUL_PP_P(num1: Polynomial, num2: Polynomial):
@@ -123,20 +122,49 @@ def MUL_PP_P(num1: Polynomial, num2: Polynomial):
 def DIV_PP_P(n: Polynomial, m: Polynomial):
     # Считаем, что n больше m
     div = n
+    res = []
+    # Пока степень числителя больше степени знаменателя - делим
     while div.get_exp() >= m.get_exp():
+        # Буферная переменная
         temp = []
+        # Добавляем в неё результат деления первого коэффициента числителя на первый коэфф-т знаменателя
+        # (стандартный алгоритм деления "в столбик")
         temp.append(DIV_QQ_Q(div.get_coefs()[-1], m.get_coefs()[-1]))
         res.append(DIV_QQ_Q(div.get_coefs()[-1], m.get_coefs()[-1]))
-        for i in range(len(get_exp(m)) - 1, 0, -1):
+        # Длобавляем в буфферную переменную результат деления первых коээф-ов, умноженный на каждый коэффициент знаменателя.
+        # Соответствующие коэффициенты вычитаем из коэффициентов знаменателя
+        for i in range(m.get_exp() - 1, 0, -1):
             temp.append(SUB_QQ_Q(div[i], MUL_QQ_Q(temp[-1], m[i])))
+        # Присваиваем div'у значение буфферной переменной 
         div = Polynomial(temp)
 
-    return res
+    return Polynomial(res)
 
 
 # Остаток от деления
-# MOD_PP_P
+def MOD_PP_P(poly_1: Polynomial, poly_2: Polynomial):
+    # divid will is the  dividend
+    # divis will is the divisor
+    divid = poly_1
+    divis = poly_2
 
+    # quotient of the division is stored inside of quo
+    quo = DIV_PP_P(divid, divis)
+
+    # the result of the multiplication between the divis and the quotien is stored in q_divis.
+    q_divis = MUL_PP_P(divis, quo)
+
+    # Once q_divis has been found it is substructed from divid(the dividend).
+    res = SUB_PP_P(divid, q_divis)
+
+    # if the remainder can still be divided by the divisor resent to the function.
+    # if the remainder can't be divided anyfurther the function returns the result.
+    if res.get_exp() >= divis.get_exp():
+        MOD_PP_P(res, divis)
+
+    return res
+
+print(MOD_PP_P(Polynomial(input()), Polynomial(input())))
 # НОД
 def GCF_PP_P(num1: Polynomial, num2: Polynomial):
     res = MOD_PP_P(num1, num2)
@@ -147,7 +175,7 @@ def GCF_PP_P(num1: Polynomial, num2: Polynomial):
     return num2
 
 
-#Производная
+# Производная
 def DER_P_P(pol: Polynomial):
     pol2 = []
     #если многочлен ненулевой степени, то перемножаем
