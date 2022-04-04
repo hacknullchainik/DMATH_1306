@@ -303,7 +303,7 @@ def GCF_NN_N(num1: NNumber,num2: NNumber):
         else:
             num2 = MOD_NN_N(num2, num1)
         # возвращаем суммы чисел, чтобы не сравнивать их
-        if not int(num1.__str__()) or not int(num2.__str__()):
+        if not NZER_N_B(num1) or not NZER_N_B(num2):
             return ADD_NN_N(num1, num2)
 
 # НОК чисел

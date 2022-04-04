@@ -17,9 +17,7 @@ from Naturals_test import Ntest,Nlist
 from Integers_test import Itest,Ilist
 from Rationals_test import Rtest,Rlist
 from Polynomials_test import Ptest,Plist
-Ntest(Nlist) #............EF
+# Ntest(Nlist) #............EF
 # Itest(Ilist) #......F.FF
 # Rtest(Rlist) # E...FE.F
-# Ptest(Plist)
-for i in range(len(Nlist)):
-    print(Nlist[i],'.......FF.FF.F'[i].replace('.','OK'))
+Ptest(["MUL_Pxk_P"])
