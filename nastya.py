@@ -29,10 +29,14 @@ def SUB_ZZ_Z(num1:Integer, num2:Integer):
         res = Integer(res,sig)
     return res
     
+#НОД мн-ов
 def GCF_PP_P(num1:Polynomial,num2:Polynomial):
+	#пока степень результата не упадёт до 0: число1/число2 = ост 1; число2/ост1 = ост2; ост1/ост2 = ост3 и.т.д
     res = MOD_PP_P(num1,num2)
+	#
     while(DEG_P_N(res)!=0):
         num1 = num2
         num2=res
         res = MOD_PP_P(num1,num2)
+	# у результата 0 степень - нужна первая, выводим num2
     return num2

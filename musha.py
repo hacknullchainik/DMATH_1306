@@ -92,9 +92,11 @@ def MUL_PP_P(num1: Polynomial, num2: Polynomial):
     ar1 = num1.get_coefs()
     ar1.reverse()
     for i in range(len(ar1)):
+	#перемножаем каждый из членов многочлена на 2й многочлен, попутно уменьшая степень (т.к идём от большей степени)
         re = MUL_Pxk_P(MUL_PQ_Q(num2,ar1[i]),len(ar1)-(i+1))
         if (i == 0):
             res = re
         else:
+		# складываем все полученные от перемноожения многочлены
             res = ADD_PP_P(res,re)
     return res

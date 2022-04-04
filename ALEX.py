@@ -76,6 +76,7 @@ def MOD_ZZ_Z(num:Integer, num_2:Integer):
     # Finding the quotient from the division of an integer by an integer
     q = DIV_ZZ_Z(a,b)
 
+
     # MUL_ZZ_Z FROM SASHAP.PY
     # Storing the value of the divisor multiplied by the quotient
     a_1 = Integers.MUL_ZZ_Z(b,q)
@@ -85,50 +86,28 @@ def MOD_ZZ_Z(num:Integer, num_2:Integer):
 
     # MUL_ZM_Z FROM NIKITAT.PY
     # Putting the right sign the resulting integer.
-    if a.get_sign()==True and b.get_sign() == True:
-        r = Integers.MUL_ZM_Z(r)
-    elif (a.get_sign()== False and b.get_sign() == True) or (a.get_sign()== True and b.get_sign() == False):
-        r = Integers.MUL_ZM_Z(r)
-    else:
-        pass
+    
+    if a.get_sign() == True:
+        if r.get_sign() != True:
+            r = Integers.MUL_ZM_Z(r)
+
+    if (str(a) and str(b)) == '0':
+        raise ZeroDivisionError("0 divided by 0")
 
     return r
 
 #Substructing function(between two rational numbers)
 def SUB_QQ_Q(num_1: RNumber, num_2: RNumber):
-    #Finding the common divider that will allow the substruction 
-    comon_divider = Naturals.LCM_NN_N(num_1.get_den(), num_2.get_den())
-
-    #Checking if the common diviser is equal to the denominator of num_1
-    #If the they are equal then the numerator will not be affected
-    if comon_divider == num_1.get_den():
-        new_num_1 = Integer(str(num_1.get_num()),False)
-    else:
-        temp_var = Integer(str(num_1.get_den()), num_1.get_sign())
-        temp_var_1 = Integer(str(num_1.get_num()), num_1.get_sign())
-        temp_var_2 = Integer(comon_divider.get_num()[::-1],False)
-        temp_var_3 = Integer(DIV_ZZ_Z(temp_var_2,temp_var).get_num(),DIV_ZZ_Z(temp_var_2,temp_var).get_sign())
-
-        new_num_1 = Integers.MUL_ZZ_Z(temp_var_1,temp_var_3)
-        
-    #Checking if the common diviser is equal to the denominator of the of num_2
-    #If the they are equal then the numerator will not be affected
-    if comon_divider == num_2.get_den():
-        new_num_2 = Integer(str(num_2.get_num()),False)
-    else:
-        temp_var = Integer(str(num_2.get_den()),num_2.get_sign())
-        temp_var_1 = Integer(str(num_2.get_num()), num_2.get_sign())
-        temp_var_2 = Integer(comon_divider.get_num()[::-1],False)
-        temp_var_3 = Integer(DIV_ZZ_Z(temp_var_2,temp_var).get_num(),DIV_ZZ_Z(temp_var_2,temp_var).get_sign())
-
-        new_num_2 = Integers.MUL_ZZ_Z(temp_var_1,temp_var_3)
-
-    #Substracting the two resulting numerator 
-    final_num = Integers.SUB_ZZ_Z(new_num_1,new_num_2)
-    
-    res = RNumber(final_num,comon_divider)
-
-    return res
+    # Вычисляем НОК (знаменатель искомой дроби)
+    den = LCM_NN_N(num_1.get_den(), num_2.get_den())
+    # Вычисляем числитель первой дроби после приведения к общему знаменателю
+    num_1_converted = MUL_ZZ_Z(num_1.get_num(), TRANS_N_Z(DIV_NN_N(den, num_1.get_den())))
+    # Вычисляем числитель второй дроби после приведения к общему знаменателю
+    num_2_converted = MUL_ZZ_Z(num_2.get_num(), TRANS_N_Z(DIV_NN_N(den, num_2.get_den())))
+    # Суммируем числители
+    num = SUB_ZZ_Z(num_1_converted, num_2_converted)
+    # Возвращаем сокращённую дробь
+    return RED_Q_Q(RNumber(num, den))
 
 #The function multiplies x^k to a polynomial
 #'poly_2' should only be x^k not x^k1 + x^k2 ...

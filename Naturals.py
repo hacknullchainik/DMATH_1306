@@ -312,7 +312,7 @@ def LCM_NN_N(num1: NNumber, num2: NNumber):
     mult = MUL_NN_N(num1, num2)
     # найдем НОД двух чисел и произведение разделим на НОД
     # НОК(a,b)=a*b/НОД(a,b)
-    if (mult.get_num()[0] != 0):
+    if (mult.get_num()[-1] != 0):
         return DIV_NN_N(mult, GCF_NN_N(num1, num2))
     else:
         return NNumber('0')

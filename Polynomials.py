@@ -8,13 +8,13 @@ from Rationals import *
 def ADD_PP_P(pol1: Polynomial, pol2: Polynomial):
     coef1 = pol1.get_coefs()
     coef2 = pol2.get_coefs()
-    coef1.reverse()
-    coef2.reverse()
+
     coef_sum = [RNumber('0')] * max(len(coef1), len(coef2))
     for i in range(len(coef1)):
         coef_sum[i] = ADD_QQ_Q(coef_sum[i], coef1[i])
     for i in range(len(coef2)):
         coef_sum[i] = ADD_QQ_Q(coef_sum[i], coef2[i])
+    coef_sum.reverse()
     return Polynomial(coef_sum)
 
 
@@ -59,10 +59,10 @@ def MUL_PQ_Q(n: Polynomial, m: RNumber):
 
 
 # Умножение многочлена на х**к
-def MUL_Pxk_P(poly_1: Polynomial, poly_2: Polynomial):
+def MUL_Pxk_P(poly_1: Polynomial, poly_2: int):
     p_1 = ''
     p_2_cof = 0
-
+    poly_2 = Polynomial('1' + ' 0'*poly_2)
     # This loop looks for the coefficient of the x^k that will be multiplied to poly_1.
     for i in poly_2.get_coefs():
         if i.get_num() != 0:
@@ -100,11 +100,10 @@ def FAC_P_Q(pol: Polynomial):
     for i in range(1, len(dens)):
         lcm = LCM_NN_N(lcm, dens[i])
     gcf = nums[0]
-    for i in range(1, len(nums)):
-        gcf = GCF_NN_N(lcm, nums[i])
+    for i in nums:
+        gcf = GCF_NN_N(gcf, i)
     gcf = TRANS_N_Z(gcf)
     return RNumber(gcf, lcm)
-
 
 # Умножение многочленов
 def MUL_PP_P(num1: Polynomial, num2: Polynomial):
@@ -121,39 +120,64 @@ def MUL_PP_P(num1: Polynomial, num2: Polynomial):
 
 # Целочисленное деление
 def DIV_PP_P(n: Polynomial, m: Polynomial):
-    # Считаем, что n больше m
-    div = n
-    while div.get_exp() >= m.get_exp():
-        temp = []
-        temp.append(DIV_QQ_Q(div.get_coefs()[-1], m.get_coefs()[-1]))
-        res.append(DIV_QQ_Q(div.get_coefs()[-1], m.get_coefs()[-1]))
-        for i in range(len(get_exp(m)) - 1, 0, -1):
-            temp.append(SUB_QQ_Q(div[i], MUL_QQ_Q(temp[-1], m[i])))
-        div = Polynomial(temp)
+    # Создаем массив с конечными коэффициентами
+    res = []
+    # Делим пока степень делителя не больше делимого
+    while(n.get_exp() >= m.get_exp()):
+        # Записываем коэффициент деления в массив
+        res.append(DIV_QQ_Q(LED_P_Q(n), LED_P_Q(m)))
+        # Вычетаем из делимого делитель, умноженный на коэффициент деления, со сдвигом влево
+        n = SUB_PP_P(n, MUL_Pxk_P(MUL_PQ_Q(m, res[-1]), n.get_exp()-m.get_exp()))
+    return Polynomial(res)
+
+# Остаток от деления
+def MOD_PP_P(poly_1: Polynomial, poly_2: Polynomial):
+    # divid will is the  dividend
+    # divis will is the divisor
+    divid = poly_1
+    divis = poly_2
+
+    # quotient of the division is stored inside of quo
+    quo = DIV_PP_P(divid, divis)
+
+    # the result of the multiplication between the divis and the quotien is stored in q_divis.
+    q_divis = MUL_PP_P(divis, quo)
+
+    # Once q_divis has been found it is substructed from divid(the dividend).
+    res = SUB_PP_P(divid, q_divis)
+
+    # if the remainder can still be divided by the divisor resent to the function.
+    # if the remainder can't be divided anyfurther the function returns the result.
+    if res.get_exp() >= divis.get_exp():
+        MOD_PP_P(res, divis)
 
     return res
 
-
-# Остаток от деления
-# MOD_PP_P
-
 # НОД
 def GCF_PP_P(num1: Polynomial, num2: Polynomial):
+    result = []
     res = MOD_PP_P(num1, num2)
     while (DEG_P_N(res) != 0):
         num1 = num2
         num2 = res
         res = MOD_PP_P(num1, num2)
-    return num2
+    fac = FAC_P_Q(num2)
+
+    for i in range(len(num2.get_coefs())):
+        result.append(DIV_QQ_Q(num2.get_coefs()[i], fac))
+    result.reverse()
+    return Polynomial(result)
 
 
 # Производная
 def DER_P_P(pol: Polynomial):
     pol2 = []
-    if pol.get_exp() != 0:
-        for i in range(1, len(pol.get_coefs())):
+    #если многочлен ненулевой степени, то перемножаем
+    #коэффициенты с каждой степенью, иначе выводим нуль
+    if pol.get_exp()!=0:
+        for i in range(1,len(pol.get_coefs())):
             j = i
-            j = RNumber(Integer([i], False), NNumber([1]))
+            j = RNumber(Integer([i],False), NNumber([1]))
             pol2.append(MUL_QQ_Q(pol.get_coefs()[i], j))
         return Polynomial(pol2[::-1])
     else:
