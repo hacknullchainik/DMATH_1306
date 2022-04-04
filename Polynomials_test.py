@@ -1,7 +1,9 @@
 import unittest
 from Dtypes import *
-from math import gcd, lcm
+from math import gcd
 from Polynomials import *
+def lcm(a, b):
+    return a*b//gcd(a, b)
 # python Polynomials_test.py -v
 
 Plist = ['ADD_PP_P','SUB_PP_P','MUL_PQ_Q','LED_P_Q','DEG_P_N','FAC_P_Q','DER_P_P','MUL_Pxk_P']
@@ -58,7 +60,7 @@ class TestPolynomials(unittest.TestCase):
         self.assertEqual(FAC_P_Q(Polynomial('1 1/2 1/3')).__str__(), '1/6')
         self.assertEqual(FAC_P_Q(Polynomial('1 -1/2 1/4')).__str__(), '1/4')
         self.assertEqual(FAC_P_Q(Polynomial('12514/987654 77715/99615')).__str__(), str(gcd(12514,77715))+'/'+str(lcm(987654,99615)))
-        self.assertEqual(FAC_P_Q(Polynomial('1 1 0 1 1')).__str__(), '0')
+        self.assertEqual(FAC_P_Q(Polynomial('1 1 0 1 1')).__str__(), '1')
 
     def test_DER_P_P(self):
         self.assertEqual(DER_P_P(Polynomial('1 1 1')).__str__(simple=True),'2 1')
