@@ -32,11 +32,15 @@ def NZER_N_B(n: NNumber):
 # Прибавление 1 к числу
 def ADD_1N_N(num: NNumber):
     num = num.get_num()
+    # Прибавляем 1 к последней цифре
+    # 1) Приравниваем эту цифру к остатку от деления суммы на 10
+    # 2) Прибавляем целую часть от деления суммы на 10 к старшему разряду и повторяем 1 и 2
     int_part = 1
     for ind in range(len(num)):
         num[ind] += int_part
         int_part = num[ind] // 10
         num[ind] %= 10
+    # Добавляем разряд к числу если осталась целая часть от деления
     if int_part:
         num.append(int_part)
     num.reverse()
@@ -202,10 +206,14 @@ def MUL_NN_N(num1: NNumber, num2: NNumber):
 
 # Разность числа и числа, умноженного на цифру
 def SUB_NDN_N(num1: NNumber, digit: int, num2: NNumber):
+    # Умножаем число на цифру
     num2 = MUL_ND_N(num2, digit)
+    # Сравнием два числа
     if (COM_NN_D(num1, num2) != 1):
+        # Возвращаем результат разности
         return SUB_NN_N(num1, num2)
     else:
+        # Второе число больше первого
         raise ValueError('Negative result')
 
 # Первая цифра неполного частного, умноженная на 10 в степени к, где к - порядок цифры

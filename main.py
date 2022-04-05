@@ -11,7 +11,6 @@
 # Читы - бан
 # Стельба по своим - бан
 # Оскорбление администрации - расстрел, а потом бан.
-
 from Dtypes import RNumber, NNumber, Integer, Polynomial
 from Naturals_test import Ntest,Nlist
 from Integers_test import Itest,Ilist
@@ -21,3 +20,7 @@ from Polynomials_test import Ptest,Plist
 # Itest(Ilist) #......F.FF
 # Rtest(Rlist) # E...FE.F
 Ptest(["MUL_Pxk_P"])
+Ntest(Nlist) #............EF
+Itest(Ilist) #......F.FF
+Rtest(Rlist) # E...FE.F
+Ptest(Plist)
