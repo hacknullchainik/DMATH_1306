@@ -217,11 +217,11 @@ def SUB_PP_P(pol1: Polynomial, pol2: Polynomial):
 
     return Polynomial(result)
 
-#
-# Ntest(Nlist)
-# Itest(Ilist)
-# Rtest(Rlist)
 
+Ntest(Nlist)
+Itest(Ilist)
+Rtest(Rlist)
+Ptest(Plist)
 
 # Ptest(Plist)
 # a, b = '123', '-9'
@@ -233,7 +233,13 @@ def SUB_PP_P(pol1: Polynomial, pol2: Polynomial):
 # print(DIV_ZZ_Z(Integer("319"), Integer("76")))
 # print(DIV_ZZ_Z(Integer("-123"), Integer))
 # Rtest(Rlist)
-Ptest(['MOD_PP_P'])
+# Ptest(Plist)
+# print(MOD_PP_P(Polynomial("1 1 1"), Polynomial("1")))
+
+
+# num1 = Polynomial('3 2 -4 1')
+# num2 = Polynomial('5 -3 2 -4')
+# print(POZ_Z_D(SUB_QQ_Q(num1.get_coefs()[-1], num2.get_coefs()[-1]).get_num()) == 1)
 # print(MUL_ND_N(NNumber("116"), 9))
 # print("MUL_ZZ_Z: 116 * 19 = {0}".format(MUL_ZZ_Z(Integer("116"), Integer("19"))))
 
@@ -250,72 +256,7 @@ Ptest(['MOD_PP_P'])
 # print(45582315319138840/5844776483523759)
 # print(987654321234567890/2)
 
-def DIV_ZZ_Z(num: Integer, num_2: Integer):
-    # Конвертируем числа из типа Integer в тип Nnumber
-    a = TRANS_Z_N(num)
-    b = TRANS_Z_N(num_2)
 
-    temp = DIV_NN_N(a, b)
-    # Запоминаем занки, для определения будущего знака числа
-    sign1 = num.get_sign()
-    sign2 = num_2.get_sign()
-
-    if sign1 == False and sign2 == False:
-        res = temp
-    elif sign1 == False and sign2 == True:
-        res = Integer(temp.get_num(), True)
-    elif sign1 == True and sign2 == False:
-        res = Integer(temp.get_num(), True)
-        res = SUB_ZZ_Z(res, Integer("1", False))
-    elif sign1 == True and sign2 == True:
-        res = ADD_ZZ_Z(Integer(temp.get_num(), False), Integer("1", False))
-
-    return res
-
-
-def MOD_ZZ_Z(num: Integer, num_2: Integer):
-    # Конвертируем числа из типа Integer в тип Nnumber
-
-    a = TRANS_Z_N(num)
-    b = TRANS_Z_N(num_2)
-
-    div = DIV_ZZ_Z(num, num_2)
-
-    temp = MOD_NN_N(a, b)
-    # Запоминаем занки, для определения будущего знака числа
-    sign1 = num.get_sign()
-    sign2 = num_2.get_sign()
-
-    if sign1 == False and sign2 == False:
-        res = Integer(temp.get_num(), False)
-    elif sign1 == False and sign2 == True:
-        res = Integer(temp.get_num(), False)
-    elif sign1 == True and sign2 == False:
-        res = SUB_ZZ_Z(num, MUL_ZZ_Z(num_2, div))
-    elif sign1 == True and sign2 == True:
-        res = SUB_ZZ_Z(num, MUL_ZZ_Z(num_2, div))
-
-    return res
-
-def MUL_Pxk_P(poly_1: Polynomial, poly_2: int):
-    poly_2 = Polynomial('1' + ' 0 ' * poly_2)
-
-    p_1 = ''
-    p_2_cof = 0
-
-    # This loop looks for the coefficient of the x^k that will be multiplied to poly_1.
-    for i in poly_2.get_coefs():
-        if i.get_num() != 0:
-            p_2_cof = i
-
-    # Multiplying each coefficient to one another.
-    for i in poly_1.get_coefs()[::-1]:
-        p_1 += str(MUL_QQ_Q(i, p_2_cof))
-        p_1 += ' '
-    p_1 = p_1[:-1]
-
-    # Increasing the value of the exponents of our polynomial by k.
-    for i in range(poly_2.get_exp()):
-        p_1 += ' 0'
-
-    return Polynomial(p_1)
+# print(DIV_PP_P( Polynomial('1 -5 9 -7 5 -3'), Polynomial('1 -2 2 -1 1')))
+# print(gcd(Polynomial('1 -1 -5 -3'), Polynomial('1 1 -12')))
+# print(gcd(Polynomial('3 -1 2 -4'), Polynomial('1 -2 0 1')))

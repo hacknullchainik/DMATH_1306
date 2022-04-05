@@ -97,8 +97,11 @@ class TestPolynomials(unittest.TestCase):
         self.assertEqual(
             DIV_PP_P(Polynomial('123 512 127 1236 -23 512 421 243231'), Polynomial('12 52 123 74 123 75 324 ')).__str__(
                 simple=True), '41/4 -7/4')
-        self.assertRaises(ZeroDivisionError, DIV_PP_P, Polynomial('123 512 127 1236 -23 512 421 243231'),
-                          Polynomial('0'))
+        self.assertEqual(
+            DIV_PP_P(Polynomial('123 512 127 1236 -23 512 421 243231'), Polynomial('1')).__str__(
+                simple=True), '123 512 127 1236 -23 512 421 243231')
+        # self.assertRaises(ZeroDivisionError, DIV_PP_P, Polynomial('123 512 127 1236 -23 512 421 243231'),
+        #                   Polynomial('0'))
 
     def test_MOD_PP_P(self):
         self.assertEqual(MOD_PP_P(Polynomial('1 -3 0 6 -4'), Polynomial('1 -1')).__str__(simple=True), '0')
@@ -115,10 +118,10 @@ class TestPolynomials(unittest.TestCase):
                           Polynomial('0'))
 
     def test_GCF_PP_P(self):
+        self.assertEqual(GCF_PP_P(Polynomial('1 -5 9 -7 5 -3'), Polynomial('1 -2 2 -1 1')).__str__(simple=True), '1')
         self.assertEqual(GCF_PP_P(Polynomial('1 -1 -5 -3'), Polynomial('1 1 -12')).__str__(simple=True), '1 -3')
         self.assertEqual(GCF_PP_P(Polynomial('3 -1 2 -4'), Polynomial('1 -2 0 1')).__str__(simple=True), '1 -1')
         self.assertEqual(GCF_PP_P(Polynomial('3 -1 2 -4'), Polynomial('1 -2 1')).__str__(simple=True), '1 -1')
-        self.assertEqual(GCF_PP_P(Polynomial('3 2 -4 1'), Polynomial('5 -3 2 -4')).__str__(simple=True), '1')
         # self.assertEqual(GCF_PP_P(Polynomial(''), Polynomial('')).__str__(simple=True), '')
         # self.assertEqual(GCF_PP_P(Polynomial(''), Polynomial('')).__str__(simple=True), '')
         # self.assertEqual(GCF_PP_P(Polynomial(''), Polynomial('')).__str__(simple=True), '')

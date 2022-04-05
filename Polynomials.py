@@ -66,7 +66,7 @@ def MUL_PQ_Q(n: Polynomial, m: RNumber):
 def MUL_Pxk_P(poly_1: Polynomial, poly_2: int):
     p_1 = ''
     p_2_cof = 0
-    poly_2 = Polynomial('1' + ' 0'*poly_2)
+    poly_2 = Polynomial('1' + ' 0' * poly_2)
     # This loop looks for the coefficient of the x^k that will be multiplied to poly_1.
     for i in poly_2.get_coefs():
         if i.get_num() != 0:
@@ -109,6 +109,7 @@ def FAC_P_Q(pol: Polynomial):
     gcf = TRANS_N_Z(gcf)
     return RNumber(gcf, lcm)
 
+
 # Умножение многочленов
 def MUL_PP_P(num1: Polynomial, num2: Polynomial):
     ar1 = num1.get_coefs()
@@ -124,21 +125,33 @@ def MUL_PP_P(num1: Polynomial, num2: Polynomial):
 
 # Целочисленное деление
 def DIV_PP_P(n: Polynomial, m: Polynomial):
+    temp = n
     # Создаем массив с конечными коэффициентами
     res = []
+    if not POZ_Z_D((m.get_coefs()[-1]).get_num()):
+        raise ZeroDivisionError
+    if temp.get_exp() < m.get_exp():
+        temp, m = m, temp
+    elif temp.get_exp() == m.get_exp() and POZ_Z_D(SUB_QQ_Q(temp.get_coefs()[-1], m.get_coefs()[-1]).get_num()) == 1:
+        temp, m = m, temp
     # Проверка на то, является ли m числом?
     if m.get_exp() == 0:
-        for i in n.get_coefs():
-            res.append(DIV_QQ_Q(m.get_coefs()[0], i))
+        for i in temp.get_coefs()[::-1]:
+            res.append(DIV_QQ_Q(i, m.get_coefs()[0]))
     else:
         # Делим пока степень делителя не больше делимого
-        while(n.get_exp() >= m.get_exp()):
+        while (temp.get_exp() >= m.get_exp()):
             # Записываем коэффициент деления в массив
-            res.append(DIV_QQ_Q(LED_P_Q(n), LED_P_Q(m)))
+            res.append(DIV_QQ_Q(LED_P_Q(temp), LED_P_Q(m)))
             # Вычетаем из делимого делитель, умноженный на коэффициент деления, со сдвигом влево
-            n = SUB_PP_P(n, MUL_Pxk_P(MUL_PQ_Q(m, res[-1]), n.get_exp()-m.get_exp()))
+            temp = SUB_PP_P(temp, MUL_Pxk_P(MUL_PQ_Q(m, res[-1]), temp.get_exp() - m.get_exp()))
+
+        while len(res) <= (n.get_exp() - m.get_exp()):
+            res.append(RNumber('0'))
     return Polynomial(res)
-print(DIV_PP_P(Polynomial('1 1 1'), Polynomial('1')))
+
+
+# print(DIV_PP_P(Polynomial('1 1 1'), Polynomial('1')))
 # Остаток от деления
 def MOD_PP_P(poly_1: Polynomial, poly_2: Polynomial):
     # divid will is the  dividend
@@ -155,26 +168,36 @@ def MOD_PP_P(poly_1: Polynomial, poly_2: Polynomial):
     # Once q_divis has been found it is substructed from divid(the dividend).
     res = SUB_PP_P(divid, q_divis)
 
+    # ---THIS CONDITION SEEMS TO BE USELESS BUT I WON'T DELETE IT JUST IN CASE---
+
     # if the remainder can still be divided by the divisor resent to the function.
     # if the remainder can't be divided anyfurther the function returns the result.
-    if res.get_exp() >= divis.get_exp():
-        MOD_PP_P(res, divis)
+    # if res.get_exp() >= divis.get_exp():
+    #     MOD_PP_P(res, divis)
 
     return res
 
+
 # НОД
 def GCF_PP_P(num1: Polynomial, num2: Polynomial):
+    count = 0
     result = []
+    temp = []
+    if num1.get_exp() < num2.get_exp() or POZ_Z_D(SUB_QQ_Q(num1.get_coefs()[-1], num2.get_coefs()[-1]).get_num()) == 1:
+        num1, num2 = num2, num1
     res = MOD_PP_P(num1, num2)
-    while (DEG_P_N(res) > 0):
+    # while (num2.get_exp() > res.get_exp() and num2.get_exp() > 0):
+    while (num2.get_exp() > res.get_exp() and POZ_Z_D((res.get_coefs()[-1]).get_num()) != 0):
         num1 = num2
         num2 = res
+        temp.append(res)
+        count += 1
         res = MOD_PP_P(num1, num2)
 
-    fac = FAC_P_Q(num2)
+    fac = FAC_P_Q(temp[count - 1])
 
-    for i in range(len(num2.get_coefs())):
-        result.append(DIV_QQ_Q(num2.get_coefs()[i], fac))
+    for i in range(len(temp[count - 1].get_coefs())):
+        result.append(DIV_QQ_Q(temp[count - 1].get_coefs()[i], fac))
     result.reverse()
     return Polynomial(result)
 
@@ -182,12 +205,12 @@ def GCF_PP_P(num1: Polynomial, num2: Polynomial):
 # Производная
 def DER_P_P(pol: Polynomial):
     pol2 = []
-    #если многочлен ненулевой степени, то перемножаем
-    #коэффициенты с каждой степенью, иначе выводим нуль
-    if pol.get_exp()!=0:
-        for i in range(1,len(pol.get_coefs())):
+    # если многочлен ненулевой степени, то перемножаем
+    # коэффициенты с каждой степенью, иначе выводим нуль
+    if pol.get_exp() != 0:
+        for i in range(1, len(pol.get_coefs())):
             j = i
-            j = RNumber(Integer([i],False), NNumber([1]))
+            j = RNumber(Integer([i], False), NNumber([1]))
             pol2.append(MUL_QQ_Q(pol.get_coefs()[i], j))
         return Polynomial(pol2[::-1])
     else:
