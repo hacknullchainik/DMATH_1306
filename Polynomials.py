@@ -122,14 +122,19 @@ def MUL_PP_P(num1: Polynomial, num2: Polynomial):
 def DIV_PP_P(n: Polynomial, m: Polynomial):
     # Создаем массив с конечными коэффициентами
     res = []
-    # Делим пока степень делителя не больше делимого
-    while(n.get_exp() >= m.get_exp()):
-        # Записываем коэффициент деления в массив
-        res.append(DIV_QQ_Q(LED_P_Q(n), LED_P_Q(m)))
-        # Вычетаем из делимого делитель, умноженный на коэффициент деления, со сдвигом влево
-        n = SUB_PP_P(n, MUL_Pxk_P(MUL_PQ_Q(m, res[-1]), n.get_exp()-m.get_exp()))
+    # Проверка на то, является ли m числом?
+    if m.get_exp() == 0:
+        for i in n.get_coefs():
+            res.append(DIV_QQ_Q(m.get_coefs()[0], i))
+    else:
+        # Делим пока степень делителя не больше делимого
+        while(n.get_exp() >= m.get_exp()):
+            # Записываем коэффициент деления в массив
+            res.append(DIV_QQ_Q(LED_P_Q(n), LED_P_Q(m)))
+            # Вычетаем из делимого делитель, умноженный на коэффициент деления, со сдвигом влево
+            n = SUB_PP_P(n, MUL_Pxk_P(MUL_PQ_Q(m, res[-1]), n.get_exp()-m.get_exp()))
     return Polynomial(res)
-
+print(DIV_PP_P(Polynomial('1 1 1'), Polynomial('1')))
 # Остаток от деления
 def MOD_PP_P(poly_1: Polynomial, poly_2: Polynomial):
     # divid will is the  dividend
