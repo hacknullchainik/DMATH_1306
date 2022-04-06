@@ -180,24 +180,49 @@ def MOD_PP_P(poly_1: Polynomial, poly_2: Polynomial):
 
 # НОД
 def GCF_PP_P(num1: Polynomial, num2: Polynomial):
-    count = 0
+    pol1 = num1
+    pol2 = num2
+    zero = Polynomial('0')
+    while COM_PP_D(pol1, zero) and COM_PP_D(pol2, zero):
+        if COM_PP_D(pol1, pol2):
+            pol1 = MOD_PP_P(pol1, pol2)
+        else:
+            pol2 = MOD_PP_P(pol2, pol1)
+
+    return ADD_PP_P(pol1, pol2)
+
+
+# Сравнение многочленов
+def COM_PP_D(pol1: Polynomial, pol2: Polynomial):
+    if pol1.get_exp() > pol2.get_exp():
+        return True
+    elif pol1.get_exp() < pol2.get_exp():
+        return False
+    else:
+        for i in range(pol1.get_exp(), -1, -1):
+            if POZ_Z_D(SUB_QQ_Q(pol1.get_coefs()[-1], pol2.get_coefs()[-1]).get_num()) == 1:
+                return True
+            else:
+                return False
+
+
+# Кратные корни в простые
+def NMR_P_P(pol: Polynomial):
     result = []
-    temp = []
-    if num1.get_exp() < num2.get_exp() or POZ_Z_D(SUB_QQ_Q(num1.get_coefs()[-1], num2.get_coefs()[-1]).get_num()) == 1:
-        num1, num2 = num2, num1
-    res = MOD_PP_P(num1, num2)
-    # while (num2.get_exp() > res.get_exp() and num2.get_exp() > 0):
-    while (num2.get_exp() > res.get_exp() and POZ_Z_D((res.get_coefs()[-1]).get_num()) != 0):
-        num1 = num2
-        num2 = res
-        temp.append(res)
-        count += 1
-        res = MOD_PP_P(num1, num2)
 
-    fac = FAC_P_Q(temp[count - 1])
+    # Производная многочлена
+    derivative = DER_P_P(pol)
+    # НОД многочлена и его производной
+    gcf = GCF_PP_P(pol, derivative)
+    fac = FAC_P_Q(gcf)
 
-    for i in range(len(temp[count - 1].get_coefs())):
-        result.append(DIV_QQ_Q(temp[count - 1].get_coefs()[i], fac))
+    # Делим многочлен на значеие НОД и возвращаем результат
+    temp_res = DIV_PP_P(pol, gcf)
+    temp_res = MUL_PQ_Q(temp_res, fac)
+
+    # Сокращаем дроби
+    for i in range(len(temp_res.get_coefs())):
+        result.append(RED_Q_Q(temp_res.get_coefs()[i]))
     result.reverse()
     return Polynomial(result)
 
@@ -215,13 +240,3 @@ def DER_P_P(pol: Polynomial):
         return Polynomial(pol2[::-1])
     else:
         return Polynomial('0')
-
-
-# Кратные корни в простые
-def NMR_P_P(pol: Polynomial):
-    # Производная многочлена
-    derivative = DER_P_P(pol)
-    # НОД многочлена и его производной
-    gcf = GCF_PP_P(pol, derivative)
-    # Делим многочлен на значеие НОД и возвращаем результат
-    return DIV_PP_P(pol, gcf)

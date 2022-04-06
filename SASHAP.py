@@ -218,10 +218,11 @@ def SUB_PP_P(pol1: Polynomial, pol2: Polynomial):
     return Polynomial(result)
 
 
-Ntest(Nlist)
-Itest(Ilist)
-Rtest(Rlist)
-Ptest(Plist)
+# Ntest(Nlist)
+# Itest(Ilist)
+# Rtest(Rlist)
+Ptest(['NMR_P_P'])
+# print(DIV_QQ_Q(RNumber('128'), RNumber('128')))
 
 # Ptest(Plist)
 # a, b = '123', '-9'
@@ -260,3 +261,52 @@ Ptest(Plist)
 # print(DIV_PP_P( Polynomial('1 -5 9 -7 5 -3'), Polynomial('1 -2 2 -1 1')))
 # print(gcd(Polynomial('1 -1 -5 -3'), Polynomial('1 1 -12')))
 # print(gcd(Polynomial('3 -1 2 -4'), Polynomial('1 -2 0 1')))
+
+# print(GCF_PP_P(Polynomial('1 -1 -5 -3'), Polynomial('1 1 -12')))
+def GCF_PP_P(num1: Polynomial, num2: Polynomial):
+    pol1 = num1
+    pol2 = num2
+    zero = Polynomial('0')
+    while COM_PP_D(pol1, zero) and COM_PP_D(pol2, zero):
+        if COM_PP_D(pol1, pol2):
+            pol1 = MOD_PP_P(pol1, pol2)
+        else:
+            pol2 = MOD_PP_P(pol2, pol1)
+
+    return ADD_PP_P(pol1, pol2)
+
+
+def COM_PP_D(pol1: Polynomial, pol2: Polynomial):
+    if pol1.get_exp() > pol2.get_exp():
+        return True
+    elif pol1.get_exp() < pol2.get_exp():
+        return False
+    else:
+        for i in range(pol1.get_exp(), -1, -1):
+            if POZ_Z_D(SUB_QQ_Q(pol1.get_coefs()[-1], pol2.get_coefs()[-1]).get_num()) == 1:
+                return True
+            else:
+                return False
+
+
+def NMR_P_P(pol: Polynomial):
+    result = []
+
+    # Производная многочлена
+    derivative = DER_P_P(pol)
+    # НОД многочлена и его производной
+    gcf = GCF_PP_P(pol, derivative)
+    fac = FAC_P_Q(gcf)
+
+    # Делим многочлен на значеие НОД и возвращаем результат
+    temp_res = DIV_PP_P(pol, gcf)
+    temp_res = MUL_PQ_Q(temp_res, fac)
+
+    # Сокращаем дроби
+    for i in range(len(temp_res.get_coefs())):
+        result.append(RED_Q_Q(temp_res.get_coefs()[i]))
+    result.reverse()
+    return Polynomial(result)
+
+
+# print(NMR_P_P(Polynomial('64 1536 9216')))

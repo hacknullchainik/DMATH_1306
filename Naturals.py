@@ -279,30 +279,30 @@ def DIV_NN_Dk(num1: NNumber, num2: NNumber):
         template_value.reverse()
         count += 1
 
-    count = count * pow(10, k)
+    res_list = [count]+[0 for i in range(k)]
 
-    return count
+    return NNumber(res_list)
 
 
 # Целая часть деления двух чисел
 def DIV_NN_N(n: NNumber, m: NNumber):
     # Создаём результирующий массив
-    res = 0
+    res = NNumber('0')
     # Сравниваем числа. Если n больше, то делим n на m. Иначе - возвращаем 0
     if COM_NN_D(n, m) == 2:
         div = n
-        res = 0
+        res = NNumber('0')
         # Получаем само число и поциферно вычисляем результат деления
         while COM_NN_D(div, m) != 1:
             div_1 = DIV_NN_Dk(div, m)
-            res += div_1
+            res = ADD_NN_N(res, div_1)
             # Ниже операция вычитания из делимого части делителя. Нашли первую цифру деления - DIV_NN_Dk(div, m),
             # затем вычли из делимого делитель умноженный на эту цифру. Получили новый делитель. Повторяем,
             # пока делимое больше делителя
-            div = SUB_NN_N(div, MUL_NN_N(NNumber(str(div_1)), m))
+            div = SUB_NN_N(div, MUL_NN_N(div_1, m))
     elif COM_NN_D(n, m) == 0:
-        res += 1
-    return NNumber(str(res))
+        res = ADD_NN_N(res, NNumber('1'))
+    return res
 
 
 # Остаток от деления двух чисел

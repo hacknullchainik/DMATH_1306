@@ -126,6 +126,13 @@ class TestPolynomials(unittest.TestCase):
         # self.assertEqual(GCF_PP_P(Polynomial(''), Polynomial('')).__str__(simple=True), '')
         # self.assertEqual(GCF_PP_P(Polynomial(''), Polynomial('')).__str__(simple=True), '')
 
+    def test_NMR_P_P(self):
+        self.assertEqual(NMR_P_P(Polynomial('1 2 1')).__str__(simple=True), '1 1')
+        self.assertEqual(NMR_P_P(Polynomial('4 28 49')).__str__(simple=True), '2 7')
+        self.assertEqual(NMR_P_P(Polynomial('64 1536 9216')).__str__(simple=True), '64 768')
+        self.assertEqual(NMR_P_P(Polynomial('1 18 108 216')).__str__(simple=True), '1 6')
+        # self.assertEqual(NMR_P_P(Polynomial('')).__str__(simple=True), '')
+        # self.assertEqual(NMR_P_P(Polynomial('')).__str__(simple=True), '')
 
 def Ptest(name: list):
     suite = unittest.TestSuite()
