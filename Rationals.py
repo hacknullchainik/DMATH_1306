@@ -21,6 +21,7 @@ def RED_Q_Q(drob: RNumber):
 
 # Проверка на целое
 def INT_Q_B(num: RNumber):
+    # Если знаменатель 0 - число целое
     if num.get_num().get_num()[0] == 0:
         return True
     else:
@@ -87,18 +88,11 @@ def SUB_QQ_Q(num_1: RNumber, num_2: RNumber):
 # Умножение дробей
 def MUL_QQ_Q(n1: RNumber, n2: RNumber):
     # берутся отдельно числители(num1, num2, с учетом их знака) и знаменатели(den1, den2)
-    if n1.get_sign() == False:
-        num1 = Integer([int(i) for i in str(n1.get_num()) if '0' <= i <= '9'], False)
-    else:
-        num1 = Integer([int(i) for i in str(n1.get_num()) if '0' <= i <= '9'], True)
+    num1 = n1.get_num()
+    num2 = n2.get_num()
 
-    if n2.get_sign() == False:
-        num2 = Integer([int(i) for i in str(n2.get_num()) if '0' <= i <= '9'], False)
-    else:
-        num2 = Integer([int(i) for i in str(n2.get_num()) if '0' <= i <= '9'], True)
-
-    den1 = NNumber([int(i) for i in str(n1.get_den()) if '0' <= i <= '9'])
-    den2 = NNumber([int(i) for i in str(n2.get_den()) if '0' <= i <= '9'])
+    den1 = n1.get_den()
+    den2 = n2.get_den()
 
     # первый числитель умножается на второй,
     # а первый знаменатель умножается на второй
@@ -106,53 +100,32 @@ def MUL_QQ_Q(n1: RNumber, n2: RNumber):
     result_num = MUL_ZZ_Z(num1, num2)
     result_den = MUL_NN_N(den1, den2)
 
-    # если знаки результирующего числителя и знаменателя одинаковы - результат положителен,
-    # иначе - отрицателен
-    if result_num.get_sign() == False:
-        result_num = result_num.get_num()[::-1]
-        result_den = result_den.get_num()[::-1]
-        return RNumber(Integer(result_num, False), NNumber(result_den))
-    else:
-        result_num = result_num.get_num()[::-1]
-        result_den = result_den.get_num()[::-1]
-        return RNumber(Integer(result_num, True), NNumber(result_den))
+    return RED_Q_Q(RNumber(result_num, result_den))
 
 
 # Деление дробей
 def DIV_QQ_Q(n1: RNumber, n2: RNumber):
     # берутся отдельно числители(num1, num2, с учетом их знака) и знаменатели(den1, den2)
 
-    if n1.get_sign() == False:
-        num1 = Integer([int(i) for i in str(n1.get_num().get_num()[::-1]) if '0' <= i <= '9'], False)
-    else:
-        num1 = Integer([int(i) for i in str(n1.get_num().get_num()[::-1]) if '0' <= i <= '9'], True)
+    num1 = n1.get_num()
+    num2 = n2.get_num()
 
-    if n2.get_sign() == False:
-        num2 = Integer([int(i) for i in str(n2.get_num().get_num()[::-1]) if '0' <= i <= '9'], False)
-    else:
-        num2 = Integer([int(i) for i in str(n2.get_num().get_num()[::-1]) if '0' <= i <= '9'], True)
-
-    den1 = NNumber([int(i) for i in str(n1.get_den().get_num()[::-1]) if '0' <= i <= '9'])
-    den2 = NNumber([int(i) for i in str(n2.get_den().get_num()[::-1]) if '0' <= i <= '9'])
+    den1 = n1.get_den()
+    den2 = n2.get_den()
 
     # первый числитель умножается на второй,
     # а первый знаменатель умножается на второй
     # результирующий числитель и знаменатель записываются в result_num и result_den, соответственно.
     # если знаки результирующего числителя и знаменателя одинаковы - результат положителен,
     # иначе - отрицателен
-    if (num1.get_sign() == False and num2.get_sign() == False) or (num1.get_sign() == True and num2.get_sign() == True):
-        den2 = Integer(den2.get_num()[::-1], False)
-        num2 = NNumber(num2.get_num()[::-1])
-        result_num = MUL_ZZ_Z(num1, den2)
-        result_den = MUL_NN_N(den1, num2)
-        result_num = result_num.get_num()[::-1]
-        result_den = result_den.get_num()[::-1]
-        return RED_Q_Q(RNumber(Integer(result_num, False), NNumber(result_den)))
-    else:
-        den2 = Integer(den2.get_num()[::-1], False)
-        num2 = NNumber(num2.get_num()[::-1])
-        result_num = MUL_ZZ_Z(num1, den2)
-        result_den = MUL_NN_N(den1, num2)
-        result_num = result_num.get_num()[::-1]
-        result_den = result_den.get_num()[::-1]
-        return RED_Q_Q(RNumber(Integer(result_num, True), NNumber(result_den)))
+    # знак считаем XOR'ом
+    sign = num1.get_sign() ^ num2.get_sign()
+
+    den2 = Integer(den2.get_num()[::-1], False)
+    num2 = NNumber(num2.get_num()[::-1])
+    result_num = MUL_ZZ_Z(num1, den2)
+    result_den = MUL_NN_N(den1, num2)
+    result_num = result_num.get_num()[::-1]
+    result_den = result_den.get_num()[::-1]
+    # возвращаем сокращенную дробь
+    return RED_Q_Q(RNumber(Integer(result_num, sign), NNumber(result_den)))

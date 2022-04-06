@@ -218,10 +218,11 @@ def SUB_PP_P(pol1: Polynomial, pol2: Polynomial):
     return Polynomial(result)
 
 
-# Ntest(Nlist)
-# Itest(Ilist)
-# Rtest(Rlist)
-Ptest(['NMR_P_P'])
+Ntest(Nlist)
+Itest(Ilist)
+Rtest(Rlist)
+Ptest(Plist)
+# print(MOD_PP_P(Polynomial('1 -1 -5 -3'), Polynomial('1 1 -12')))
 # print(DIV_QQ_Q(RNumber('128'), RNumber('128')))
 
 # Ptest(Plist)

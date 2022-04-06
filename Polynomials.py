@@ -115,25 +115,29 @@ def MUL_PP_P(num1: Polynomial, num2: Polynomial):
     ar1 = num1.get_coefs()
     ar1.reverse()
     for i in range(len(ar1)):
+        # перемножаем каждый из членов многочлена на 2й многочлен, попутно уменьшая степень
+        # (т.к идём от большей степени)
         re = MUL_Pxk_P(MUL_PQ_Q(num2, ar1[i]), len(ar1) - (i + 1))
         if (i == 0):
             res = re
         else:
+            # складываем все полученные от перемноожения многочлены
             res = ADD_PP_P(res, re)
     return res
 
 
 # Целочисленное деление
 def DIV_PP_P(n: Polynomial, m: Polynomial):
+    # Записываем многочлен-делимое в отдельную переменную для удобства
     temp = n
     # Создаем массив с конечными коэффициентами
     res = []
+    # проверяем, не яввляется ли многочлен-делитель нулём
     if not POZ_Z_D((m.get_coefs()[-1]).get_num()):
         raise ZeroDivisionError
-    if temp.get_exp() < m.get_exp():
-        temp, m = m, temp
-    elif temp.get_exp() == m.get_exp() and POZ_Z_D(SUB_QQ_Q(temp.get_coefs()[-1], m.get_coefs()[-1]).get_num()) == 1:
-        temp, m = m, temp
+
+    if m.get_exp() > n.get_exp():
+        return Polynomial('0')
     # Проверка на то, является ли m числом?
     if m.get_exp() == 0:
         for i in temp.get_coefs()[::-1]:
@@ -146,12 +150,13 @@ def DIV_PP_P(n: Polynomial, m: Polynomial):
             # Вычетаем из делимого делитель, умноженный на коэффициент деления, со сдвигом влево
             temp = SUB_PP_P(temp, MUL_Pxk_P(MUL_PQ_Q(m, res[-1]), temp.get_exp() - m.get_exp()))
 
+        # Многочлен, полученный в результате деления будет степени, равной разности степеней делимого и делителя
+        # поэтому если мы получили меньше, докидываем на младшие степени нули
         while len(res) <= (n.get_exp() - m.get_exp()):
             res.append(RNumber('0'))
     return Polynomial(res)
 
 
-# print(DIV_PP_P(Polynomial('1 1 1'), Polynomial('1')))
 # Остаток от деления
 def MOD_PP_P(poly_1: Polynomial, poly_2: Polynomial):
     # divid will is the  dividend
@@ -180,19 +185,31 @@ def MOD_PP_P(poly_1: Polynomial, poly_2: Polynomial):
 
 # НОД
 def GCF_PP_P(num1: Polynomial, num2: Polynomial):
+    # Записываем многочлены в отдельные переменные для удобства и создаем многочлен, являющийся нулем
     pol1 = num1
     pol2 = num2
     zero = Polynomial('0')
+    # Пока обы многочлена больше нуля делим с остатком больший многочлен на меньший и результат записываем в больший
     while COM_PP_D(pol1, zero) and COM_PP_D(pol2, zero):
         if COM_PP_D(pol1, pol2):
             pol1 = MOD_PP_P(pol1, pol2)
         else:
             pol2 = MOD_PP_P(pol2, pol1)
-
+    # Возвращаем сумму полученных остатков
+    # Фактически, алгоритм повторяет тот, что используется для целых чисел
     return ADD_PP_P(pol1, pol2)
 
 
 # Сравнение многочленов
+# Это функция служенбная, у нас в списке ее не было, не обращайте на нее внимания
+# Для справки, многочлен A будем называть большим многочлена B, если:
+# 1) Его степень больше
+# 2) Перввый несовпадающий коэффициент, считая от старшей степени, больше
+# Например:
+# 3х^4+5x^3+2 > 7x^3+ x - по первому признаку
+# 5x^3 - 4x^2 - 6x +9 > 3x^3 + 27x^2 + 1247 - по второму признаку
+# 3x^4 + 7x^2 - 9x + 4 > 3x^4 + 7x^2 - 9x + 2 - по второму признаку
+# Ну многочлены равны, если они одинаковые, тут все просто
 def COM_PP_D(pol1: Polynomial, pol2: Polynomial):
     if pol1.get_exp() > pol2.get_exp():
         return True
@@ -200,10 +217,11 @@ def COM_PP_D(pol1: Polynomial, pol2: Polynomial):
         return False
     else:
         for i in range(pol1.get_exp(), -1, -1):
-            if POZ_Z_D(SUB_QQ_Q(pol1.get_coefs()[-1], pol2.get_coefs()[-1]).get_num()) == 1:
+            if POZ_Z_D(SUB_QQ_Q(pol1.get_coefs()[-1], pol2.get_coefs()[-1]).get_num()) == 2:
                 return True
             else:
                 return False
+        return 3
 
 
 # Кратные корни в простые

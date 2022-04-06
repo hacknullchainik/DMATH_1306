@@ -58,7 +58,6 @@ def ADD_NN_N(number1: NNumber, number2: NNumber):
     result = []
 
     # Если числа были введены не так, что сначала большее, меняем их местами, дабы избежать возможных ошибок
-
     if COM_NN_D(number1, number2) == 1:
         bigger_num, lower_num = lower_num, bigger_num
 
@@ -67,7 +66,7 @@ def ADD_NN_N(number1: NNumber, number2: NNumber):
     for i in range(len(lower_num)):
         result.append(bigger_num[i] + lower_num[i])
 
-    # Добавляем числа, которые в большем числе были в больших разрядах, чем в меньшем
+    # Добавляем числа, которые в большем числе были в больших разрядах, чем есть разрядов в меньшем
     for j in range(i + 1, len(bigger_num)):
         result.append(bigger_num[j])
 
@@ -193,7 +192,7 @@ def MUL_NN_N(num1: NNumber, num2: NNumber):
     bigger_num.reverse()
 
     # Проверяем, действительно ли в переменной, обозначающей большее число
-    # находится большее исло, при необзодимости меняем местами
+    # находится большее исло, при необходимости меняем местами
     if COM_NN_D(num1, num2) == 2:
         lower_num, bigger_num = bigger_num, lower_num
 
@@ -253,7 +252,6 @@ def DIV_NN_Dk(num1: NNumber, num2: NNumber):
 
     # Берем из большего числа столько цифр, сколько их в меньшем и заносим
     # в массив с временным значением
-
     for i in range(len(lower_num)):
         template_value.append(bigger_num[i])
         curr_num = i
@@ -264,14 +262,14 @@ def DIV_NN_Dk(num1: NNumber, num2: NNumber):
     if COM_NN_D(NNumber(lower_num), NNumber(template_value)) == 2:
         template_value.append(bigger_num[curr_num + 1])
 
-    # k - переменная, обозначающая степень десятки и она разности длин
+    # k - переменная, обозначающая степень десятки и она равна разности длин
     # начального большего числа и получившегося из последних шагов
 
     k = len(bigger_num) - len(template_value)
 
     # Пока получившееся число больше меньшего числа, отнимаем от него меньшее
     # при этом на каждом шаге прибаляем к переменной count 1, эта переменная показывает
-    # на сколько мы "умножили" меьншее число
+    # на сколько мы "умножили" меньшее число
 
     while COM_NN_D(NNumber(template_value), NNumber(lower_num)) != 1:
         sub = SUB_NN_N(NNumber(template_value), NNumber(lower_num))
@@ -279,6 +277,7 @@ def DIV_NN_Dk(num1: NNumber, num2: NNumber):
         template_value.reverse()
         count += 1
 
+    # Умножаем count на 10^k, добавляя нули в конце числа
     res_list = [count]+[0 for i in range(k)]
 
     return NNumber(res_list)
@@ -314,11 +313,14 @@ def MOD_NN_N(num1: NNumber, num2: NNumber):
 # НОД чисел
 def GCF_NN_N(num1: NNumber, num2: NNumber):
     while True:
-        # в бесконечном цикле делим числа друг на друга и записываем остаток от деления в меньшее из них. выполняется пока одно из чисел не станет нулем
-        if not int(num1.__str__()) or not int(num2.__str__()):
+        # в бесконечном цикле делим числа друг на друга и записываем остаток от деления в меньшее из них. выполняется
+        # пока одно из чисел не станет нулем
+        if not NZER_N_B(num1) or not NZER_N_B(num2):
             return ADD_NN_N(num1, num2)
+
         if COM_NN_D(num1, num2) == 2:
             num1 = MOD_NN_N(num1, num2)
+
         else:
             num2 = MOD_NN_N(num2, num1)
         # возвращаем суммы чисел, чтобы не сравнивать их

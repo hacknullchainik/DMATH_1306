@@ -13,7 +13,7 @@ def ABS_Z_N(num: Integer):
 # Сравнение с нулем
 def POZ_Z_D(num: Integer):
     # Проверяем сначала первый символ массива,
-    # ведь если наше число было нулем, в первом элементе тоже будет ноль
+    # ведь если наше число было нулем, единственным элекментом массива  будет ноль
     if num.get_num()[-1] == 0:
         return 0
     # Проверяем знак числа
@@ -78,16 +78,22 @@ def ADD_ZZ_Z(num1: Integer, num2: Integer):
 
 # Разность целых чисел
 def SUB_ZZ_Z(num1: Integer, num2: Integer):
+    # Записываем модули чисел в новые переменные чтобы проще было работать
     bigger_num = TRANS_Z_N(num1)
     lower_num = TRANS_Z_N(num2)
     # - + = - - (сложение)
     # + - = + + (сложение)
     # - - = - + (не сложение)
     # + + = + -  (не сложение)
+
+    # Как видно из таблицы выше - если знаки разные, то это железобетонно сложение по модулю
+    # знак результата будет определяться знаком уменьшаемого
     if num1.get_sign() != num2.get_sign():
         res = ADD_NN_N(ABS_Z_N(num1), ABS_Z_N(num2)).get_num()
         res.reverse()
         res = Integer(res, num1.get_sign())
+    # Если не сложение - значит вычитание по модулю, остается определить знак результата, в данном случаее просто
+    # перебором вариантов
     else:
         if COM_NN_D(bigger_num, lower_num) == 2:
             sig = num1.get_sign()
@@ -137,6 +143,7 @@ def DIV_ZZ_Z(num: Integer, num_2: Integer):
     a = TRANS_Z_N(num)
     b = TRANS_Z_N(num_2)
 
+    # Отношение модулей записываем в отдельную переменную для удобства
     temp = DIV_NN_N(a, b)
     # Запоминаем занки, для определения будущего знака числа
     sign1 = num.get_sign()
@@ -144,6 +151,9 @@ def DIV_ZZ_Z(num: Integer, num_2: Integer):
     if COM_NN_D(MUL_NN_N(temp, b), a) == 0:
         return Integer(temp.get_num(), (sign1 ^ sign2))
 
+    # перебираем варианты знаков чисел и для каждого делаем свою процедуру деления
+    # подробнее можете ознакомиться вот тут, очень подробно и явно понятнее
+    # http://www.cleverstudents.ru/numbers/division_of_integers_with_remainder.html
     if sign1 == False and sign2 == False:
         res = temp
     elif sign1 == False and sign2 == True:
@@ -158,6 +168,7 @@ def DIV_ZZ_Z(num: Integer, num_2: Integer):
 
 
 def MOD_ZZ_Z(num: Integer, num_2: Integer):
+    # Проверяем делитель на ноль
     if num_2.get_num()[0] == 0:
         raise ZeroDivisionError
 
@@ -169,11 +180,13 @@ def MOD_ZZ_Z(num: Integer, num_2: Integer):
     a = TRANS_Z_N(num)
     b = TRANS_Z_N(num_2)
 
+    # Запоминаем остаток от деления модулей чисел для удобства
     temp = MOD_NN_N(a, b)
     # Запоминаем занки, для определения будущего знака числа
     sign1 = num.get_sign()
     sign2 = num_2.get_sign()
 
+    # На том же сайте расписано все и про остатки, для каждого случая варианты разные
     if sign1 == False and sign2 == False:
         res = Integer(temp.get_num()[::-1], False)
     elif sign1 == False and sign2 == True:
