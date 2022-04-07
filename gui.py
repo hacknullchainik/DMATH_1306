@@ -14,7 +14,7 @@ def ADD_1N_N():
         frame_output = Frame(window)
         frame_output.grid()
         window.title("Результат прибавления 1 к числу")
-        result = Text(frame_output)
+        result = Text(frame_output, width=53, height=15.5)
         result.grid()
         result.insert(1.0, (str(a_val) + " + 1 = " + str(Naturals.ADD_1N_N(a_val))))
         result.configure(state='disabled')
@@ -47,7 +47,7 @@ def SUB_NN_N():
         frame_output = Frame(window)
         frame_output.grid()
         window.title("Результат разности двух чисел")
-        result = Text(frame_output)
+        result = Text(frame_output, width=53, height=15.5)
         result.grid()
         result.insert(1.0, (str(a_val) + " - " + str(b_val) + " = " + str(Naturals.SUB_NN_N(a_val, b_val))))
         result.configure(state='disabled')
@@ -83,7 +83,7 @@ def ADD_NN_N():
         frame_output = Frame(window)
         frame_output.grid()
         window.title("Результат суммы двух чисел")
-        result = Text(frame_output)
+        result = Text(frame_output, width=53, height=15.5)
         result.grid()
         result.insert(1.0, (str(a_val) + " + " + str(b_val) + " = " + str(Naturals.ADD_NN_N(a_val, b_val))))
         result.configure(state='disabled')
@@ -119,7 +119,7 @@ def MUL_NN_N():
         frame_output = Frame(window)
         frame_output.grid()
         window.title("Результат произведения двух чисел")
-        result = Text(frame_output)
+        result = Text(frame_output, width=53, height=15.5)
         result.grid()
         result.insert(1.0, (str(a_val) + " * " + str(b_val) + " = " + str(Naturals.MUL_NN_N(a_val, b_val))))
         result.configure(state='disabled')
@@ -155,7 +155,7 @@ def DIV_NN_N():
         frame_output = Frame(window)
         frame_output.grid()
         window.title("Неполное частное двух чисел")
-        result = Text(frame_output)
+        result = Text(frame_output, width=53, height=15.5)
         result.grid()
         result.insert(1.0, ("{0} div {1} = {2}".format(str(a_val), str(b_val), str(Naturals.DIV_NN_N(a_val, b_val)))))
         result.configure(state='disabled')
@@ -191,7 +191,7 @@ def MOD_NN_N():
         frame_output = Frame(window)
         frame_output.grid()
         window.title("Остаток от деления двух чисел")
-        result = Text(frame_output)
+        result = Text(frame_output, width=53, height=15.5)
         result.grid()
         result.insert(1.0, ("{0} mod {1} = {2}".format(str(a_val), str(b_val), str(Naturals.MOD_NN_N(a_val, b_val)))))
         result.configure(state='disabled')
@@ -228,11 +228,9 @@ def GCF_NN_N():
         frame_output = Frame(window)
         frame_output.grid()
         window.title("НОД двух чисел")
-        result = Text(frame_output)
+        result = Text(frame_output, width=53, height=15.5)
         result.grid()
-        result.insert(1.0, (
-            "НОД({0}, {1}) = {2}".format(str(a_val), str(b_val), str(Naturals.GCF_NN_N(a_val, b_val))))).grid(row=1,
-                                                                                                             column=1)
+        result.insert(1.0, ("НОД({0}, {1}) = {2}".format(str(a_val), str(b_val), str(Naturals.GCF_NN_N(a_val, b_val)))))
 
         result.configure(state='disabled')
 
@@ -268,11 +266,10 @@ def LCM_NN_N():
         frame_output = Frame(window)
         frame_output.grid()
         window.title("НОК двух чисел")
-        result = Text(frame_output)
+        result = Text(frame_output, width=53, height=15.5)
         result.grid()
         result.insert(1.0, (
-            "НОК({0}, {1}) = {2}".format(str(a_val), str(b_val), str(Naturals.LCM_NN_N(a_val, b_val))))).grid(row=1,
-                                                                                                             column=1)
+            "НОК({0}, {1}) = {2}".format(str(a_val), str(b_val), str(Naturals.LCM_NN_N(a_val, b_val)))))
         result.configure(state='disabled')
 
     try:
@@ -317,7 +314,7 @@ def ADD_ZZ_Z():
         frame_output = Frame(window)
         frame_output.grid()
         window.title("Результат суммы целых чисел")
-        result = Text(frame_output)
+        result = Text(frame_output, width=53, height=15.5)
         result.grid()
         result.insert(1.0, ("({0}) + ({1}) = {2}".format(str(a_val), str(b_val),
                                                         str(Integers.ADD_ZZ_Z(a_val, b_val)))))
@@ -362,7 +359,7 @@ def SUB_ZZ_Z():
         frame_output = Frame(window)
         frame_output.grid()
         window.title("Результат разности целых чисел")
-        result = Text(frame_output)
+        result = Text(frame_output, width=53, height=15.5)
         result.grid(column=1, row=1)
         result.insert(1.0, "({0}) - ({1}) = {2}".format(str(a_val), str(b_val),
                                                         str(Integers.SUB_ZZ_Z(a_val, b_val))))
@@ -408,7 +405,7 @@ def MUL_ZZ_Z():
         frame_output = Frame(window)
         frame_output.grid()
         window.title("Результат произведения целых чисел")
-        result = Text(frame_output)
+        result = Text(frame_output, width=53, height=15.5)
         result.grid(column=1, row=1)
         result.insert(1.0, "({0}) * ({1}) = {2}".format(str(a_val), str(b_val),
                                                         str(Integers.MUL_ZZ_Z(a_val, b_val))))
@@ -454,7 +451,7 @@ def DIV_ZZ_Z():
         frame_output = Frame(window)
         frame_output.grid()
         window.title("Неполное частное целых чисел")
-        result = Text(frame_output)
+        result = Text(frame_output, width=53, height=15.5)
         result.grid(column=1, row=1)
         result.insert(1.0, "({0}) div ({1}) = {2}".format(str(a_val), str(b_val),
                                                         str(Integers.DIV_ZZ_Z(a_val, b_val))))
@@ -500,7 +497,7 @@ def MOD_ZZ_Z():
         frame_output = Frame(window)
         frame_output.grid()
         window.title("Остаток от деления целых чисел")
-        result = Text(frame_output)
+        result = Text(frame_output, width=53, height=15.5)
         result.grid(column=1, row=1)
         result.insert(1.0, "({0}) mod ({1}) = {2}".format(str(a_val), str(b_val),
                                                         str(Integers.MOD_ZZ_Z(a_val, b_val))))
@@ -539,7 +536,7 @@ def RED_Q_Q():
         frame_output = Frame(window)
         frame_output.grid()
         window.title("Результат сокращения дроби")
-        result = Text(frame_output)
+        result = Text(frame_output, width=53, height=15.5)
         result.grid(column=1, row=1)
         result.insert(1.0, "{0} = {1}".format(a_val, Rationals.RED_Q_Q(a_val)))
         result.configure(state='disabled')
@@ -573,7 +570,7 @@ def ADD_QQ_Q():
         frame_output = Frame(window)
         frame_output.grid()
         window.title("Результат суммы дробей")
-        result = Text(frame_output)
+        result = Text(frame_output, width=53, height=15.5)
         result.grid(column=1, row=1)
         result.insert(1.0, "{0} + {1} = {2}".format(a_val, b_val, Rationals.ADD_QQ_Q(a_val, b_val)))
         result.configure(state='disabled')
@@ -610,9 +607,9 @@ def SUB_QQ_Q():
         frame_output = Frame(window)
         frame_output.grid()
         window.title("Результат разности дробей")
-        result = Text(frame_output)
+        result = Text(frame_output, width=53, height=15.5)
         result.grid(column=1, row=1)
-        result.insert(1.0, "{0} + {1} = {2}".format(a_val, b_val, Rationals.SUB_QQ_Q(a_val, b_val)))
+        result.insert(1.0, "{0} - {1} = {2}".format(a_val, b_val, Rationals.SUB_QQ_Q(a_val, b_val)))
         result.configure(state='disabled')
 
     try:
@@ -647,9 +644,9 @@ def MUL_QQ_Q():
         frame_output = Frame(window)
         frame_output.grid()
         window.title("Результат произведения дробей")
-        result = Text(frame_output)
+        result = Text(frame_output, width=53, height=15.5)
         result.grid(column=1, row=1)
-        result.insert(1.0, "{0} + {1} = {2}".format(a_val, b_val, Rationals.MUL_QQ_Q(a_val, b_val)))
+        result.insert(1.0, "{0} * {1} = {2}".format(a_val, b_val, Rationals.MUL_QQ_Q(a_val, b_val)))
         result.configure(state='disabled')
 
     try:
@@ -684,9 +681,9 @@ def DIV_QQ_Q():
         frame_output = Frame(window)
         frame_output.grid()
         window.title("Результат частного дробей")
-        result = Text(frame_output)
+        result = Text(frame_output, width=53, height=15.5)
         result.grid(column=1, row=1)
-        result.insert(1.0, "{0} + {1} = {2}".format(a_val, b_val, Rationals.DIV_QQ_Q(a_val, b_val)))
+        result.insert(1.0, "({0}) / ({1}) = {2}".format(a_val, b_val, Rationals.DIV_QQ_Q(a_val, b_val)))
         result.configure(state='disabled')
 
     try:
@@ -707,6 +704,330 @@ def DIV_QQ_Q():
     b_lab = Label(frame_input, text="Введите вторую дробь:").grid(row=2, column=1)
     b = Entry(frame_input, width=16)
     b.grid(row=2, column=2, padx=(4, 0))
+    but = Button(frame_input, text="Рассчитать", width=10, command=RESULT).grid(row=3, column=1, padx=(10, 0))
+
+
+# POLYNOMIALS
+# Сложение многочленов
+def ADD_PP_P():
+    global frame_output, frame_input
+
+    def RESULT():
+        global frame_output
+        a_val = Polynomial(str(a.get()))
+        b_val = Polynomial(str(b.get()))
+        frame_input.destroy()
+        frame_output = Frame(window)
+        frame_output.grid()
+        window.title("Результат суммы многочленов")
+        result = Text(frame_output, width=53, height=15.5)
+        result.grid(column=1, row=1)
+        result.insert(1.0, "({0}) + ({1}) = {2}".format(a_val, b_val, Polynomials.ADD_PP_P(a_val, b_val)))
+        result.configure(state='disabled')
+
+    try:
+        frame_output.destroy()
+    except:
+        print("none")
+    try:
+        frame_input.destroy()
+    except:
+        print("none")
+    frame.destroy()
+    frame_input = Frame(window)
+    frame_input.grid()
+    window.title("Сумма многочленов")
+    a_lab = Label(frame_input, text="Введите первый многочлен:").grid(row=1, column=1)
+    a = Entry(frame_input, width=16)
+    a.grid(row=1, column=2, padx=(4, 0))
+    b_lab = Label(frame_input, text="Введите второй многочлен:").grid(row=2, column=1)
+    b = Entry(frame_input, width=16)
+    b.grid(row=2, column=2, padx=(4, 0))
+    but = Button(frame_input, text="Рассчитать", width=10, command=RESULT).grid(row=3, column=1, padx=(10, 0))
+
+# Вычитание многочленов
+def SUB_PP_P():
+    global frame_output, frame_input
+
+    def RESULT():
+        global frame_output
+        a_val = Polynomial(str(a.get()))
+        b_val = Polynomial(str(b.get()))
+        frame_input.destroy()
+        frame_output = Frame(window)
+        frame_output.grid()
+        window.title("Результат вычитания многочленов")
+        result = Text(frame_output, width=53, height=15.5)
+        result.grid(column=1, row=1)
+        result.insert(1.0, "({0}) - ({1}) = {2}".format(a_val, b_val, Polynomials.SUB_PP_P(a_val, b_val)))
+        result.configure(state='disabled')
+
+    try:
+        frame_output.destroy()
+    except:
+        print("none")
+    try:
+        frame_input.destroy()
+    except:
+        print("none")
+    frame.destroy()
+    frame_input = Frame(window)
+    frame_input.grid()
+    window.title("Вычитание многочленов")
+    a_lab = Label(frame_input, text="Введите первый многочлен:").grid(row=1, column=1)
+    a = Entry(frame_input, width=16)
+    a.grid(row=1, column=2, padx=(4, 0))
+    b_lab = Label(frame_input, text="Введите второй многочлен:").grid(row=2, column=1)
+    b = Entry(frame_input, width=16)
+    b.grid(row=2, column=2, padx=(4, 0))
+    but = Button(frame_input, text="Рассчитать", width=10, command=RESULT).grid(row=3, column=1, padx=(10, 0))
+
+# Вынесение НОК знаменателей и НОД числителей
+def FAC_P_Q():
+    global frame_output, frame_input
+
+    def RESULT():
+        global frame_output
+        a_val = Polynomial(str(a.get()))
+        frame_input.destroy()
+        frame_output = Frame(window)
+        frame_output.grid()
+        window.title("Результат вынесения НОК знаменателей и НОД числителей")
+        result = Text(frame_output, width=53, height=15.5)
+        result.grid(column=1, row=1)
+        res = Polynomials.FAC_P_Q(a_val)
+        result.insert(1.0, "{0} => {1}({2})".format(a_val, res, Polynomials.DIV_PP_P(a_val, res)))
+        result.configure(state='disabled')
+
+    try:
+        frame_output.destroy()
+    except:
+        print("none")
+    try:
+        frame_input.destroy()
+    except:
+        print("none")
+    frame.destroy()
+    frame_input = Frame(window)
+    frame_input.grid()
+    window.title("Вынесение НОК знаменателей и НОД числителей")
+    a_lab = Label(frame_input, text="Введите многочлен:").grid(row=1, column=1)
+    a = Entry(frame_input, width=16)
+    a.grid(row=1, column=2, padx=(4, 0))
+    but = Button(frame_input, text="Рассчитать", width=10, command=RESULT).grid(row=3, column=1, padx=(10, 0))
+
+# Умножение многочленов
+def MUL_PP_P():
+    global frame_output, frame_input
+
+    def RESULT():
+        global frame_output
+        a_val = Polynomial(str(a.get()))
+        b_val = Polynomial(str(b.get()))
+        frame_input.destroy()
+        frame_output = Frame(window)
+        frame_output.grid()
+        window.title("Результат произведения многочленов")
+        result = Text(frame_output, width=53, height=15.5)
+        result.grid(column=1, row=1)
+        result.insert(1.0, "({0}) * ({1}) = {2}".format(a_val, b_val, Polynomials.MUL_PP_P(a_val, b_val)))
+        result.configure(state='disabled')
+
+    try:
+        frame_output.destroy()
+    except:
+        print("none")
+    try:
+        frame_input.destroy()
+    except:
+        print("none")
+    frame.destroy()
+    frame_input = Frame(window)
+    frame_input.grid()
+    window.title("Произведения многочленов")
+    a_lab = Label(frame_input, text="Введите первый многочлен:").grid(row=1, column=1)
+    a = Entry(frame_input, width=16)
+    a.grid(row=1, column=2, padx=(4, 0))
+    b_lab = Label(frame_input, text="Введите второй многочлен:").grid(row=2, column=1)
+    b = Entry(frame_input, width=16)
+    b.grid(row=2, column=2, padx=(4, 0))
+    but = Button(frame_input, text="Рассчитать", width=10, command=RESULT).grid(row=3, column=1, padx=(10, 0))
+
+# Неполное частное
+def DIV_PP_P():
+    global frame_output, frame_input
+
+    def RESULT():
+        global frame_output
+        a_val = Polynomial(str(a.get()))
+        b_val = Polynomial(str(b.get()))
+        frame_input.destroy()
+        frame_output = Frame(window)
+        frame_output.grid()
+        window.title("Результат неполного частного")
+        result = Text(frame_output, width=53, height=15.5)
+        result.grid(column=1, row=1)
+        result.insert(1.0, "({0}) / ({1}) = {2}".format(a_val, b_val, Polynomials.DIV_PP_P(a_val, b_val)))
+        result.configure(state='disabled')
+
+    try:
+        frame_output.destroy()
+    except:
+        print("none")
+    try:
+        frame_input.destroy()
+    except:
+        print("none")
+    frame.destroy()
+    frame_input = Frame(window)
+    frame_input.grid()
+    window.title("Частное дробей")
+    a_lab = Label(frame_input, text="Введите первый многочлен:").grid(row=1, column=1)
+    a = Entry(frame_input, width=16)
+    a.grid(row=1, column=2, padx=(4, 0))
+    b_lab = Label(frame_input, text="Введите второй многочлен:").grid(row=2, column=1)
+    b = Entry(frame_input, width=16)
+    b.grid(row=2, column=2, padx=(4, 0))
+    but = Button(frame_input, text="Рассчитать", width=10, command=RESULT).grid(row=3, column=1, padx=(10, 0))
+
+# Остаток от деления
+def MOD_PP_P():
+    global frame_output, frame_input
+
+    def RESULT():
+        global frame_output
+        a_val = Polynomial(str(a.get()))
+        b_val = Polynomial(str(b.get()))
+        frame_input.destroy()
+        frame_output = Frame(window)
+        frame_output.grid()
+        window.title("Результат остатка от деления")
+        result = Text(frame_output, width=53, height=15.5)
+        result.grid(column=1, row=1)
+        result.insert(1.0, "({0}) % ({1}) = {2}".format(a_val, b_val, Polynomials.MOD_PP_P(a_val, b_val)))
+        result.configure(state='disabled')
+
+    try:
+        frame_output.destroy()
+    except:
+        print("none")
+    try:
+        frame_input.destroy()
+    except:
+        print("none")
+    frame.destroy()
+    frame_input = Frame(window)
+    frame_input.grid()
+    window.title("Остаток от деления")
+    a_lab = Label(frame_input, text="Введите первый многочлен:").grid(row=1, column=1)
+    a = Entry(frame_input, width=16)
+    a.grid(row=1, column=2, padx=(4, 0))
+    b_lab = Label(frame_input, text="Введите второй многочлен:").grid(row=2, column=1)
+    b = Entry(frame_input, width=16)
+    b.grid(row=2, column=2, padx=(4, 0))
+    but = Button(frame_input, text="Рассчитать", width=10, command=RESULT).grid(row=3, column=1, padx=(10, 0))
+
+# НОД многочленов
+def GCF_PP_P():
+    global frame_output, frame_input
+
+    def RESULT():
+        global frame_output
+        a_val = Polynomial(str(a.get()))
+        b_val = Polynomial(str(b.get()))
+        frame_input.destroy()
+        frame_output = Frame(window)
+        frame_output.grid()
+        window.title("Результат НОД многочленов")
+        result = Text(frame_output, width=53, height=15.5)
+        result.grid(column=1, row=1)
+        result.insert(1.0, "НОД({0};  {1}) = {2}".format(a_val, b_val, Polynomials.GCF_PP_P(a_val, b_val)))
+        result.configure(state='disabled')
+
+    try:
+        frame_output.destroy()
+    except:
+        print("none")
+    try:
+        frame_input.destroy()
+    except:
+        print("none")
+    frame.destroy()
+    frame_input = Frame(window)
+    frame_input.grid()
+    window.title("НОД многочленов")
+    a_lab = Label(frame_input, text="Введите первый многочлен:").grid(row=1, column=1)
+    a = Entry(frame_input, width=16)
+    a.grid(row=1, column=2, padx=(4, 0))
+    b_lab = Label(frame_input, text="Введите второй многочлен:").grid(row=2, column=1)
+    b = Entry(frame_input, width=16)
+    b.grid(row=2, column=2, padx=(4, 0))
+    but = Button(frame_input, text="Рассчитать", width=10, command=RESULT).grid(row=3, column=1, padx=(10, 0))
+
+# Производная многочлена
+def DER_PP_P():
+    global frame_output, frame_input
+
+    def RESULT():
+        global frame_output
+        a_val = Polynomial(str(a.get()))
+        frame_input.destroy()
+        frame_output = Frame(window)
+        frame_output.grid()
+        window.title("Результат производной многочлена")
+        result = Text(frame_output, width=53, height=15.5)
+        result.grid(column=1, row=1)
+        result.insert(1.0, "({0})' = {1}".format(a_val, Polynomials.DER_P_P(a_val)))
+        result.configure(state='disabled')
+
+    try:
+        frame_output.destroy()
+    except:
+        print("none")
+    try:
+        frame_input.destroy()
+    except:
+        print("none")
+    frame.destroy()
+    frame_input = Frame(window)
+    frame_input.grid()
+    window.title("Производная многочлена")
+    a_lab = Label(frame_input, text="Введите многочлен:").grid(row=1, column=1)
+    a = Entry(frame_input, width=16)
+    a.grid(row=1, column=2, padx=(4, 0))
+    but = Button(frame_input, text="Рассчитать", width=10, command=RESULT).grid(row=3, column=1, padx=(10, 0))
+
+# Кратные корни в простые
+def NMR_P_P():
+    global frame_output, frame_input
+
+    def RESULT():
+        global frame_output
+        a_val = Polynomial(str(a.get()))
+        frame_input.destroy()
+        frame_output = Frame(window)
+        frame_output.grid()
+        window.title("Результат преобразования")
+        result = Text(frame_output, width=53, height=15.5)
+        result.grid(column=1, row=1)
+        result.insert(1.0, "{0} => {1}".format(a_val, Polynomials.NMR_P_P(a_val)))
+        result.configure(state='disabled')
+
+    try:
+        frame_output.destroy()
+    except:
+        print("none")
+    try:
+        frame_input.destroy()
+    except:
+        print("none")
+    frame.destroy()
+    frame_input = Frame(window)
+    frame_input.grid()
+    window.title("Из кратных корней в простые")
+    a_lab = Label(frame_input, text="Введите многочлен:").grid(row=1, column=1)
+    a = Entry(frame_input, width=16)
+    a.grid(row=1, column=2, padx=(4, 0))
     but = Button(frame_input, text="Рассчитать", width=10, command=RESULT).grid(row=3, column=1, padx=(10, 0))
 
 
@@ -741,15 +1062,15 @@ rational.add_command(label="Вычитание дробей", command=SUB_QQ_Q)
 rational.add_command(label="Умножение дробей", command=MUL_QQ_Q)
 rational.add_command(label="Деление дробей", command=DIV_QQ_Q)
 
-polynomials.add_command(label="Сложение многочленов")
-polynomials.add_command(label="Вычитание многочленов")
-polynomials.add_command(label="Вынесение НОК знаменателей и НОД числителей")
-polynomials.add_command(label="Умножение многочленов")
-polynomials.add_command(label="Неполное частное")
-polynomials.add_command(label="Остаток от деления")
-polynomials.add_command(label="НОД многочленов")
-polynomials.add_command(label="Производная многочлена")
-polynomials.add_command(label="Кратные корни в простые")
+polynomials.add_command(label="Сложение многочленов", command=ADD_PP_P)
+polynomials.add_command(label="Вычитание многочленов", command=SUB_PP_P)
+polynomials.add_command(label="Вынесение НОК знаменателей и НОД числителей", command=FAC_P_Q)
+polynomials.add_command(label="Умножение многочленов", command=MUL_PP_P)
+polynomials.add_command(label="Неполное частное", command=DIV_PP_P)
+polynomials.add_command(label="Остаток от деления", command=MOD_PP_P)
+polynomials.add_command(label="НОД многочленов", command=GCF_PP_P)
+polynomials.add_command(label="Производная многочлена", command=DER_PP_P)
+polynomials.add_command(label="Кратные корни в простые", command=NMR_P_P)
 
 menu.add_cascade(label="Натуральные числа", menu=natural)
 menu.add_cascade(label="Целые числа", menu=integer)
