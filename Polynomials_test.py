@@ -1,5 +1,4 @@
 import unittest
-from Dtypes import *
 from math import gcd
 from Polynomials import *
 
@@ -10,7 +9,7 @@ def lcm(a, b):
 
 # python Polynomials_test.py -v
 
-Plist = ['ADD_PP_P', 'SUB_PP_P', 'MUL_PQ_Q', 'LED_P_Q', 'DEG_P_N', 'FAC_P_Q', 'DER_P_P', 'MUL_Pxk_P', 'DIV_PP_P', 'MOD_PP_P', 'GCF_PP_P', 'NMR_P_P']
+Plist = ['ADD_PP_P', 'SUB_PP_P', 'MUL_PQ_Q', 'LED_P_Q', 'DEG_P_N', 'FAC_P_Q', 'DER_P_P', 'MUL_Pxk_P', 'MUL_PP_P', 'DIV_PP_P', 'MOD_PP_P', 'GCF_PP_P', 'NMR_P_P']
 
 
 class TestPolynomials(unittest.TestCase):
@@ -86,6 +85,16 @@ class TestPolynomials(unittest.TestCase):
         self.assertEqual(MUL_Pxk_P(Polynomial('0'), 0).__str__(simple=True), '0')
         self.assertEqual(MUL_Pxk_P(Polynomial('1 0 0 0 0'), 0).__str__(simple=True), '1 0 0 0 0')
 
+    def test_MUL_PP_P(self):
+        self.assertEqual(MUL_PP_P(Polynomial('1 -3 0 6 -4'), Polynomial('1')).__str__(simple=True), '1 -3 0 6 -4')
+        self.assertEqual(MUL_PP_P(Polynomial('1 -3 0 6 -4'), Polynomial('-1')).__str__(simple=True), '-1 3 0 -6 4')
+        self.assertEqual(MUL_PP_P(Polynomial('1 2'), Polynomial('1 2')).__str__(simple=True), '1 4 4')
+        self.assertEqual(MUL_PP_P(Polynomial('2 -11 19 -13 3'), Polynomial('0')).__str__(simple=True), '0')
+        self.assertEqual(MUL_PP_P(Polynomial('1 5 -2 -6'), Polynomial('1 1')).__str__(simple=True), '1 6 3 -8 -6')
+        self.assertEqual(MUL_PP_P(Polynomial('1 2'), Polynomial('1 -2')).__str__(simple=True), '1 0 -4')
+        self.assertEqual(MUL_PP_P(Polynomial('1 1'), Polynomial('-1 1')).__str__(simple=True), '-1 0 1')
+        self.assertEqual(MUL_PP_P(Polynomial('1 0 0 0 12681 3'), Polynomial('1 213 84984 -88')).__str__(simple=True), '1 213 84984 -88 12681 2701056 1077682743 -860976 -264')
+
     def test_DIV_PP_P(self):
         self.assertEqual(DIV_PP_P(Polynomial('1 -3 0 6 -4'), Polynomial('1 -1')).__str__(simple=True), '1 -2 -2 4')
         self.assertEqual(DIV_PP_P(Polynomial('2 -10 23 -22 -3'), Polynomial('1 -3 5')).__str__(simple=True), '2 -4 1')
@@ -136,6 +145,7 @@ class TestPolynomials(unittest.TestCase):
         self.assertEqual(NMR_P_P(Polynomial('1 18 108 216')).__str__(simple=True), '1 6')
         # self.assertEqual(NMR_P_P(Polynomial('')).__str__(simple=True), '')
         # self.assertEqual(NMR_P_P(Polynomial('')).__str__(simple=True), '')
+
 
 def Ptest(name: list):
     suite = unittest.TestSuite()
