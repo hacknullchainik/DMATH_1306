@@ -57,13 +57,13 @@ def ADD_QQ_Q(num1:RNumber,num2:RNumber):
     LCM.reverse()
     LCM = Integer(LCM)
     znam1 = znam1.get_num()
-    znam1.reverse()         # это не говнокод, это из за недостатка функций, вы не понимаете)))))
+    znam1.reverse()        
     znam1 = Integer(znam1)
     znam2 = znam2.get_num()
     znam2.reverse()
     znam2 = Integer(znam2)
-    x = Integer('1') # потому что могу )
-    y = Integer('1') # потому что умею )
+    x = Integer('1') 
+    y = Integer('1') 
     #увеличиваем x 
     while znam1!=LCM:
         x  = ADD_ZZ_Z(x,Integer('1'))
